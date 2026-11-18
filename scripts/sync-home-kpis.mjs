@@ -129,6 +129,26 @@ export function syncHomeKpis() {
       });
     }
 
+    // ---- Bento Club Splits: preserve single space between count and unit ----
+    if (html.includes("bento-club-splits")) {
+      const argApps = T.country?.appearances ?? 208;
+      const splitGoals = [672, arg, miami, 32];
+      const splitApps = [778, argApps, miamiApps || 124, 75];
+      html = html.replace(/(<div class="bento-club-splits"[^>]*>[\s\S]*?<\/div>\s*<\/div>)/i, (block) => {
+        let b = block;
+        let gi = 0;
+        b = b.replace(/(<strong class="bs-val[^"]*">)[^<]*(<\/strong>)/gi, (w, a, c) => (gi < splitGoals.length ? `${a}${splitGoals[gi++]}${c}` : w));
+        let ai = 0;
+        b = b.replace(/(<span class="bs-sub">)([^<]*)(<\/span>)/gi, (w, a, txt, c) => {
+          if (ai >= splitApps.length) return w;
+          const val = splitApps[ai++];
+          const unit = String(txt).replace(/^\s*\d[\d.,]*\s*/, "").trim();
+          return `${a}${unit ? `${val} ${unit}` : String(val)}${c}`;
+        });
+        return b;
+      });
+    }
+
     // ---- KPI cards: root 6 nums, locales 4 nums, es none static ----
     if (html.includes('id="kpis"')) {
       html = html.replace(/(<section[^>]*id="kpis"[^>]*>[\s\S]*?<\/section>)/i, (section) => {

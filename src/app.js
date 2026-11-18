@@ -3857,7 +3857,7 @@ function renderHome(d) {
       splitVals.forEach((vEl, idx) => { if (idx < wantGoals.length) vEl.textContent = wantGoals[idx]; });
       splitSubs.forEach((sEl, idx) => {
         if (idx < wantApps.length) {
-          sEl.textContent = sEl.textContent.replace(/\d[\d.,\s]*/, String(wantApps[idx]));
+          sEl.textContent = sEl.textContent.replace(/\d[\d.,]*/, String(wantApps[idx]));
         }
       });
     } else {

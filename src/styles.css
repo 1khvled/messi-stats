@@ -4394,9 +4394,14 @@ p a, .kpi-note a, .figcap a, .qa-answer a, article p a, .card p a {
   text-transform: uppercase;
 }
 @media (max-width: 900px) {
-  .rail nav a.nav-bday-link {
-    background: rgba(227, 185, 62, 0.22);
-    border-color: rgba(227, 185, 62, 0.6);
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on),
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on):hover {
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+  }
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on) svg {
+    color: currentColor;
   }
 }
 
@@ -13959,7 +13964,7 @@ dialog::backdrop {
   }
 }
 
-/* Mobile Safety: keep bottom tab bar strictly nav links + More button */
+/* Mobile Safety: keep bottom tab bar strictly 4 core nav links + More button */
 @media (max-width: 900px) {
   .rail-head,
   .rail-collapse-btn,
@@ -13967,8 +13972,32 @@ dialog::backdrop {
   .rail-item-meta,
   .rail-tools-stack,
   .rail-nav-group-label,
-  .rail-footer {
+  .rail-footer,
+  .rail::before,
+  .rail::after,
+  .rail nav a:nth-of-type(n+5) {
     display: none !important;
+  }
+  .rail nav {
+    min-width: 0;
+    overflow-x: hidden;
+    justify-content: space-between;
+  }
+  .rail nav a {
+    flex: 1 1 0%;
+    min-width: 0 !important;
+  }
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on),
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on):hover {
+    background: transparent !important;
+    border: 1px solid transparent !important;
+    box-shadow: none !important;
+  }
+  .rail nav a.nav-bday-link:not([aria-current="page"]):not(.on) svg {
+    color: currentColor !important;
+  }
+  .rail-more-btn {
+    flex: 0 0 auto;
   }
 }
 
@@ -14451,7 +14480,7 @@ dialog::backdrop {
     right: 12px;
     left: 12px;
     width: auto;
-    bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 72px);
+    bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 88px);
   }
 }
 [data-owner-noads="1"] #ms-inpage-push,
