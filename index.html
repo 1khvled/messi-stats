@@ -429,7 +429,7 @@
         saved = null;
       }
       if (saved && saved !== 'en' && isRoot) {
-        location.replace('/' + saved);
+        location.replace('/' + saved + location.search);
         return;
       }
       if (!saved && isRoot && !sessionStorage.getItem('geo_routed')) {
@@ -447,7 +447,7 @@
         }
         if (target && target !== 'en') {
           sessionStorage.setItem('geo_routed', target);
-          location.replace('/' + target);
+          location.replace('/' + target + location.search);
         }
       }
     } catch(e) {}

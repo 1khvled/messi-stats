@@ -13773,3 +13773,115 @@ dialog::backdrop {
     display: none !important;
   }
 }
+
+/* Owner Self-Traffic Shield (?owner=1) */
+[data-owner-noads="1"] .ad-banner-wrap,
+[data-owner-noads="1"] .ad-native-wrap,
+[data-owner-noads="1"] #ad-mobile-anchor,
+[data-owner-noads="1"] #ad-desktop-skyscraper {
+  display: none !important;
+}
+
+/* Contextual Mobile-First Hub Conversion Strip */
+.hub-monetize-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 14px 0 18px;
+  padding: 10px 14px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--brand);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+
+.hub-monetize-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 9px 16px;
+  border-radius: var(--radius-sm);
+  font: 700 0.88rem/1.25 var(--font-body);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.hub-monetize-watch {
+  background: var(--brand);
+  color: #fff;
+  border: 1px solid var(--brand);
+}
+
+.hub-monetize-watch:hover {
+  background: var(--brand-ink);
+  border-color: var(--brand-ink);
+  color: #fff;
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .hub-monetize-watch {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #041325;
+}
+
+[data-theme="dark"] .hub-monetize-watch:hover {
+  background: #7dd3fc;
+  border-color: #7dd3fc;
+  color: #041325;
+}
+
+.hub-monetize-kit {
+  background: var(--gold-soft);
+  color: var(--gold);
+  border: 1px solid color-mix(in srgb, var(--gold) 30%, var(--line));
+}
+
+.hub-monetize-kit:hover {
+  background: color-mix(in srgb, var(--gold-soft) 80%, var(--gold) 12%);
+  border-color: var(--gold);
+  color: var(--gold);
+  text-decoration: none;
+  transform: translateY(-1px);
+}
+
+[data-theme="dark"] .hub-monetize-kit {
+  background: var(--gold-soft);
+  color: var(--gold);
+  border-color: rgba(240, 190, 61, 0.35);
+}
+
+[data-theme="dark"] .hub-monetize-kit:hover {
+  background: rgba(240, 190, 61, 0.22);
+  border-color: var(--gold);
+  color: var(--gold);
+}
+
+@media (max-width: 600px) {
+  .hub-monetize-bar {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    padding: 10px 12px;
+    margin: 12px 0 14px;
+  }
+
+  .hub-monetize-btn {
+    width: 100%;
+    white-space: normal;
+    text-align: center;
+    min-height: 40px;
+  }
+}
+
+@media print {
+  .hub-monetize-bar {
+    display: none !important;
+  }
+}

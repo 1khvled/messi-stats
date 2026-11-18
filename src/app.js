@@ -159,16 +159,62 @@ initSidebarCollapse();
 function initMonetizationUnits() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
 
+  const OWNER_NOADS_KEY = "ms_owner_noads";
+  try {
+    const ownerParam = new URLSearchParams(window.location.search).get("owner");
+    if (ownerParam === "1") {
+      localStorage.setItem(OWNER_NOADS_KEY, "1");
+    } else if (ownerParam === "0") {
+      localStorage.removeItem(OWNER_NOADS_KEY);
+    }
+  } catch (_) {}
+
+  function isOwnerNoAds() {
+    try {
+      return typeof localStorage !== "undefined" && localStorage.getItem(OWNER_NOADS_KEY) === "1";
+    } catch (_) {
+      return false;
+    }
+  }
+
+  if (isOwnerNoAds()) {
+    document.documentElement.setAttribute("data-owner-noads", "1");
+    if (typeof console !== "undefined" && typeof console.info === "function") {
+      console.info("[MessiStat] Owner ad-free mode active");
+    }
+    return;
+  }
+  if (document.documentElement.getAttribute("data-owner-noads") === "1") {
+    document.documentElement.removeAttribute("data-owner-noads");
+  }
+
   const SMARTLINK_URL = "https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e";
   const SESSION_KEY = "ms_session_sl_v1";
+  const SL_COUNT_KEY = "ms_sl_count_v2";
+  const SL_LAST_TS_KEY = "ms_sl_last_ts";
+  const SL_MAX_PER_SESSION = 3;
+  const SL_COOLDOWN_MS = 75000;
 
-  // 1. High-Yield Smartlink Trigger (Strictly Capped 1x Per Session)
-  function triggerSmartlink() {
+  // 1. High-Intent Smartlink Trigger (75s Cooldown, Max 3x Per Session)
+  function triggerSmartlink(skipWindowOpen) {
     try {
+      if (isOwnerNoAds()) return false;
       if (typeof sessionStorage !== "undefined") {
-        if (sessionStorage.getItem(SESSION_KEY)) return false;
-        sessionStorage.setItem(SESSION_KEY, "1");
+        if (sessionStorage.getItem(SESSION_KEY) === "1") return false;
+        const count = parseInt(sessionStorage.getItem(SL_COUNT_KEY) || "0", 10) || 0;
+        const lastTs = parseInt(sessionStorage.getItem(SL_LAST_TS_KEY) || "0", 10) || 0;
+        const now = Date.now();
+        if (skipWindowOpen) {
+          sessionStorage.setItem(SL_COUNT_KEY, String(count + 1));
+          sessionStorage.setItem(SL_LAST_TS_KEY, String(now));
+          return true;
+        }
+        if (count >= SL_MAX_PER_SESSION) return false;
+        if (lastTs > 0 && (now - lastTs) < SL_COOLDOWN_MS) return false;
+        sessionStorage.setItem(SL_COUNT_KEY, String(count + 1));
+        sessionStorage.setItem(SL_LAST_TS_KEY, String(now));
       }
+      if (skipWindowOpen) return true;
       const pop = window.open(SMARTLINK_URL, "_blank", "noopener,noreferrer");
       if (pop) {
         try { pop.blur(); window.focus(); } catch (_) {}
@@ -179,25 +225,35 @@ function initMonetizationUnits() {
     }
   }
 
-  // Trigger on first genuine user interaction click (links, buttons, video, cards, tabs)
+  // Trigger ONLY on high-intent content interactions; never on UI chrome
   document.addEventListener("click", (e) => {
     if (!e || !e.isTrusted) return;
-    const target = e.target;
+    const target = e.target instanceof Element ? e.target : (e.target && e.target.parentElement);
     if (!target) return;
 
-    const isInteractive = target.closest(
-      "a, button, video, .bday-watch-video-btn, #video-big-play-btn, #btn-replay-goal, .recent-goal-card, .btn-load-roulette-video, .video-player-box, .card, .kpi, .tl-item, .bday-day-cell, .table-card"
+    if (target.closest(".rail, .mobile-topbar, #cmd-palette, #lang-modal, #mobile-nav-drawer, .theme-toggle, .ad-anchor-close, [data-open-cmd]")) {
+      return;
+    }
+
+    const isHighIntent = target.closest(
+      '.video-play-overlay, video, .bday-watch-video-btn, #video-big-play-btn, #btn-replay-goal, .recent-goal-card, .btn-load-roulette-video, .video-player-box, a[href*=".mp4"], .dash-filter-btn, .btn-vote-candidate, .tl-era-btn, .bday-day-cell, .year-pick-control, .hub-monetize-watch, .community-ribbon .watch-latest'
     );
 
-    if (isInteractive) {
-      triggerSmartlink();
+    if (isHighIntent) {
+      const anchor = target.closest("a[href]");
+      const isDirectSmartlink = !!(
+        anchor &&
+        anchor.getAttribute("target") === "_blank" &&
+        (anchor.getAttribute("href") || "").includes("araplhn.org/")
+      );
+      triggerSmartlink(isDirectSmartlink);
     }
   }, { capture: true });
 
   // Fallback for native video play event
   document.addEventListener("play", (e) => {
     if (e && e.target && e.target.tagName === "VIDEO") {
-      triggerSmartlink();
+      triggerSmartlink(false);
     }
   }, { capture: true });
 
@@ -287,7 +343,8 @@ function getLangUrl(targetCode) {
     "messi-vs-ronaldo",
     "vs-real-madrid",
     "champions-league",
-    "latest-goal"
+    "latest-goal",
+    "gear"
   ];
   const pathParts = location.pathname.split("/").filter(Boolean);
   // Clean programmatic date pages exist in English only: keep every language
@@ -793,6 +850,141 @@ placeTopAdForViewport();
 window.addEventListener("messi:spark-relayout", placeTopAdForViewport);
 if (typeof window !== "undefined") {
   window.addEventListener("orientationchange", () => setTimeout(placeTopAdForViewport, 120));
+}
+
+function mountHubMonetizeBar() {
+  if (typeof document === "undefined") return;
+  if (document.getElementById("hub-monetize-bar")) return;
+
+  const HUB_PAGE_ALIASES = {
+    "goalsbyyear": "goalsbyyear",
+    "byyear": "goalsbyyear",
+    "goalsbyseason": "goalsbyseason",
+    "byseason": "goalsbyseason",
+    "champions-league": "champions-league",
+    "vs-real-madrid": "vs-real-madrid",
+    "achievements": "achievements",
+    "messi-vs-ronaldo": "messi-vs-ronaldo",
+    "vs-ronaldo": "messi-vs-ronaldo",
+    "dashboard": "dashboard",
+    "timeline": "timeline"
+  };
+
+  let hubKey = "";
+  const bodyPage = (document.body && document.body.dataset && document.body.dataset.page || "").toLowerCase();
+  if (HUB_PAGE_ALIASES[bodyPage]) {
+    hubKey = HUB_PAGE_ALIASES[bodyPage];
+  } else if (typeof location !== "undefined") {
+    const parts = location.pathname
+      .toLowerCase()
+      .split("/")
+      .filter(Boolean)
+      .map((p) => p.replace(/\.html$/, ""));
+    for (let i = parts.length - 1; i >= 0; i--) {
+      if (HUB_PAGE_ALIASES[parts[i]]) {
+        hubKey = HUB_PAGE_ALIASES[parts[i]];
+        break;
+      }
+    }
+  }
+  if (!hubKey) return;
+
+  const lang = getCurrentLangCode();
+  const WATCH_LABELS = {
+    en: "▶ Watch HD Goal Highlights & Live Streams",
+    es: "▶ Ver Goles en HD y Partidos en Vivo",
+    pt: "▶ Ver Gols em HD e Jogos ao Vivo",
+    fr: "▶ Voir les Buts HD & Matchs en Direct"
+  };
+  const ARIA_LABELS = {
+    en: "Goal Highlights & Official Gear",
+    es: "Resúmenes de Goles y Equipación Oficial",
+    pt: "Melhores Momentos e Camisas Oficiais",
+    fr: "Temps Forts & Équipement Officiel"
+  };
+  const KIT_CONFIG = {
+    classic: {
+      href: "https://www.amazon.com/s?k=lionel+messi+barcelona+10+jersey+adidas+f50&tag=messistat-20",
+      labels: {
+        en: "👕 Classic #10 Kit & F50 Boots ↗",
+        es: "👕 Camiseta #10 Clásica y Botas F50 ↗",
+        pt: "👕 Camisa #10 Clássica e Chuteiras F50 ↗",
+        fr: "👕 Maillot #10 Classique & Crampons F50 ↗"
+      }
+    },
+    argentina: {
+      href: "https://www.amazon.com/s?k=argentina+messi+3+star+jersey+10&tag=messistat-20",
+      labels: {
+        en: "🇦🇷 Argentina 3-Star #10 Jersey ↗",
+        es: "🇦🇷 Camiseta Argentina 3 Estrellas #10 ↗",
+        pt: "🇦🇷 Camisa Argentina 3 Estrelas #10 ↗",
+        fr: "🇦🇷 Maillot Argentine 3 Étoiles #10 ↗"
+      }
+    },
+    miami: {
+      href: "https://www.amazon.com/s?k=inter+miami+messi+jersey+10&tag=messistat-20",
+      labels: {
+        en: "🦩 Inter Miami #10 Official Kit ↗",
+        es: "🦩 Camiseta Oficial Inter Miami #10 ↗",
+        pt: "🦩 Camisa Oficial Inter Miami #10 ↗",
+        fr: "🦩 Maillot Officiel Inter Miami #10 ↗"
+      }
+    }
+  };
+
+  let eraGroup = "miami";
+  if (hubKey === "champions-league" || hubKey === "vs-real-madrid" || hubKey === "goalsbyyear") {
+    eraGroup = "classic";
+  } else if (hubKey === "achievements" || hubKey === "timeline") {
+    eraGroup = "argentina";
+  }
+  const kit = KIT_CONFIG[eraGroup];
+
+  const bar = document.createElement("aside");
+  bar.id = "hub-monetize-bar";
+  bar.className = "hub-monetize-bar";
+  bar.setAttribute("aria-label", ARIA_LABELS[lang] || ARIA_LABELS.en);
+
+  const watchLink = document.createElement("a");
+  watchLink.className = "hub-monetize-btn hub-monetize-watch";
+  watchLink.href = "https://araplhn.org/4/9c0421236e838b103398fe1f230fd98e";
+  watchLink.target = "_blank";
+  watchLink.rel = "noopener noreferrer sponsored";
+  watchLink.textContent = WATCH_LABELS[lang] || WATCH_LABELS.en;
+
+  const kitLink = document.createElement("a");
+  kitLink.className = "hub-monetize-btn hub-monetize-kit";
+  kitLink.href = kit.href;
+  kitLink.target = "_blank";
+  kitLink.rel = "noopener sponsored";
+  kitLink.textContent = kit.labels[lang] || kit.labels.en;
+
+  bar.appendChild(watchLink);
+  bar.appendChild(kitLink);
+
+  const main = document.getElementById("main") || document.querySelector("main.wrap") || document.querySelector(".wrap") || document.body;
+  if (!main) return;
+
+  let anchor = null;
+  if (hubKey === "messi-vs-ronaldo") {
+    anchor = document.getElementById("rivalry-tug-arena");
+  }
+  if (!anchor) {
+    anchor = main.querySelector(".page-lead, .lede, h1");
+  }
+  if (anchor && anchor.parentElement) {
+    anchor.insertAdjacentElement("afterend", bar);
+  } else {
+    main.prepend(bar);
+  }
+}
+
+if (typeof document !== "undefined") {
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", mountHubMonetizeBar, { once: true });
+  } else {
+    mountHubMonetizeBar();
+  }
 }
 
 function initDonationPopup() {

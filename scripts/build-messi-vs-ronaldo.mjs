@@ -126,8 +126,8 @@ const POLL_I18N = {
 const I18N = {
   en: {
     dir: "ltr",
-    title: "Messi vs Ronaldo | MessiStats",
-    desc: "Lionel Messi vs Cristiano Ronaldo: 932 goals vs 981, 407+ assists vs 261, 822 non-penalty goals vs 796, 76 free kicks vs 64, 47 trophies vs 37, 8 Ballons d'Or vs 5. The definitive comparison.",
+    title: `Messi vs Ronaldo Stats (2026 Live): ${S.goals} vs ${S.rGoals} Goals, Assists & H2H`,
+    desc: `Live 2026 Messi vs Ronaldo stats: ${S.goals} vs ${S.rGoals} goals, ${S.assists}+ vs ${S.rAssists} assists, ${S.npg} vs ${S.npgR} non-penalty, 76 vs 64 free kicks, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophies & 36 H2H.`,
     keywords: "messi vs ronaldo, messi vs ronaldo stats, messi vs ronaldo free kicks, messi vs ronaldo penalties, messi vs ronaldo non penalty goals, messi vs ronaldo assists, messi vs ronaldo hat tricks, messi vs ronaldo all time goals, who is the goat messi or ronaldo, who has more goals messi or ronaldo, messi vs ronaldo head to head, messi vs ronaldo world cup, messi ronaldo trophies, messi ronaldo ballons d or",
     brand: "MessiStat",
     homeName: "Home",
@@ -313,8 +313,8 @@ const I18N = {
   },
   es: {
     dir: "ltr",
-    title: "Messi vs Ronaldo: Goles, Stats y ¿Quién Es Mejor? | MessiStats",
-    desc: "Messi vs Ronaldo: 932 vs 981 goles, tiros libres, penaltis, asistencias y títulos. ¿Quién es mejor? Comparativa 2026 cara a cara.",
+    title: `Messi vs Ronaldo Estadísticas (2026): ${S.goals} vs ${S.rGoals} Goles, Asistencias y H2H`,
+    desc: `Estadísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} goles, ${S.assists}+ vs ${S.rAssists} asistencias, ${S.npg} vs ${S.npgR} sin penalti, 76 vs 64 faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
     keywords: "messi vs ronaldo, messi vs ronaldo estadisticas, messi vs ronaldo tiros libres, messi vs ronaldo penales, messi vs ronaldo goles sin penal, messi vs ronaldo asistencias, messi vs ronaldo hat tricks, quien es mejor messi o ronaldo, quien tiene mas goles messi o ronaldo, messi vs ronaldo cara a cara, messi vs ronaldo mundiales, messi ronaldo titulos, balones de oro",
     brand: "MessiStats",
     homeName: "Inicio",
@@ -500,8 +500,8 @@ const I18N = {
   },
   pt: {
     dir: "ltr",
-    title: "Messi vs Cristiano Ronaldo: Gols e Estatísticas 2026 | MessiStats",
-    desc: "Messi vs Cristiano Ronaldo: 932 x 981 gols, assistências, faltas, pênaltis, títulos e Bolas de Ouro. Comparativo completo 2026.",
+    title: `Messi vs Ronaldo Estatísticas (2026): ${S.goals} vs ${S.rGoals} Gols, Assistências e H2H`,
+    desc: `Estatísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} gols, ${S.assists}+ vs ${S.rAssists} assistências, ${S.npg} vs ${S.npgR} sem pênalti, 76 vs 64 faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
     keywords: "messi vs ronaldo, messi vs ronaldo estatisticas, messi vs ronaldo faltas, messi vs ronaldo penaltis, messi vs ronaldo gols sem penalti, messi vs ronaldo assistencias, messi vs ronaldo hat tricks, quem e melhor messi ou ronaldo, quem tem mais gols messi ou ronaldo, messi vs ronaldo confronto direto, messi vs ronaldo copa do mundo, titulos, bolas de ouro",
     brand: "MessiStats",
     homeName: "Início",
@@ -687,8 +687,8 @@ const I18N = {
   },
   fr: {
     dir: "ltr",
-    title: "Messi vs Ronaldo : Statistiques, Coups Francs, Penaltys et Face-à-Face | MessiStat",
-    desc: "Lionel Messi vs Cristiano Ronaldo : 932 buts vs 981, 407+ passes décisives vs 261, 822 buts hors penalty vs 796, 76 coups francs vs 64, 47 trophées vs 37, 8 Ballons d'Or vs 5. La comparaison ultime.",
+    title: `Messi vs Ronaldo Stats (2026) : ${S.goals} vs ${S.rGoals} Buts, Passes & Face-à-Face`,
+    desc: `Stats Messi vs Ronaldo (2026) : ${S.goals} vs ${S.rGoals} buts, ${S.assists}+ vs ${S.rAssists} passes, ${S.npg} vs ${S.npgR} hors penalty, 76 vs 64 coups francs, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophées.`,
     keywords: "messi vs ronaldo, messi vs ronaldo statistiques, messi vs ronaldo coups francs, messi vs ronaldo penaltys, messi vs ronaldo buts hors penalty, messi vs ronaldo passes decisives, messi vs ronaldo triples, qui est le meilleur messi ou ronaldo, qui a le plus de buts messi ou ronaldo, face a face messi ronaldo, coupe du monde, ballons d or, trophees",
     brand: "MessiStat",
     homeName: "Accueil",
