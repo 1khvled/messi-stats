@@ -25,6 +25,9 @@ const VERDICT_LABEL = {
   es: "Último Resultado: ",
   pt: "Último Resultado: ",
   fr: "Résultat du dernier match : ",
+  ro: "Ultimul Rezultat: ",
+  uz: "So'nggi Natija: ",
+  ar: "آخر نتيجة: ",
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -261,6 +264,177 @@ const I18N = {
     howManyMiamiAns: "Lionel Messi a inscrit {miamiGoals} buts officiels pour l'Inter Miami CF toutes compétitions confondues depuis juillet 2023.",
     howClose1000Ans: "Lionel Messi compte actuellement {goalNum} buts en carrière, il lui manque exactement {needed} buts pour atteindre le cap mythique des 1 000 buts.",
     analysisP1: "Lionel Messi poursuit sa légende en 2026. Sa dernière réalisation contre {opp} en {comp} à {venue} porte son total à <b>{goalNum} buts officiels</b> ({miamiGoals}e pour l'Inter Miami) en {apps} apparitions."
+  },
+  ro: {
+    pageTitle: "Golul lui Messi Azi",
+    goalPrefix: "Golul #",
+    tableGoalPrefix: "#",
+    vs: "vs",
+    at: "la",
+    matchHighlights: "Rezumat meci",
+    finalScore: "Final",
+    playVideo: "Redare Video ▶",
+    minuteLabel: "Minut",
+    finishLabel: "Tehnică",
+    scoreLabel: "Scor Meci",
+    compLabel: "Competiție",
+    teamLabel: "Echipă",
+    totalLabel: "Total Carieră",
+    replayVideo: "Replay Video",
+    ytSearch: "Căutare YouTube",
+    shareGoal: "Distribuā Golul",
+    viewBday: "Vezi goluri din {date} →",
+    playlistTitle: "Playlist Ultimele Goluri Messi",
+    playlistLead: "Selectează oricare din ultimele goluri pentru a viziona clipul:",
+    matrixTitle: "Matricea Ultimelor 5 Goluri Messi",
+    matrixLead: "Detalii despre ultimele 5 goluri oficiale ale lui Messi:",
+    thGoal: "Golul #",
+    thDate: "Data",
+    thMatch: "Meci & Scor",
+    thComp: "Competiție",
+    thMin: "Minut",
+    thTech: "Tehnică & Assist",
+    thVideo: "Video",
+    milestonesTitle: "Repere atinse cu Golul #{goalNum}",
+    kpiSeniorGoals: "Goluri Senior",
+    kpiAppsNote: "{apps} meciuri",
+    kpiMiamiGoals: "Goluri Inter Miami",
+    kpiMiamiNote: "Golgheter all-time",
+    kpiSeasonGoals: "Goluri Sezon 2026",
+    kpiSeasonNote: "MLS & internațional",
+    kpiFreeKicks: "Goluri Lovituri Libere",
+    kpiFkNote: "Record absolut carieră",
+    goalsTo1000: "Goluri până la 1.000",
+    goalsTo1000Desc: "Urmăritor activ spre 1.000 goluri oficiale.",
+    trophiesDesc: "Record mondial la titluri de echipă senior.",
+    miamiDesc: "Jalon centenar - golgheter all-time Inter Miami.",
+    seniorGoalsDesc: "{clubGoals} goluri club şi {intlGoals} goluri cu Argentina.",
+    didScoreTodayTitle: "A marcat Lionel Messi azi?",
+    whenLastGoalTitle: "Când a marcat ultimul gol Messi?",
+    whatLastGoalNumTitle: "Care a fost numărul ultimului gol Messi?",
+    howManyMiamiTitle: "Câte goluri are Messi la Inter Miami?",
+    howClose1000Title: "Cât de aproape este Messi de 1.000 goluri?",
+    didScoreTodayYes: "Ultimul meci oficial al lui Messi a fost pe {date} în {comp}.",
+    didScoreTodayNo: "Ultimul meci oficial al lui Messi a avut loc pe {date} în {comp}.",
+    whenLastGoalAns: "Messi a marcat ultimul gol pe {date} la {venue} împotriva {opp} ({score}) în {comp}.",
+    whatLastGoalNumAns: "Ultimul gol oficial al lui Messi a fost Golul #{goalNum}.",
+    howManyMiamiAns: "Messi a marcat {miamiGoals} goluri oficiale pentru Inter Miami.",
+    howClose1000Ans: "Messi are {N} goluri şi mai are nevoie de {needed} goluri pentru 1.000.",
+    adLabel: "Publicitate"
+  },
+  uz: {
+    pageTitle: "Messi Goli Bugun",
+    goalPrefix: "Gol #",
+    tableGoalPrefix: "#",
+    vs: "vs",
+    at: "da",
+    matchHighlights: "Oyin Xulosasi",
+    finalScore: "Final",
+    playVideo: "Video Ko'rish ▶",
+    minuteLabel: "Daqiqa",
+    finishLabel: "Texnika",
+    scoreLabel: "Oyin Hisobi",
+    compLabel: "Musobaqa",
+    teamLabel: "Jamoa",
+    totalLabel: "Martaba Jami",
+    replayVideo: "Takror Ko'rish",
+    ytSearch: "YouTube Qidiruv",
+    shareGoal: "Golni ulashish",
+    viewBday: "{date} gollarini ko'rish →",
+    playlistTitle: "Messi So'nggi Gollar Pleylist",
+    playlistLead: "Messi so'nggi gollaridan birini tanlang:",
+    matrixTitle: "Messi So'nggi 5 Gol Jadvali",
+    matrixLead: "Messi so'nggi 5 rasmiy goliga batafsil ko'rinish:",
+    thGoal: "Gol #",
+    thDate: "Sana",
+    thMatch: "Oyin & Hisob",
+    thComp: "Musobaqa",
+    thMin: "Daqiqa",
+    thTech: "Texnika & Assist",
+    thVideo: "Video",
+    milestonesTitle: "Gol #{goalNum} bilan erishilgan yutuqlar",
+    kpiSeniorGoals: "Senior Gollar",
+    kpiAppsNote: "{apps} o'yin",
+    kpiMiamiGoals: "Inter Miami Gollari",
+    kpiMiamiNote: "Barcha davr rekordchisi",
+    kpiSeasonGoals: "2026 Mavsum Gollari",
+    kpiSeasonNote: "MLS & xalqaro",
+    kpiFreeKicks: "Erkin Zarb Gollari",
+    kpiFkNote: "Martaba rekord",
+    goalsTo1000: "1.000 gacha qoldi",
+    goalsTo1000Desc: "1.000 rasmiy gol sari faol kuzatuv.",
+    trophiesDesc: "Jamoaviy unvonlar bo'yicha jahon rekordi.",
+    miamiDesc: "Inter Miami barcha davr golchisi.",
+    seniorGoalsDesc: "{clubGoals} klub goli va {intlGoals} Argentina goli.",
+    didScoreTodayTitle: "Messi bugun gol urdimi?",
+    whenLastGoalTitle: "Messi oxirgi golni qachon urdi?",
+    whatLastGoalNumTitle: "Messi oxirgi goligining raqami qancha?",
+    howManyMiamiTitle: "Messi Inter Mayamiga nechta gol urgan?",
+    howClose1000Title: "Messi 1.000 golga qanchalik yaqin?",
+    didScoreTodayYes: "Messining so'nggi rasmiy o'yini {date} da {comp} da bo'ldi.",
+    didScoreTodayNo: "Messining so'nggi rasmiy o'yini {date} da {comp} da bo'ldi.",
+    whenLastGoalAns: "Messi oxirgi golini {date} da {venue} da {opp} ga ({score}) {comp} da urdi.",
+    whatLastGoalNumAns: "Messining oxirgi rasmiy goli #{goalNum} edi.",
+    howManyMiamiAns: "Messi Inter Mayami uchun {miamiGoals} rasmiy gol urgan.",
+    howClose1000Ans: "Messida {N} gol bor va 1.000 ga {needed} gol qoldi.",
+    adLabel: "Reklama"
+  },
+  ar: {
+    pageTitle: "هدف ميسي اليوم",
+    goalPrefix: "هدف #",
+    tableGoalPrefix: "#",
+    vs: "ضد",
+    at: "في",
+    matchHighlights: "ملخص المباراة",
+    finalScore: "نهائي",
+    playVideo: "تشغيل الفيديو ▶",
+    minuteLabel: "الدقيقة",
+    finishLabel: "التقنية",
+    scoreLabel: "نتيجة المباراة",
+    compLabel: "البطولة",
+    teamLabel: "الفريق",
+    totalLabel: "إجمالي المسيرة",
+    replayVideo: "إعادة التشغيل",
+    ytSearch: "بحث YouTube",
+    shareGoal: "مشاركة الهدف",
+    viewBday: "عرض أهداف {date} ←",
+    playlistTitle: "قائمة تشغيل آخر أهداف ميسي",
+    playlistLead: "اختر أي هدف من آخر أهداف ميسي:",
+    matrixTitle: "جدول آخر 5 أهداف لميسي",
+    matrixLead: "تفاصيل آخر 5 أهداف رسمية:",
+    thGoal: "هدف #",
+    thDate: "التاريخ",
+    thMatch: "المباراة والنتيجة",
+    thComp: "البطولة",
+    thMin: "الدقيقة",
+    thTech: "التقنية والمساعدة",
+    thVideo: "فيديو",
+    milestonesTitle: "أرقام قياسية بالهدف #{goalNum}",
+    kpiSeniorGoals: "أهداف البالغين",
+    kpiAppsNote: "{apps} مباراة",
+    kpiMiamiGoals: "أهداف إنتر ميامي",
+    kpiMiamiNote: "أعلى هداف عبر التاريخ",
+    kpiSeasonGoals: "أهداف موسم 2026",
+    kpiSeasonNote: "MLS ودولي",
+    kpiFreeKicks: "أهداف الركلات الحرة",
+    kpiFkNote: "رقم قياسي مطلق",
+    goalsTo1000: "أهداف حتى 1,000",
+    goalsTo1000Desc: "تتبع نحو 1,000 هدف رسمي.",
+    trophiesDesc: "رقم عالمي في الألقاب الجماعية.",
+    miamiDesc: "أعلى هداف عبر تاريخ إنتر ميامي.",
+    seniorGoalsDesc: "{clubGoals} هدف نادياً و{intlGoals} هدف مع الأرجنتين.",
+    didScoreTodayTitle: "هل سجل ميسي هدفاً اليوم؟",
+    whenLastGoalTitle: "متى سجل ميسي آخر هدف؟",
+    whatLastGoalNumTitle: "ما رقم آخر هدف لميسي؟",
+    howManyMiamiTitle: "كم هدفاً سجل ميسي لإنتر ميامي؟",
+    howClose1000Title: "كم تبقى لميسي لبلوغ 1,000 هدف؟",
+    didScoreTodayYes: "آخر مباراة رسمية لميسي كانت في {date} في {comp}.",
+    didScoreTodayNo: "آخر مباراة رسمية لميسي كانت في {date} في {comp}.",
+    whenLastGoalAns: "سجل ميسي آخر هدف في {date} في {venue} ضد {opp} ({score}) في {comp}.",
+    whatLastGoalNumAns: "آخر هدف رسمي لميسي كان هدف #{goalNum}.",
+    howManyMiamiAns: "سجل ميسي {miamiGoals} هدفاً رسمياً لإنتر ميامي.",
+    howClose1000Ans: "لدى ميسي {N} هدفاً ويحتاج {needed} هدفاً لبلوغ 1,000.",
+    adLabel: "إعلان"
   }
 };
 
@@ -270,19 +444,28 @@ const I18N = {
 const MONTHS_FULL = {
   es: ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"],
   pt: ["janeiro","fevereiro","março","abril","maio","junho","julho","agosto","setembro","outubro","novembro","dezembro"],
-  fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"]
+  fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
+  ro: ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"],
+  uz: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"],
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]
 };
 const MONTHS_SHORT = {
   es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
   pt: ["jan","fev","mar","abr","mai","jun","jul","ago","set","out","nov","dez"],
-  fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"]
+  fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"],
+  ro: ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","noi","dec"],
+  uz: ["yan","fev","mar","apr","may","iyn","iyl","avg","sen","okt","noy","dek"],
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]
 };
 const EN_MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const EN_MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
 const TECH_WORDS = {
-  es: { fk: "Tiro libre directo", header: "Cabeza", assist: "Asistencia", left: "Zurda", right: "Derecha", penalty: "Penalti", play: "Ver Video ▶", goalTag: "Gol 🔥" },
-  pt: { fk: "Falta direta", header: "Cabeceio", assist: "assistência", left: "Chute de esquerda", right: "Chute de direita", penalty: "Pênalti", play: "Ver Vídeo ▶", goalTag: "Gol 🔥" },
-  fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But 🔥" }
+  es: { fk: "Tiro libre directo", header: "Cabeza", assist: "Asistencia", left: "Zurda", right: "Derecha", penalty: "Penalti", play: "Ver Video ▶", goalTag: "Gol" },
+  pt: { fk: "Falta direta", header: "Cabeceio", assist: "assistência", left: "Chute de esquerda", right: "Chute de direita", penalty: "Pênalti", play: "Ver Vídeo ▶", goalTag: "Gol" },
+  fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But" },
+  ro: { fk: "Lovitură liberă directă", header: "Cu capul", assist: "Pasă decisivă", left: "Piciorul stâng", right: "Piciorul drept", penalty: "Penalty", play: "Vezi Video ▶", goalTag: "Gol" },
+  uz: { fk: "Toʻgʻridan-toʻgʻri jarima zarbasi", header: "Bosh bilan", assist: "Golli uzatma", left: "Chap oyoq", right: "Oʻng oyoq", penalty: "Penalti", play: "Videoni koʻrish ▶", goalTag: "Gol" },
+  ar: { fk: "ركلة حرة مباشرة", header: "رأسية", assist: "تمريرة حاسمة", left: "القدم اليسرى", right: "القدم اليمنى", penalty: "ركلة جزاء", play: "شاهد الفيديو ▶", goalTag: "هدف" }
 };
 function locDateStr(s, lang, short = false) {
   if (!s || lang === "en" || (!MONTHS_FULL[lang] && !MONTHS_SHORT[lang])) return s;
@@ -315,6 +498,9 @@ function locTech(s, lang) {
 function locGoalLabel(n, lang) {
   if (lang === "fr") return `But #${n}`;
   if (lang === "es" || lang === "pt") return `Gol #${n}`;
+  if (lang === "ro") return `Golul #${n}`;
+  if (lang === "uz") return `#${n}-gol`;
+  if (lang === "ar") return `هدف #${n}`;
   return `Goal #${n}`;
 }
 
@@ -347,7 +533,10 @@ export function syncLatestGoalHtml() {
     { lang: "en", file: path.join(root, "latest-goal.html") },
     { lang: "es", file: path.join(root, "es", "latest-goal.html") },
     { lang: "pt", file: path.join(root, "pt", "latest-goal.html") },
-    { lang: "fr", file: path.join(root, "fr", "latest-goal.html") }
+    { lang: "fr", file: path.join(root, "fr", "latest-goal.html") },
+    { lang: "ro", file: path.join(root, "ro", "latest-goal.html") },
+    { lang: "uz", file: path.join(root, "uz", "latest-goal.html") },
+    { lang: "ar", file: path.join(root, "ar", "latest-goal.html") },
   ];
 
   let updatedCount = 0;
@@ -369,6 +558,9 @@ export function syncLatestGoalHtml() {
       es: `Ver resumen del Gol #${seniorGoals} en HD ▶`,
       pt: `Assistir aos lances do Gol #${seniorGoals} em HD ▶`,
       fr: `Regarder les temps forts du But #${seniorGoals} en HD ▶`,
+      ro: `Urmărește Golul #${seniorGoals} Rezumat HD ▶`,
+      uz: `#${seniorGoals}-gol taqdimotini tomosha qiling HD ▶`,
+      ar: `شاهد ملخص هدف #${seniorGoals} بجودة HD ▶`,
     };
     const overlayLabel = overlayTexts[lang] || overlayTexts.en;
     html = html.replace(
@@ -404,13 +596,14 @@ export function syncLatestGoalHtml() {
     html = html.replace(/href="[^"]*"([^>]*id="link-bday-goal")/i, `href="${bdayHref}"$1`);
 
     // 6. Update Recent Goals 5-Card Switcher
-    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre " };
+    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre ", ro: "vs ", uz: "vs ", ar: "ضد " };
     const cardsHtml = recent.slice(0, 5).map((rg, idx) => {
       const isActive = idx === 0 ? " active" : "";
       const goalLabel = locGoalLabel(rg.goalNumber, lang);
       const bdayPath = rg.bdayUrl || `/en/birthday/${rg.bdayKey || "09-27"}`;
       const cardMatch = lang === "en" || !MATCH_PREP[lang] ? rg.match : String(rg.match || "").replace(/^(at|vs)\s+/, MATCH_PREP[lang]);
-      const cardTag = rg.tag ? locTech(rg.tag, lang) : (TECH_WORDS[lang] ? TECH_WORDS[lang].goalTag : "Goal 🔥");
+      const rawTag = rg.tag ? String(rg.tag).replace(/\s*🔥/g, "").trim() : "";
+      const cardTag = rawTag ? locTech(rawTag, lang) : (TECH_WORDS[lang] ? TECH_WORDS[lang].goalTag : "Goal");
       return `    <div class="recent-goal-card${isActive}" data-goal-id="${rg.goalNumber}"
          data-goal-num="${goalLabel}"
          data-title="${rg.title}"

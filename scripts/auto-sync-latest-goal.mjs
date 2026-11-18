@@ -331,7 +331,7 @@ export async function autoPullLatestGoal() {
           date: `${newlyFoundGoal.formattedDate} • ${minute}`,
           minute,
           type,
-          tag: `${finish} 🔥`,
+          tag: finish,
           score: newlyFoundGoal.score,
           comp: newlyFoundGoal.competition,
           videoUrl,

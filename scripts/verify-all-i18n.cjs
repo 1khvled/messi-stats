@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const langs = ["es", "pt", "fr"];
+const langs = ["es", "pt", "fr", "ro", "uz", "ar"];
 const englishTerms = [
   "Senior Career Goals",
   "105 fewer games",

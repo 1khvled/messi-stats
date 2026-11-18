@@ -45,6 +45,9 @@ jobs:
           npm run build
           npm run audit
           npm run audit:wc
+          npm run audit:i18n
+          npm run audit:tag
+          npm run guard:ads
 
       - name: Commit & Push New Match Stats
         run: |

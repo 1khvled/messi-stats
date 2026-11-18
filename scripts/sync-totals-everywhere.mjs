@@ -348,10 +348,15 @@ for (let n = goals - 6; n < goals; n++)
   push(new RegExp(`(og-messi\\.jpg\\?v=)${n}(?!\\d)`, "g"), `$1${goals}`, "og-cache");
 
 // ---- run over every tracked .html -----------------------------------------
-const files = execSync("git ls-files", { cwd: root })
+const tracked = execSync("git ls-files", { cwd: root })
   .toString("utf8")
-  .split("\n")
+  .split(/\r?\n/)
   .filter((f) => f.endsWith(".html"));
+const extraDirs = ["ro", "uz", "ar"].flatMap((d) => {
+  const dir = path.join(root, d);
+  return fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith(".html")).map((f) => `${d}/${f}`) : [];
+});
+const files = [...new Set([...tracked, ...extraDirs])];
 
 let changedFiles = 0;
 const report = new Map(); // kind → count

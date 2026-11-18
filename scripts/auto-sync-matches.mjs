@@ -505,6 +505,9 @@ function syncIndexHtmlFiles(prevGoals, prevApps, newTotalGoals, newTotalApps) {
     resolve(root, "es", "index.html"),
     resolve(root, "pt", "index.html"),
     resolve(root, "fr", "index.html"),
+    resolve(root, "ro", "index.html"),
+    resolve(root, "uz", "index.html"),
+    resolve(root, "ar", "index.html"),
   ];
   for (const f of indexFiles) {
     if (!existsSync(f)) continue;

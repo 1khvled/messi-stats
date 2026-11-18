@@ -49,8 +49,8 @@ const exploreCardHtml = `
         <h3 class="bday-explore-title">Explore More Messi Birthday Goals</h3>
         <p class="bday-explore-sub">Check another birthday or browse all 366 calendar days across Messi's ${totalCareerGoals} career goals.</p>
         <div class="bday-explore-actions">
-          <a href="/en/birthday" class="btn-primary">📅 Interactive Date Picker</a>
-          <a href="/en/days" class="btn-secondary">🗓️ Browse All 366 Days</a>
+          <a href="/en/birthday" class="btn-primary">Interactive Date Picker</a>
+          <a href="/en/days" class="btn-secondary">Browse All 366 Days</a>
         </div>
       </div>
     </section>

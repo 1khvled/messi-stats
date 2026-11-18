@@ -218,7 +218,8 @@ function renderHeadBoilerplate(lang, pageSlug, title, desc, keywords) {
 <meta content="${keywords || 'messi, messi stats, lionel messi, 932 goals, messi goals'}" name="keywords"/>
 ${hreflangs}
 <meta content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" name="robots"/>
-<meta content="#16243a" name="theme-color"/>
+<meta name="theme-color" content="#f4f5f3" media="(prefers-color-scheme: light)"/>
+<meta name="theme-color" content="#09090b" media="(prefers-color-scheme: dark)"/>
 <meta content="MessiStat" name="author"/>
 <meta content="website" property="og:type"/>
 <meta content="MessiStat" property="og:site_name"/>

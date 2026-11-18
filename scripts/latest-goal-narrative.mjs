@@ -76,9 +76,9 @@ export function buildNarrative({ g, seniorGoals, apps, miamiGoals, intlGoals, go
   });
 
   const RW = {
-    win: { en: "win", es: "victoria", pt: "vitória", fr: "victoire" },
-    draw: { en: "draw", es: "empate", pt: "empate", fr: "match nul" },
-    loss: { en: "defeat", es: "derrota", pt: "derrota", fr: "défaite" },
+    win: { en: "win", es: "victoria", pt: "vitória", fr: "victoire", ro: "victorie", uz: "g'alaba", ar: "فوز" },
+    draw: { en: "draw", es: "empate", pt: "empate", fr: "match nul", ro: "egal", uz: "durang", ar: "تعادل" },
+    loss: { en: "defeat", es: "derrota", pt: "derrota", fr: "défaite", ro: "înfrângere", uz: "mag'lubiyat", ar: "خسارة" },
   };
   const rw = (RW[R.word] && RW[R.word][lang]) || RW[R.word].en;
 
@@ -159,6 +159,9 @@ const MONTH = {
   es: ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"],
   pt: ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"],
   fr: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+  ro: ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"],
+  uz: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"],
+  ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
 };
 
 const COPY = {
@@ -218,6 +221,48 @@ const COPY = {
     milestoneH2: "Records débloqués par le But #{N}",
     bdayLink: "Voir les buts du {bdayLabel} &rarr;",
   },
+  ro: {
+    desc: "A marcat Messi? Urmăreşte ultimul gol al lui Lionel Messi şi rezultatul în Golul #{N} vs {opp}.",
+    videoName: "Ultimul gol al lui Lionel Messi: Golul #{N} vs {opp} ({date})",
+    videoDesc: "Urmăreşte-l pe Lionel Messi marcând Golul #{N} ({teamClause}) împotriva {opp} în {comp} pe {date}.",
+    todayDesc: "<b>A marcat Messi azi?</b> Ultimul meci oficial al lui Messi a fost pe <b>{date}</b> în {comp}.",
+    faqScoredToday: "Ultimul meci oficial al lui Messi a fost pe {date} în {comp}, unde a marcat Golul #{N} ({teamClause}).",
+    faqWhenScored: "Messi a marcat ultimul gol pe {date} la {venue} împotriva {opp} ({score}) în {comp}.",
+    faqGoalNumber: "Ultimul gol oficial al lui Messi a fost Golul #{N} ({teamClause}), totalul său ajungând la {N} goluri în {apps} meciuri.",
+    faq1000: "Messi are {N} goluri şi mai are nevoie de {needed} goluri pentru 1.000.",
+    analysis: "Messi continuă să stabilească recorduri în 2026. Ultimul gol împotriva {opp} în {comp} i-a adus totalul la <b>{N} goluri</b> ({teamClause}) în {apps} meciuri.",
+    recentLine: "<b>#{N}:</b> {date} – {matchTitle} ({min}, {techLower})",
+    milestoneH2: "Repere atinse cu Golul #{N}",
+    bdayLink: "Vezi goluri din {bdayLabel} &rarr;",
+  },
+  uz: {
+    desc: "Messi bugun gol urdimi? Lionel Messing so'nggi golini ko'ring - Gol #{N} vs {opp}.",
+    videoName: "Lionel Messing so'nggi goli: Gol #{N} vs {opp} ({date})",
+    videoDesc: "Lionel Messi {date} kuni {comp} da {opp} ga Gol #{N} ({teamClause}) urganini tomosha qiling.",
+    todayDesc: "<b>Messi bugun gol urdimi?</b> Messining so'nggi rasmiy o'yini <b>{date}</b> da {comp} da bo'ldi.",
+    faqScoredToday: "Messining so'nggi rasmiy o'yini {date} da {comp} da bo'lib, u Gol #{N} ({teamClause}) urdi.",
+    faqWhenScored: "Messi oxirgi golini {date} da {venue} da {opp} ga ({score}) {comp} da urdi.",
+    faqGoalNumber: "Messining oxirgi rasmiy goli #{N} ({teamClause}) bo'lib, jami {N} gol {apps} o'yinda.",
+    faq1000: "Messida {N} gol bor va 1.000 ga {needed} gol qoldi.",
+    analysis: "Messi 2026 yilda rekordlarni yangilashda davom etmoqda. {opp} ga {comp} da urgan so'nggi goli uning hisobini <b>{N} gol</b> ga ({teamClause}) {apps} o'yinda yetkazdi.",
+    recentLine: "<b>#{N}:</b> {date} – {matchTitle} ({min}, {techLower})",
+    milestoneH2: "Gol #{N} bilan erishilgan yutuqlar",
+    bdayLink: "{bdayLabel} gollarini ko'rish &rarr;",
+  },
+  ar: {
+    desc: "هل سجل ميسي هدفاً؟ شاهد آخر أهداف ليونيل ميسي ونتيجة الهدف #{N} ضد {opp}.",
+    videoName: "آخر أهداف ليونيل ميسي: هدف #{N} ضد {opp} ({date})",
+    videoDesc: "شاهد ليونيل ميسي يسجل الهدف #{N} ({teamClause}) ضد {opp} في {comp} بتاريخ {date}.",
+    todayDesc: "<b>هل سجل ميسي هدفاً اليوم؟</b> آخر مباراة رسمية لميسي كانت بتاريخ <b>{date}</b> في {comp}.",
+    faqScoredToday: "آخر مباراة رسمية لميسي كانت بتاريخ {date} في {comp} حيث سجل الهدف #{N} ({teamClause}).",
+    faqWhenScored: "سجل ميسي آخر هدف في {date} بملعب {venue} ضد {opp} ({score}) في {comp}.",
+    faqGoalNumber: "آخر هدف رسمي لميسي كان الهدف #{N} ({teamClause})، ليصبح مجموعه {N} هدفاً في {apps} مباراة.",
+    faq1000: "لدى ميسي {N} هدفاً ويحتاج {needed} هدفاً لبلوغ 1,000.",
+    analysis: "يواصل ميسي تحطيم الأرقام القياسية في 2026. آخر هدف ضد {opp} في {comp} رفع رصيده إلى <b>{N} هدفاً</b> ({teamClause}) في {apps} مباراة.",
+    recentLine: "<b>#{N}:</b> {date} – {matchTitle} ({min}, {techLower})",
+    milestoneH2: "أرقام قياسية بالهدف #{N}",
+    bdayLink: "عرض أهداف {bdayLabel} &larr;",
+  },
 };
 
 
@@ -227,6 +272,9 @@ const COMP_LABELS = {
   es: { "International Friendly": "Amistoso Internacional" },
   pt: { "International Friendly": "Amistoso Internacional" },
   fr: { "International Friendly": "Match amical international" },
+  ro: { "International Friendly": "Amical internațional" },
+  uz: { "International Friendly": "Xalqaro o'rtoqlik o'yini" },
+  ar: { "International Friendly": "ودية دولية" }
 };
 
 export function compLabel(comp, lang) {

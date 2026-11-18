@@ -7,7 +7,7 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:lang(es|pt|fr)/birthday",
+      "source": "/:lang(es|pt|fr|ar|ro|uz)/birthday",
       "has": [
         {
           "type": "query",
@@ -19,7 +19,7 @@
       "permanent": true
     },
     {
-      "source": "/:lang(es|pt|fr)",
+      "source": "/:lang(es|pt|fr|ar|ro|uz)",
       "has": [
         {
           "type": "query",
@@ -31,7 +31,7 @@
       "permanent": true
     },
     {
-      "source": "/:lang(es|pt|fr)/birthday",
+      "source": "/:lang(es|pt|fr|ar|ro|uz)/birthday",
       "has": [
         {
           "type": "query",
@@ -48,12 +48,12 @@
       "permanent": true
     },
     {
-      "source": "/:lang(ar|bn|hi|ro|uz)",
+      "source": "/:lang(bn|hi)",
       "destination": "/en",
       "permanent": true
     },
     {
-      "source": "/:lang(ar|bn|hi|ro|uz)/:path*",
+      "source": "/:lang(bn|hi)/:path*",
       "destination": "/en/:path*",
       "permanent": true
     },
@@ -539,6 +539,222 @@
     {
       "source": "/fr/latest-goal",
       "destination": "/fr/latest-goal.html"
+    },
+    {
+      "source": "/ro/data/:path*",
+      "destination": "/data/:path*"
+    },
+    {
+      "source": "/ro/img/:path*",
+      "destination": "/img/:path*"
+    },
+    {
+      "source": "/ro/fonts/:path*",
+      "destination": "/fonts/:path*"
+    },
+    {
+      "source": "/ro/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/ro",
+      "destination": "/ro/index.html"
+    },
+    {
+      "source": "/ro/goalsbyyear",
+      "destination": "/ro/goalsbyyear.html"
+    },
+    {
+      "source": "/ro/goalsbyseason",
+      "destination": "/ro/goalsbyseason.html"
+    },
+    {
+      "source": "/ro/dashboard",
+      "destination": "/ro/dashboard.html"
+    },
+    {
+      "source": "/ro/timeline",
+      "destination": "/ro/timeline.html"
+    },
+    {
+      "source": "/ro/achievements",
+      "destination": "/ro/achievements.html"
+    },
+    {
+      "source": "/ro/gear",
+      "destination": "/ro/gear.html"
+    },
+    {
+      "source": "/ro/birthday",
+      "destination": "/ro/birthday.html"
+    },
+    {
+      "source": "/ro/vs/ronaldo",
+      "destination": "/ro/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/ro/messi-vs-ronaldo",
+      "destination": "/ro/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/ro/vs/real-madrid",
+      "destination": "/ro/vs-real-madrid.html"
+    },
+    {
+      "source": "/ro/vs-real-madrid",
+      "destination": "/ro/vs-real-madrid.html"
+    },
+    {
+      "source": "/ro/champions-league",
+      "destination": "/ro/champions-league.html"
+    },
+    {
+      "source": "/ro/latest-goal",
+      "destination": "/ro/latest-goal.html"
+    },
+    {
+      "source": "/uz/data/:path*",
+      "destination": "/data/:path*"
+    },
+    {
+      "source": "/uz/img/:path*",
+      "destination": "/img/:path*"
+    },
+    {
+      "source": "/uz/fonts/:path*",
+      "destination": "/fonts/:path*"
+    },
+    {
+      "source": "/uz/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/uz",
+      "destination": "/uz/index.html"
+    },
+    {
+      "source": "/uz/goalsbyyear",
+      "destination": "/uz/goalsbyyear.html"
+    },
+    {
+      "source": "/uz/goalsbyseason",
+      "destination": "/uz/goalsbyseason.html"
+    },
+    {
+      "source": "/uz/dashboard",
+      "destination": "/uz/dashboard.html"
+    },
+    {
+      "source": "/uz/timeline",
+      "destination": "/uz/timeline.html"
+    },
+    {
+      "source": "/uz/achievements",
+      "destination": "/uz/achievements.html"
+    },
+    {
+      "source": "/uz/gear",
+      "destination": "/uz/gear.html"
+    },
+    {
+      "source": "/uz/birthday",
+      "destination": "/uz/birthday.html"
+    },
+    {
+      "source": "/uz/vs/ronaldo",
+      "destination": "/uz/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/uz/messi-vs-ronaldo",
+      "destination": "/uz/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/uz/vs/real-madrid",
+      "destination": "/uz/vs-real-madrid.html"
+    },
+    {
+      "source": "/uz/vs-real-madrid",
+      "destination": "/uz/vs-real-madrid.html"
+    },
+    {
+      "source": "/uz/champions-league",
+      "destination": "/uz/champions-league.html"
+    },
+    {
+      "source": "/uz/latest-goal",
+      "destination": "/uz/latest-goal.html"
+    },
+    {
+      "source": "/ar/data/:path*",
+      "destination": "/data/:path*"
+    },
+    {
+      "source": "/ar/img/:path*",
+      "destination": "/img/:path*"
+    },
+    {
+      "source": "/ar/fonts/:path*",
+      "destination": "/fonts/:path*"
+    },
+    {
+      "source": "/ar/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/ar",
+      "destination": "/ar/index.html"
+    },
+    {
+      "source": "/ar/goalsbyyear",
+      "destination": "/ar/goalsbyyear.html"
+    },
+    {
+      "source": "/ar/goalsbyseason",
+      "destination": "/ar/goalsbyseason.html"
+    },
+    {
+      "source": "/ar/dashboard",
+      "destination": "/ar/dashboard.html"
+    },
+    {
+      "source": "/ar/timeline",
+      "destination": "/ar/timeline.html"
+    },
+    {
+      "source": "/ar/achievements",
+      "destination": "/ar/achievements.html"
+    },
+    {
+      "source": "/ar/gear",
+      "destination": "/ar/gear.html"
+    },
+    {
+      "source": "/ar/birthday",
+      "destination": "/ar/birthday.html"
+    },
+    {
+      "source": "/ar/vs/ronaldo",
+      "destination": "/ar/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/ar/messi-vs-ronaldo",
+      "destination": "/ar/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/ar/vs/real-madrid",
+      "destination": "/ar/vs-real-madrid.html"
+    },
+    {
+      "source": "/ar/vs-real-madrid",
+      "destination": "/ar/vs-real-madrid.html"
+    },
+    {
+      "source": "/ar/champions-league",
+      "destination": "/ar/champions-league.html"
+    },
+    {
+      "source": "/ar/latest-goal",
+      "destination": "/ar/latest-goal.html"
     }
   ],
   "headers": [
@@ -575,7 +791,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' https://cdn.messiallgoals.com blob: https:; connect-src 'self' https: wss:; frame-src 'self' https: data: about:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagservices.com https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' https://cdn.messiallgoals.com blob: https:; connect-src 'self' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https: wss:; frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.google.com https: data: about:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
         }
       ]
     },

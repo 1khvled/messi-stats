@@ -118,6 +118,90 @@ const NAV_LABELS = {
     gear: "Boutique Messi",
     themeToggle: "Basculer le thème",
     darkMode: "Mode sombre"
+  },
+  ro: {
+    badgeAria: "Acasă MessiStats",
+    brandSub: `${S.goals} Goluri · Oficial`,
+    collapseAria: "Restrânge sau extinde bara laterală",
+    langName: "Română",
+    langTag: "RO",
+    langSelectAria: "Selectează limba (Română)",
+    langSelectTitle: "Selectează limba",
+    searchLabel: "Căutare rapidă",
+    searchAria: "Caută statistici, ani şi pagini (Ctrl+K)",
+    grpLive: "Live",
+    grpRivals: "Rivalități şi Cupe",
+    grpArchive: "Arhivă Carieră",
+    home: "Acasă",
+    latestGoal: "Ultimul Gol",
+    bday: "Zi de Naştere",
+    ronaldo: "vs Ronaldo",
+    madrid: "vs Real Madrid",
+    ucl: "Champions League",
+    byyear: "Goluri pe An",
+    byseason: "Sezoane",
+    dashboard: "Panou",
+    timeline: "Carieră",
+    achievements: "Trofee",
+    gear: "Magazin Messi",
+    themeToggle: "Comutare temă",
+    darkMode: "Mod íntunecat"
+  },
+  uz: {
+    badgeAria: "MessiStats bosh sahifa",
+    brandSub: `${S.goals} Gol · Rasmiy`,
+    collapseAria: "Yon panelni kichraytirish yoki kengaytirish",
+    langName: "Oʻzbekcha",
+    langTag: "UZ",
+    langSelectAria: "Tilni tanlang (Oʻzbekcha)",
+    langSelectTitle: "Tilni tanlang",
+    searchLabel: "Tezkor qidiruv",
+    searchAria: "Statistika, yillar va sahifalarni qidirish (Ctrl+K)",
+    grpLive: "Jonli",
+    grpRivals: "Raqobat va Kuboklar",
+    grpArchive: "Martaba Arxivi",
+    home: "Bosh sahifa",
+    latestGoal: "Soʻnggi Gol",
+    bday: "Tugʻilgan Kun",
+    ronaldo: "Ronaldoga qarshi",
+    madrid: "Real Madridga qarshi",
+    ucl: "Champions League",
+    byyear: "Yillar boʻyi",
+    byseason: "Mavsum boʻyi",
+    dashboard: "Boshqaruv paneli",
+    timeline: "Martaba tarixi",
+    achievements: "Yutuqlar",
+    gear: "Messi doʻkoni",
+    themeToggle: "Mavzuni almashtirish",
+    darkMode: "Qorongʻu rejim"
+  },
+  ar: {
+    badgeAria: "الرئيسية MessiStats",
+    brandSub: `${S.goals} هدف · رسمي`,
+    collapseAria: "طي أو توسيع الشريط الجانبي",
+    langName: "العربية",
+    langTag: "AR",
+    langSelectAria: "اختر اللغة (العربية)",
+    langSelectTitle: "اختر اللغة",
+    searchLabel: "بحث سريع",
+    searchAria: "ابحث في الإحصاءات والسنوات والصفحات (Ctrl+K)",
+    grpLive: "مباشر وأخبار",
+    grpRivals: "المنافسات والكؤوس",
+    grpArchive: "أرشيف المسيرة",
+    home: "الرئيسية",
+    latestGoal: "آخر هدف",
+    bday: "أعياد الميلاد",
+    ronaldo: "ضد رونالدو",
+    madrid: "ضد ريال مدريد",
+    ucl: "دوري أبطال أوروبا",
+    byyear: "الأهداف سنوياً",
+    byseason: "الأهداف بالموسم",
+    dashboard: "لوحة البيانات",
+    timeline: "مسيرة الأهداف",
+    achievements: "الألقاب",
+    gear: "متجر ميسي",
+    themeToggle: "تبديل الوضع",
+    darkMode: "الوضع الداكن"
   }
 };
 
@@ -201,8 +285,8 @@ for (const [file, slug] of Object.entries(PAGES_MAP)) {
   updateFileRail(path.join(rootDir, file), "en", slug);
 }
 
-// 2. All three localized languages (es, pt, fr)
-const ALL_LANGS = ["es", "pt", "fr"];
+// 2. All six localized languages (es, pt, fr, ro, uz, ar)
+const ALL_LANGS = ["es", "pt", "fr", "ro", "uz", "ar"];
 for (const lang of ALL_LANGS) {
   for (const [file, slug] of Object.entries(PAGES_MAP)) {
     updateFileRail(path.join(rootDir, lang, file), lang, slug);

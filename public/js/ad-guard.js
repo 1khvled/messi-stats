@@ -17,6 +17,8 @@
  * Ad creatives themselves are explicitly ALLOWED to render. Frames belonging to
  * the ad networks are sandboxed WITHOUT allow-top-navigation, which stops them
  * navigating the page while leaving the creative itself fully functional.
+ * Google AdSense frames are EXEMPTED from sandboxing so CPC clicks and
+ * vignette/anchor ad units work correctly.
  */
 (function() {
   'use strict';
@@ -44,7 +46,15 @@
     'youtu.be',
     'messistat.com',
     'araplhn.org',
-    'localhost'
+    'localhost',
+    // Google AdSense & DoubleClick - must be allowed so CPC clicks and
+    // vignette/anchor ad units can open their landing pages.
+    'googleads.g.doubleclick.net',
+    'googlesyndication.com',
+    'adtrafficquality.google',
+    'googleadservices.com',
+    'doubleclick.net',
+    'google.com'
   ];
 
   // Known popunder / forced-redirect networks. Used for detection + logging so a
@@ -87,6 +97,52 @@
     return !!(e && e.isTrusted);
   }
 
+  /* ------------------------------------------ Google AdSense frame detector */
+  // Returns true if `el` or any ancestor looks like a Google AdSense/DoubleClick
+  // frame or node. When true, the guard skips sandboxing and overlay removal so
+  // AdSense CPC clicks, vignettes, and anchor ad units work correctly.
+  const ADSENSE_SRC_HOSTS = [
+    'googlesyndication.com',
+    'doubleclick.net',
+    'adtrafficquality.google',
+    'google.com'
+  ];
+
+  function isGoogleAdSenseFrameOrNode(el) {
+    try {
+      let node = el;
+      while (node && node.nodeType === 1) {
+        const id = node.id || '';
+        // id-based detection
+        if (
+          id.startsWith('aswift_') ||
+          id.startsWith('google_ads_iframe') ||
+          id.startsWith('google_esf')
+        ) return true;
+
+        // class / tag based detection
+        const cls = typeof node.className === 'string' ? node.className : '';
+        if (cls.includes('adsbygoogle')) return true;
+        if (node.tagName === 'INS' && node.classList && node.classList.contains('adsbygoogle')) return true;
+        if (node.hasAttribute && node.hasAttribute('data-ad-client')) return true;
+
+        // iframe src hostname detection
+        if (node.tagName === 'IFRAME') {
+          const src = node.src || '';
+          if (src) {
+            try {
+              const h = new URL(src).hostname.toLowerCase();
+              if (ADSENSE_SRC_HOSTS.some((ah) => h === ah || h.endsWith('.' + ah))) return true;
+            } catch (_) {}
+          }
+        }
+
+        node = node.parentElement;
+      }
+    } catch (_) {}
+    return false;
+  }
+
   /* ---------------------------------------------------------------- 2. window.open */
   // Installed non-configurable: with same-origin ad frames on the page, a
   // hostile creative must not be able to delete/overwrite this wrapper.
@@ -118,6 +174,9 @@
   function sandboxFrame(frame) {
     if (!frame || frame.tagName !== 'IFRAME') return;
     if (frame.dataset.adGuardSealed === '1') return;
+    // Google AdSense / DoubleClick frames must NOT be sandboxed: doing so breaks
+    // CPC click-through, vignette ad units, and anchor ad units.
+    if (isGoogleAdSenseFrameOrNode(frame)) return;
     const current = frame.getAttribute('sandbox');
     // Never strip a sandbox an author set deliberately.
     if (current && current !== 'allow-scripts allow-same-origin') return;
@@ -207,6 +266,10 @@
     try {
       document.querySelectorAll('body > div, body > a, body > span, body > iframe').forEach((el) => {
         if (el.id === 'video-modal' || el.id === 'bday-embed-modal' || el.id === 'banner') return;
+        // Preserve our in-page push toast and all Google AdSense ad units
+        // (vignettes, anchor ads) which are legit full-screen / fixed overlays.
+        if (el.id === 'ms-inpage-push') return;
+        if (isGoogleAdSenseFrameOrNode(el)) return;
         if (el.closest(OURS)) return;
         const cs = getComputedStyle(el);
         if (cs.position !== 'fixed' && cs.position !== 'absolute') return;
@@ -230,9 +293,39 @@
   }
 
   /* --------------------------------------------------------------- wiring */
+  function injectAdSense() {
+    // Skip on localhost / 127.0.0.1 (dev environment).
+    const hostname = location.hostname;
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '') return;
+
+    // Skip when owner ad-free mode is active (either URL param or localStorage).
+    // ?owner=1 is checked first so the owner NEVER self-triggers AdSense impressions.
+    if (location.search.includes('owner=1')) return;
+    try {
+      if (typeof localStorage !== 'undefined' && localStorage.getItem('ms_owner_noads') === '1') return;
+    } catch (_) {}
+
+    // Skip inside the /ads/ and /embed/ wrapper documents themselves.
+    const pn = location.pathname;
+    if (pn.startsWith('/ads/') || pn.startsWith('/embed/')) return;
+
+    // Skip if AdSense is already on the page (avoid double-loading).
+    if (document.querySelector('script[src*="adsbygoogle.js"]')) return;
+
+    // Inject the AdSense loader into <head>.
+    const s = document.createElement('script');
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    s.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8397501846754760';
+    document.head.appendChild(s);
+  }
+
   function init() {
     sweepFrames(document);
     cleanRogueOverlays();
+
+    // Inject Google AdSense loader (safe, guarded against owner mode & dev).
+    injectAdSense();
 
     if (typeof MutationObserver !== 'undefined') {
       const mo = new MutationObserver((muts) => {

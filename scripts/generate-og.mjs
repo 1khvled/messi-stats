@@ -71,8 +71,8 @@ arg_goals = ${argGoals}
 formatted_date = ${JSON.stringify(formattedDate)}
 
 W, H = 1200, 630
-NAVY, GOLD, PAPER, MUTED = (22, 36, 58), (238, 194, 47), (244, 240, 232), (159, 176, 199)
-img = Image.new("RGB", (W, H), NAVY)
+OBSIDIAN, GOLD, PAPER, MUTED = (12, 12, 14), (238, 194, 47), (244, 240, 232), (161, 161, 170)
+img = Image.new("RGB", (W, H), OBSIDIAN)
 px = img.load()
 
 # Faint top-light falloff

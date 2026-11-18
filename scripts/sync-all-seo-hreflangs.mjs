@@ -5,9 +5,10 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
-const LANGS = ["en", "es", "pt", "fr"];
+const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar"];
 
 const SUBPAGES = [
+  "index",
   "dashboard",
   "goalsbyseason",
   "goalsbyyear",
@@ -16,10 +17,12 @@ const SUBPAGES = [
   "birthday",
   "messi-vs-ronaldo",
   "vs-real-madrid",
+  "champions-league",
+  "latest-goal",
   "gear"
 ];
 
-// 15 reciprocal hreflangs
+// 20 reciprocal hreflang tags across 7 locales
 function getHreflangTags(pageSlug) {
   const slugPath = pageSlug === "index" || !pageSlug ? "" : `/${pageSlug}`;
   return [
@@ -37,6 +40,11 @@ function getHreflangTags(pageSlug) {
     `<link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr${slugPath}"/>`,
     `<link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr${slugPath}"/>`,
     `<link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr${slugPath}"/>`,
+    `<link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro${slugPath}"/>`,
+    `<link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro${slugPath}"/>`,
+    `<link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz${slugPath}"/>`,
+    `<link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar${slugPath}"/>`,
+    `<link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar${slugPath}"/>`,
     `<link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en${slugPath}"/>`
   ].join("\n");
 }
@@ -58,11 +66,12 @@ function updateFileHreflangs(filePath, lang, slug) {
   content = content.replace(/<link[^>]+hreflang=["'][^"']+["'][^>]*>\s*/gi, "");
   content = content.replace(/<link[^>]+rel=["']alternate["'][^>]+hreflang=["'][^"']+["'][^>]*>\s*/gi, "");
 
-  // Insert fresh block right after <head> or after meta description if present
   const block = `\n${canonicalTag}\n${hreflangs}\n`;
 
   if (/<meta[^>]+name=["']description["'][^>]*>/i.test(content)) {
     content = content.replace(/(<meta[^>]+name=["']description["'][^>]*>)/i, `$1${block}`);
+  } else if (/<meta[^>]+content=["'][^"']*["'][^>]+name=["']description["'][^>]*>/i.test(content)) {
+    content = content.replace(/(<meta[^>]+content=["'][^"']*["'][^>]+name=["']description["'][^>]*>)/i, `$1${block}`);
   } else if (/<head[^>]*>/i.test(content)) {
     content = content.replace(/(<head[^>]*>)/i, `$1${block}`);
   }
@@ -70,22 +79,14 @@ function updateFileHreflangs(filePath, lang, slug) {
   fs.writeFileSync(filePath, content, "utf8");
 }
 
-// 1. Update root English files
 for (const sub of SUBPAGES) {
   updateFileHreflangs(path.join(rootDir, `${sub}.html`), "en", sub);
 }
 
-// 2. Update Spanish files
-for (const sub of SUBPAGES) {
-  updateFileHreflangs(path.join(rootDir, "es", `${sub}.html`), "es", sub);
-}
-
-// 3. Update the remaining generated languages
-const otherLangs = ["pt", "fr"];
-for (const l of otherLangs) {
+for (const l of LANGS.filter((x) => x !== "en")) {
   for (const sub of SUBPAGES) {
     updateFileHreflangs(path.join(rootDir, l, `${sub}.html`), l, sub);
   }
 }
 
-console.log("Synchronized canonicals and 15 hreflang tags across all four languages and 8 subpages!");
+console.log("Synchronized canonicals and 20 hreflang tags across all 7 languages and 12 pages (84 files)!");

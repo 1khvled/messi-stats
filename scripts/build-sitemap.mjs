@@ -7,7 +7,7 @@ const rootDir = path.resolve(__dirname, "..");
 const publicSitemap = path.join(rootDir, "public", "sitemap.xml");
 const distSitemap = path.join(rootDir, "dist", "sitemap.xml");
 
-const LANGS = ["en", "es", "pt", "fr"];
+const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar"];
 
 const todayIso = new Date().toISOString().split("T")[0];
 
@@ -50,22 +50,28 @@ const SUBPAGES = [
 ];
 
 function getHreflangsXml(slugPath) {
+  const base = "https://www.messistat.com";
   return [
-    `    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr${slugPath}" />`,
-    `    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en${slugPath}" />`
+    `    <xhtml:link rel="alternate" hreflang="en" href="${base}/en${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="en-US" href="${base}/en${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="en-NG" href="${base}/en${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="en-IN" href="${base}/en${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="en-PH" href="${base}/en${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="es" href="${base}/es${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="es-AR" href="${base}/es${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="es-ES" href="${base}/es${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="pt" href="${base}/pt${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="pt-BR" href="${base}/pt${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="pt-PT" href="${base}/pt${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="fr" href="${base}/fr${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="fr-FR" href="${base}/fr${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="fr-NE" href="${base}/fr${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="ro" href="${base}/ro${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="ro-RO" href="${base}/ro${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="uz" href="${base}/uz${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="ar" href="${base}/ar${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="ar-EG" href="${base}/ar${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="x-default" href="${base}/en${slugPath}" />`
   ].join("\n");
 }
 
@@ -219,6 +225,21 @@ const videoMeta = {
     title: `Dernier But de Lionel Messi : But #${LG_NUM} contre ${LG_OPP}`,
     desc: `Regardez le but #${LG_NUM} de Lionel Messi : une frappe ${LG_FINISH.toLowerCase()} pour ${LG_TEAM} contre ${LG_OPP} en ${LG_COMP} le ${LG_DATE}.`,
     tags: ["Lionel Messi", `But ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Dernier but de Messi"]
+  },
+  ro: {
+    title: `Ultimul Gol al lui Lionel Messi: Golul #${LG_NUM} vs ${LG_OPP}`,
+    desc: `Urmărește golul #${LG_NUM} al lui Lionel Messi pentru ${LG_TEAM} împotriva ${LG_OPP} în ${LG_COMP} pe ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Golul ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Ultimul gol Messi"]
+  },
+  uz: {
+    title: `Lionel Messining So'nggi Goli: #${LG_NUM}-gol vs ${LG_OPP}`,
+    desc: `Lionel Messining ${LG_DATE} kuni ${LG_COMP} da ${LG_TEAM} safida ${LG_OPP} ga urgan #${LG_NUM}-golini tomosha qiling.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Messi so'nggi goli"]
+  },
+  ar: {
+    title: `آخر هدف لليونيل ميسي: هدف #${LG_NUM} ضد ${LG_OPP}`,
+    desc: `شاهد هدف ليونيل ميسي رقم #${LG_NUM} مع ${LG_TEAM} ضد ${LG_OPP} في ${LG_COMP} بتاريخ ${LG_DATE}.`,
+    tags: ["Lionel Messi", `هدف ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "آخر هدف ميسي"]
   }
 };
 
@@ -266,7 +287,7 @@ urlBlocks.push(`  <url>
 // 3. Other languages: Homepage + Subpages
 // Number rendering per locale (each remaining locale uses its group separator).
 const groupNum = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " " };
+const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " ", ro: ".", uz: " ", ar: "," };
 const num = (_l, n) => String(n);
 const appsNum = (l) => groupNum(CAREER_APPS, APPS_SEP[l] || ",");
 const trophyNum = (l) => num(l, CAREER_TROPHIES);
@@ -287,10 +308,25 @@ const langHomeMeta = {
     priority: "0.95",
     title: `Buts de Messi : ${num("fr", CAREER_GOALS)} Buts Officiels en Direct`,
     caption: `Statistiques complètes de la carrière de Lionel Messi : ${num("fr", CAREER_GOALS)} buts en ${appsNum("fr")} matchs officiels, ${trophyNum("fr")} trophées collectifs et ${ballonNum("fr")} Ballons d'Or.`
+  },
+  ro: {
+    priority: "0.95",
+    title: `Goluri Messi: ${num("ro", CAREER_GOALS)} Goluri Oficiale Live`,
+    caption: `Statistici complete din cariera lui Lionel Messi: ${num("ro", CAREER_GOALS)} goluri în ${appsNum("ro")} meciuri oficiale, ${trophyNum("ro")} trofee și ${ballonNum("ro")} Baloane de Aur.`
+  },
+  uz: {
+    priority: "0.95",
+    title: `Lionel Messi Gollari: ${num("uz", CAREER_GOALS)} ta Rasmiy Gol`,
+    caption: `Lionel Messining to'liq karyera statistikasi: ${appsNum("uz")} ta o'yinda ${num("uz", CAREER_GOALS)} ta gol, ${trophyNum("uz")} ta kubok va ${ballonNum("uz")} ta Oltin To'p.`
+  },
+  ar: {
+    priority: "0.95",
+    title: `أهداف ميسي: ${num("ar", CAREER_GOALS)} هدفاً رسمياً مباشرة`,
+    caption: `إحصائيات مسيرة ليونيل ميسي الكاملة: ${num("ar", CAREER_GOALS)} هدفاً في ${appsNum("ar")} مباراة رسمية، ${trophyNum("ar")} لقباً و${ballonNum("ar")} كرات ذهبية.`
   }
 };
 
-for (const lang of ["es", "pt", "fr"]) {
+for (const lang of ["es", "pt", "fr", "ro", "uz", "ar"]) {
   const meta = langHomeMeta[lang];
   // Homepage
   urlBlocks.push(`  <url>
