@@ -6,56 +6,154 @@ import { inject } from "@vercel/analytics";
 import { injectSpeedInsights } from "@vercel/speed-insights";
 inject(); // page-view counting; no-ops off Vercel (script 404s silently in local preview)
 injectSpeedInsights(); // Core Web Vitals; same deal — production only, silent locally
-/* Theme manager (Dark / Light mode) with localStorage persistence and OS sync */
+/* Theme manager (Dark / Light mode) synced with <meta name="color-scheme"> & OS preference */
+function syncColorSchemeMeta(mode) {
+  if (typeof document === "undefined") return;
+  let csMeta = document.querySelector('meta[name="color-scheme"]');
+  if (!csMeta && document.head) {
+    csMeta = document.createElement("meta");
+    csMeta.setAttribute("name", "color-scheme");
+    document.head.appendChild(csMeta);
+  }
+  if (csMeta) {
+    csMeta.setAttribute("content", mode === "dark" || mode === "light" ? mode : "light dark");
+  }
+}
+
 function initTheme() {
-  const getPreferred = () => {
+  const getSystemScheme = () =>
+    window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+
+  const getStoredOverride = () => {
     try {
       const saved = localStorage.getItem("theme");
       if (saved === "dark" || saved === "light") return saved;
     } catch (_) {}
-    return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    return null;
   };
 
-  const applyTheme = (theme) => {
-    if (theme === "dark") {
+  const getResolved = () => getStoredOverride() || getSystemScheme();
+
+  const applyTheme = (resolved, storedOverride) => {
+    if (resolved === "dark") {
       document.documentElement.setAttribute("data-theme", "dark");
     } else {
       document.documentElement.removeAttribute("data-theme");
     }
-    // Keep the mobile browser chrome in step with the theme (pure black in dark).
+    syncColorSchemeMeta(storedOverride || "light dark");
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute("content", theme === "dark" ? "#000000" : "#16243a");
+    if (meta) meta.setAttribute("content", resolved === "dark" ? "#090b0e" : "#16243a");
     const btns = document.querySelectorAll(".theme-toggle");
     btns.forEach((btn) => {
       const label = btn.querySelector(".theme-label");
-      if (label) label.textContent = theme === "dark" ? "Light mode" : "Dark mode";
-      btn.setAttribute("aria-label", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
-      btn.setAttribute("title", theme === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      if (label) label.textContent = resolved === "dark" ? "Light mode" : "Dark mode";
+      btn.setAttribute("aria-label", resolved === "dark" ? "Switch to light mode" : "Switch to dark mode");
+      btn.setAttribute("title", resolved === "dark" ? "Switch to light mode" : "Switch to dark mode");
     });
   };
 
-  applyTheme(getPreferred());
+  const toggleTheme = () => {
+    const current = getResolved();
+    const target = current === "dark" ? "light" : "dark";
+    const sys = getSystemScheme();
+    let stored = null;
+    try {
+      if (target === sys) {
+        localStorage.removeItem("theme");
+      } else {
+        localStorage.setItem("theme", target);
+        stored = target;
+      }
+    } catch (_) {}
+    applyTheme(target, stored);
+  };
+
+  if (typeof window !== "undefined") {
+    window.__toggleMessiTheme = toggleTheme;
+  }
+
+  applyTheme(getResolved(), getStoredOverride());
 
   document.addEventListener("click", (e) => {
     const btn = e.target.closest(".theme-toggle");
     if (!btn) return;
-    const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-    const next = current === "dark" ? "light" : "dark";
-    try { localStorage.setItem("theme", next); } catch (_) {}
-    applyTheme(next);
+    toggleTheme();
   });
 
   if (window.matchMedia) {
     try {
       window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (e) => {
-        try {
-          if (!localStorage.getItem("theme")) applyTheme(e.matches ? "dark" : "light");
-        } catch (_) {}
+        if (!getStoredOverride()) {
+          applyTheme(e.matches ? "dark" : "light", null);
+        }
       });
     } catch (_) {}
   }
 }
 initTheme();
+
+/* Sidebar 2.0 collapse/expand state (zero-CLS early apply + delegated toggle) */
+const RAIL_COLLAPSE_KEY = "messistat_rail_collapsed";
+
+function syncSidebarCollapseState(collapsed) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  if (collapsed) {
+    root.setAttribute("data-rail", "collapsed");
+  } else if (root.getAttribute("data-rail") === "collapsed") {
+    root.removeAttribute("data-rail");
+  }
+  const expanded = collapsed ? "false" : "true";
+  document.querySelectorAll("#rail-collapse-btn, .rail-collapse-btn").forEach((btn) => {
+    btn.setAttribute("aria-expanded", expanded);
+  });
+}
+
+function readSidebarCollapsed() {
+  try {
+    return localStorage.getItem(RAIL_COLLAPSE_KEY) === "1";
+  } catch (_) {
+    return false;
+  }
+}
+
+function initSidebarCollapse() {
+  if (typeof window === "undefined" || typeof document === "undefined") return;
+  syncSidebarCollapseState(readSidebarCollapsed());
+
+  if (document.readyState === "loading" && !window.__messiRailCollapseDclBound) {
+    window.__messiRailCollapseDclBound = true;
+    document.addEventListener("DOMContentLoaded", () => {
+      syncSidebarCollapseState(readSidebarCollapsed());
+    }, { once: true });
+  }
+
+  if (window.__messiRailCollapseBound) return;
+  window.__messiRailCollapseBound = true;
+
+  let relayoutTimer = null;
+  document.addEventListener("click", (e) => {
+    const btn = e.target && typeof e.target.closest === "function"
+      ? e.target.closest("#rail-collapse-btn, .rail-collapse-btn")
+      : null;
+    if (!btn) return;
+    const nextCollapsed = document.documentElement.getAttribute("data-rail") !== "collapsed";
+    try {
+      if (nextCollapsed) {
+        localStorage.setItem(RAIL_COLLAPSE_KEY, "1");
+      } else {
+        localStorage.removeItem(RAIL_COLLAPSE_KEY);
+      }
+    } catch (_) {}
+    syncSidebarCollapseState(nextCollapsed);
+    if (relayoutTimer) clearTimeout(relayoutTimer);
+    relayoutTimer = setTimeout(() => {
+      window.dispatchEvent(new Event("messi:spark-relayout"));
+    }, 220);
+  });
+}
+
+initSidebarCollapse();
 
 // ---------- High-Yield Monetization Architecture ----------
 function initMonetizationUnits() {
@@ -236,6 +334,20 @@ function centerActiveNav() {
   }
 }
 
+function bindDialogLightDismissFallback(dialog) {
+  if (!dialog || dialog.dataset.lbBound === "1") return;
+  dialog.dataset.lbBound = "1";
+  if (!("closedBy" in HTMLDialogElement.prototype)) {
+    const outside = (e) => {
+      const r = dialog.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    let pressedOutside = false;
+    dialog.addEventListener("pointerdown", (e) => { pressedOutside = outside(e); });
+    dialog.addEventListener("pointerup", (e) => { if (pressedOutside && outside(e)) dialog.close(); });
+  }
+}
+
 function ensureLangModal() {
   if (typeof document === "undefined") return null;
   let langModal = document.getElementById("lang-modal");
@@ -243,13 +355,10 @@ function ensureLangModal() {
 
   const curLangCode = getCurrentLangCode();
 
-  langModal = document.createElement("div");
+  langModal = document.createElement("dialog");
   langModal.id = "lang-modal";
-  langModal.className = "lang-modal-backdrop";
-  langModal.hidden = true;
-  langModal.setAttribute("aria-hidden", "true");
-  langModal.setAttribute("role", "dialog");
-  langModal.setAttribute("aria-modal", "true");
+  langModal.className = "lang-modal-dialog";
+  langModal.setAttribute("closedby", "any");
   langModal.setAttribute("aria-labelledby", "lang-modal-heading");
 
   let cardsHtml = "";
@@ -291,6 +400,7 @@ function ensureLangModal() {
 
   if (document.body) {
     document.body.appendChild(langModal);
+    bindDialogLightDismissFallback(langModal);
   }
   return langModal;
 }
@@ -298,17 +408,21 @@ function ensureLangModal() {
 function openLangModal() {
   const modal = ensureLangModal();
   if (!modal) return;
-  modal.hidden = false;
-  modal.setAttribute("aria-hidden", "false");
-  if (document.body) document.body.style.overflow = "hidden";
+  if (typeof modal.showModal === "function" && !modal.open) {
+    modal.showModal();
+  } else {
+    modal.setAttribute("open", "");
+  }
 }
 
 function closeLangModal() {
   const modal = document.getElementById("lang-modal");
   if (!modal) return;
-  modal.hidden = true;
-  modal.setAttribute("aria-hidden", "true");
-  if (document.body) document.body.style.overflow = "";
+  if (typeof modal.close === "function" && modal.open) {
+    modal.close();
+  } else {
+    modal.removeAttribute("open");
+  }
 }
 
 function ensureMobileMenuDrawer() {
@@ -322,14 +436,14 @@ function ensureMobileMenuDrawer() {
       statApps: "Senior Apps",
       statTrophies: "Trophies",
       statBallons: "Ballons d'Or",
-      catFeatured: "Featured ⚡",
-      catHistory: "History & Trophies 🏆",
-      catStats: "Big Matches & Stats 📊",
+      catFeatured: "Featured",
+      catHistory: "History & Trophies",
+      catStats: "Big Matches & Stats",
       home: "Career Home & Stats",
       vsRonaldo: "Messi vs Ronaldo",
       latestGoal: "Latest Goal Replay",
       birthday: "Birthday Goals Explorer",
-    days: "All 366 Days",
+      days: "All 366 Days",
       achievements: "All 47 Trophies & Awards",
       timeline: "Career Timeline & Photos",
       goalsByYear: "Goals by Calendar Year",
@@ -337,7 +451,7 @@ function ensureMobileMenuDrawer() {
       dashboard: "Deep Stats & Analytics",
       vsRealMadrid: "vs Real Madrid (El Clásico)",
       championsLeague: "Champions League Hub",
-      toggleTheme: "🌓 Toggle Dark Mode"
+      toggleTheme: "Toggle Dark / Light"
     },
     es: {
       menuTitle: "Menú Messi<b>Stats</b>",
@@ -345,14 +459,14 @@ function ensureMobileMenuDrawer() {
       statApps: "Partidos",
       statTrophies: "Títulos",
       statBallons: "Balones de Oro",
-      catFeatured: "Destacado ⚡",
-      catHistory: "Historia y Títulos 🏆",
-      catStats: "Partidos y Análisis 📊",
+      catFeatured: "Destacado",
+      catHistory: "Historia y Títulos",
+      catStats: "Partidos y Análisis",
       home: "Inicio y Estadísticas",
       vsRonaldo: "Messi vs Ronaldo",
       latestGoal: "Último Gol Replay",
       birthday: "Goles en tu Cumpleaños",
-    days: "Los 366 días",
+      days: "Los 366 días",
       achievements: "Los 47 Títulos y Premios",
       timeline: "Línea de Tiempo y Fotos",
       goalsByYear: "Goles por Año Calendario",
@@ -360,7 +474,7 @@ function ensureMobileMenuDrawer() {
       dashboard: "Panel de Análisis Avanzado",
       vsRealMadrid: "vs Real Madrid (El Clásico)",
       championsLeague: "Champions League Hub",
-      toggleTheme: "🌓 Cambiar Modo Oscuro"
+      toggleTheme: "Cambiar Tema"
     },
     pt: {
       menuTitle: "Menu Messi<b>Stats</b>",
@@ -368,14 +482,14 @@ function ensureMobileMenuDrawer() {
       statApps: "Partidas",
       statTrophies: "Títulos",
       statBallons: "Bolas de Ouro",
-      catFeatured: "Destaques ⚡",
-      catHistory: "História e Títulos 🏆",
-      catStats: "Grandes Jogos e Dados 📊",
+      catFeatured: "Destaques",
+      catHistory: "História e Títulos",
+      catStats: "Grandes Jogos e Dados",
       home: "Início e Estatísticas",
       vsRonaldo: "Messi vs Ronaldo",
       latestGoal: "Último Gol Replay",
       birthday: "Gols no Aniversário",
-    days: "Os 366 dias",
+      days: "Os 366 dias",
       achievements: "Todos os 47 Títulos",
       timeline: "Linha do Tempo e Fotos",
       goalsByYear: "Gols por Ano",
@@ -383,7 +497,7 @@ function ensureMobileMenuDrawer() {
       dashboard: "Painel de Análise",
       vsRealMadrid: "vs Real Madrid (El Clásico)",
       championsLeague: "Champions League Hub",
-      toggleTheme: "🌓 Alternar Modo Escuro"
+      toggleTheme: "Alternar Tema"
     },
     fr: {
       menuTitle: "Menu Messi<b>Stats</b>",
@@ -391,14 +505,14 @@ function ensureMobileMenuDrawer() {
       statApps: "Matchs",
       statTrophies: "Trophées",
       statBallons: "Ballons d'Or",
-      catFeatured: "En Vedette ⚡",
-      catHistory: "Histoire & Trophées 🏆",
-      catStats: "Grands Matchs & Stats 📊",
+      catFeatured: "En Vedette",
+      catHistory: "Histoire & Trophées",
+      catStats: "Grands Matchs & Stats",
       home: "Accueil & Statistiques",
       vsRonaldo: "Messi vs Ronaldo",
       latestGoal: "Dernier But Replay",
       birthday: "Buts par Anniversaire",
-    days: "Les 366 jours",
+      days: "Les 366 jours",
       achievements: "Tous les 47 Trophées",
       timeline: "Chronologie & Photos",
       goalsByYear: "Buts par Année Civile",
@@ -406,7 +520,7 @@ function ensureMobileMenuDrawer() {
       dashboard: "Tableau de Bord & Analyses",
       vsRealMadrid: "vs Real Madrid (El Clásico)",
       championsLeague: "Hub Ligue des Champions",
-      toggleTheme: "🌓 Basculer Mode Sombre"
+      toggleTheme: "Basculer le Thème"
     }
   };
 
@@ -419,30 +533,28 @@ function ensureMobileMenuDrawer() {
     {
       title: txt.catFeatured,
       items: [
-        { href: getLangUrl(curLangCode), label: txt.home, badge: "930 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
+        { href: getLangUrl(curLangCode), label: txt.home, badge: `${n(LIVE.goals)}`, icon: `<svg viewBox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg>` },
         { href: `/${curLangCode}/messi-vs-ronaldo`, label: txt.vsRonaldo, badge: "GOAT", icon: `<svg viewBox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg>` },
-        { href: `/${curLangCode}/latest-goal`, label: txt.latestGoal, badge: "LIVE ⚡", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
-        { href: `/${curLangCode}/birthday`, label: txt.birthday, badge: "HOT 🔥", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` },
-    // Always /en/days: the 366 day pages (and this hub) are English-only by design,
-    // so this must NOT be built from curLangCode or localized pages would 404.
-    { href: "/en/days", label: txt.days, badge: "366 Days", icon: `<svg viewBox="0 0 24 24"><rect height="17.5" rx="2" width="17.5" x="3.25" y="3.25"></rect><path d="M3.25 8.5h17.5M8 3.25v17.5M16 3.25v17.5"></path></svg>` }
+        { href: `/${curLangCode}/latest-goal`, label: txt.latestGoal, badge: "LIVE", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg>` },
+        { href: `/${curLangCode}/birthday`, label: txt.birthday, badge: "366d", icon: `<svg viewBox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg>` },
+        { href: "/en/days", label: txt.days, badge: "Index", icon: `<svg viewBox="0 0 24 24"><rect height="17.5" rx="2" width="17.5" x="3.25" y="3.25"></rect><path d="M3.25 8.5h17.5M8 3.25v17.5M16 3.25v17.5"></path></svg>` }
       ]
     },
     {
       title: txt.catHistory,
       items: [
-        { href: `/${curLangCode}/achievements`, label: txt.achievements, badge: "47 Cups", icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` },
-        { href: `/${curLangCode}/timeline`, label: txt.timeline, badge: "2004-2026", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
-        { href: `/${curLangCode}/goalsbyyear`, label: txt.goalsByYear, badge: "91 in 2012", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
-        { href: `/${curLangCode}/goalsbyseason`, label: txt.goalsBySeason, badge: "22 Yrs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` }
+        { href: `/${curLangCode}/achievements`, label: txt.achievements, badge: `${LIVE.trophies}`, icon: `<svg viewBox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg>` },
+        { href: `/${curLangCode}/timeline`, label: txt.timeline, badge: "2004–26", icon: `<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyyear`, label: txt.goalsByYear, badge: "91 in '12", icon: `<svg viewBox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg>` },
+        { href: `/${curLangCode}/goalsbyseason`, label: txt.goalsBySeason, badge: "23 Yrs", icon: `<svg viewBox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg>` }
       ]
     },
     {
       title: txt.catStats,
       items: [
-        { href: `/${curLangCode}/dashboard`, label: txt.dashboard, badge: "Hub", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
-        { href: `/${curLangCode}/vs-real-madrid`, label: txt.vsRealMadrid, badge: "26 Goals", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
-        { href: `/${curLangCode}/champions-league`, label: txt.championsLeague, badge: "129 Goals", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
+        { href: `/${curLangCode}/dashboard`, label: txt.dashboard, badge: "Analytics", icon: `<svg viewBox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg>` },
+        { href: `/${curLangCode}/vs-real-madrid`, label: txt.vsRealMadrid, badge: "26G", icon: `<svg viewBox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg>` },
+        { href: `/${curLangCode}/champions-league`, label: txt.championsLeague, badge: "129G", icon: `<svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>` }
       ]
     }
   ];
@@ -463,13 +575,13 @@ function ensureMobileMenuDrawer() {
     catHtml += `</div>`;
   }
 
-  drawer = document.createElement("div");
+  drawer = document.createElement("dialog");
   drawer.id = "mobile-nav-drawer";
-  drawer.className = "mobile-drawer-backdrop";
-  drawer.hidden = true;
-  drawer.setAttribute("aria-hidden", "true");
+  drawer.className = "mobile-drawer-dialog";
+  drawer.setAttribute("closedby", "any");
+  drawer.setAttribute("aria-label", "Navigation Menu");
   drawer.innerHTML = `
-    <div class="mobile-drawer-sheet" role="dialog" aria-modal="true" aria-label="Navigation Menu">
+    <div class="mobile-drawer-sheet">
       <div class="mobile-drawer-header">
         <div class="mobile-drawer-brand">
           <img src="/img/logo.png" alt="MessiStats Logo" width="28" height="28" style="object-fit:contain;border-radius:4px;flex:0 0 28px;"/>
@@ -511,34 +623,41 @@ function ensureMobileMenuDrawer() {
   `;
 
   document.body.appendChild(drawer);
+  bindDialogLightDismissFallback(drawer);
+  drawer.addEventListener("close", () => {
+    const menuBtn = document.getElementById("mobile-menu-btn");
+    if (menuBtn) {
+      menuBtn.classList.remove("active");
+      menuBtn.setAttribute("aria-expanded", "false");
+    }
+  });
   return drawer;
 }
 
 function openMobileMenuDrawer() {
   const drawer = ensureMobileMenuDrawer();
-    ensureMobileMoreNavBtn();
+  ensureMobileMoreNavBtn();
   if (!drawer) return;
-  drawer.hidden = false;
-  drawer.setAttribute("aria-hidden", "false");
+  if (typeof drawer.showModal === "function" && !drawer.open) {
+    drawer.showModal();
+  } else {
+    drawer.setAttribute("open", "");
+  }
   const menuBtn = document.getElementById("mobile-menu-btn");
   if (menuBtn) {
     menuBtn.classList.add("active");
     menuBtn.setAttribute("aria-expanded", "true");
   }
-  if (document.body) document.body.style.overflow = "hidden";
 }
 
 function closeMobileMenuDrawer() {
   const drawer = document.getElementById("mobile-nav-drawer");
   if (!drawer) return;
-  drawer.hidden = true;
-  drawer.setAttribute("aria-hidden", "true");
-  const menuBtn = document.getElementById("mobile-menu-btn");
-  if (menuBtn) {
-    menuBtn.classList.remove("active");
-    menuBtn.setAttribute("aria-expanded", "false");
+  if (typeof drawer.close === "function" && drawer.open) {
+    drawer.close();
+  } else {
+    drawer.removeAttribute("open");
   }
-  if (document.body) document.body.style.overflow = "";
 }
 
 
@@ -578,18 +697,55 @@ function ensureMobileMoreNavBtn() {
 function ensureDesktopBrandHeader() {
   if (typeof document === "undefined") return;
   const wrap = document.querySelector("#main.wrap") || document.querySelector(".wrap");
-  if (!wrap || wrap.querySelector(".desktop-brand-header")) return;
-
+  if (!wrap) return;
   const curLang = getCurrentLangCode();
-  const brandHeader = document.createElement("div");
+  const searchPrompts = {
+    en: "Search 937 goals, years, rivals…",
+    es: "Buscar 937 goles, años, rivales…",
+    pt: "Buscar 937 gols, anos, rivais…",
+    fr: "Rechercher 937 buts, années, rivaux…"
+  };
+  const existing = wrap.querySelector(".desktop-brand-header");
+  if (existing) {
+    if (!existing.querySelector(".masthead-actions")) {
+      const actions = document.createElement("div");
+      actions.className = "masthead-actions";
+      actions.innerHTML = `
+        <button type="button" class="masthead-search-trigger" data-open-cmd aria-label="Quick Search">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg>
+          <span>${searchPrompts[curLang] || searchPrompts.en}</span>
+          <kbd>⌘K</kbd>
+        </button>
+        <a href="/${curLang}/latest-goal" class="masthead-live-pill">
+          <span class="live-dot-mini" aria-hidden="true"></span>
+          <span>#<b class="tnum" data-live-goal-num>${LIVE.goals}</b> ▶</span>
+        </a>
+      `;
+      existing.appendChild(actions);
+    }
+    return;
+  }
+
+  const brandHeader = document.createElement("header");
   brandHeader.className = "desktop-brand-header";
   brandHeader.innerHTML = `
     <a href="${getLangUrl(curLang)}" class="desktop-brand-logo-link" aria-label="MessiStat Home">
-      <img src="/img/logo.png" alt="MessiStat Logo" class="desktop-brand-logo" width="48" height="48" />
+      <img src="/img/logo.png" alt="MessiStat Logo" class="desktop-brand-logo" width="40" height="40" />
     </a>
     <div class="desktop-brand-titles">
       <div class="desktop-brand-name">Messi<span>Stat</span></div>
-      <div class="desktop-brand-sub">The Verified Lionel Messi Statistics &amp; Video Database</div>
+      <div class="desktop-brand-sub">Verified Career Archive &amp; Video Database</div>
+    </div>
+    <div class="masthead-actions">
+      <button type="button" class="masthead-search-trigger" data-open-cmd aria-label="Quick Search">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg>
+        <span>${searchPrompts[curLang] || searchPrompts.en}</span>
+        <kbd>⌘K</kbd>
+      </button>
+      <a href="/${curLang}/latest-goal" class="masthead-live-pill">
+        <span class="live-dot-mini" aria-hidden="true"></span>
+        <span>#<b class="tnum" data-live-goal-num>${LIVE.goals}</b> ▶</span>
+      </a>
     </div>
   `;
   wrap.prepend(brandHeader);
@@ -640,178 +796,9 @@ if (typeof window !== "undefined") {
 }
 
 function initDonationPopup() {
-  if (typeof window === "undefined" || typeof document === "undefined") return;
-
-  const DISMISS_KEY = "messistat_donation_dismissed";
-  const SHOWN_KEY = "messistat_donation_shown";
-  const PAGEVIEWS_KEY = "messistat_pv_count";
-  const TARGET_TIME_MS = 25000; // 25s (optimized for actual visitor dwell time)
-
-  try {
-    const dismissedTime = localStorage.getItem(DISMISS_KEY);
-    if (dismissedTime && (Date.now() - parseInt(dismissedTime, 10) < 24 * 60 * 60 * 1000)) {
-      return;
-    }
-    if (sessionStorage.getItem(SHOWN_KEY) === "true") {
-      return;
-    }
-  } catch (_) {}
-
-  // Track session pageview depth
-  let pvs = 1;
-  try {
-    pvs = parseInt(sessionStorage.getItem(PAGEVIEWS_KEY) || "0", 10) + 1;
-    sessionStorage.setItem(PAGEVIEWS_KEY, String(pvs));
-  } catch (_) {}
-
-  let triggered = false;
-  const triggerPopup = () => {
-    if (triggered) return;
-    try {
-      if (sessionStorage.getItem(SHOWN_KEY) === "true") return;
-      const dismissed = localStorage.getItem(DISMISS_KEY);
-      if (dismissed && (Date.now() - parseInt(dismissed, 10) < 24 * 60 * 60 * 1000)) return;
-      triggered = true;
-      sessionStorage.setItem(SHOWN_KEY, "true");
-      showDonationPopup();
-    } catch (_) {}
-  };
-
-  // 1. Dwell-time trigger: 25s for first landing, 10s if already browsing 2nd+ page
-  const timerDelay = pvs > 1 ? 10000 : TARGET_TIME_MS;
-  const timer = setTimeout(triggerPopup, timerDelay);
-
-  // 2. Scroll-depth engagement trigger: user scrolled >= 45% down the stats page after at least 8s
-  const pageLoadTime = Date.now();
-  const onScroll = () => {
-    if (triggered) {
-      window.removeEventListener("scroll", onScroll);
-      return;
-    }
-    if (Date.now() - pageLoadTime < 8000) return; // ignore instant flick scrolls
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight > 400) {
-      const scrollPercent = (window.scrollY / docHeight) * 100;
-      if (scrollPercent >= 45) {
-        window.removeEventListener("scroll", onScroll);
-        clearTimeout(timer);
-        triggerPopup();
-      }
-    }
-  };
-  window.addEventListener("scroll", onScroll, { passive: true });
-
-  // 3. Desktop exit-intent trigger: mouse moving towards tab/close bar after at least 6s
-  const onMouseLeave = (e) => {
-    if (triggered) {
-      document.removeEventListener("mouseleave", onMouseLeave);
-      return;
-    }
-    if (Date.now() - pageLoadTime < 6000) return;
-    if (e.clientY <= 12) {
-      document.removeEventListener("mouseleave", onMouseLeave);
-      clearTimeout(timer);
-      triggerPopup();
-    }
-  };
-  document.addEventListener("mouseleave", onMouseLeave);
+  // Per content-first-noise-reduction: inline community ribbon + #support section +
+  // 4-minute non-blocking corner toast handle support without blocking modal interruptions.
 }
-
-function showDonationPopup() {
-  if (typeof document === "undefined" || document.getElementById("donation-modal") || document.getElementById("stream-promo-modal")) return;
-
-  const backdrop = document.createElement("div");
-  backdrop.id = "donation-modal";
-  backdrop.className = "donation-modal-backdrop";
-  backdrop.setAttribute("role", "dialog");
-  backdrop.setAttribute("aria-modal", "true");
-  backdrop.setAttribute("aria-labelledby", "donation-modal-title");
-
-  backdrop.innerHTML = `
-    <div class="donation-modal-sheet">
-      <div class="donation-modal-header">
-        <div class="donation-modal-title-row">
-          <span class="donation-modal-badge">❤️ Support MessiStat</span>
-        </div>
-        <button type="button" class="donation-modal-close" id="donation-modal-close-x" aria-label="Close">✕</button>
-      </div>
-      <div class="donation-modal-body">
-        <h3 id="donation-modal-title">Thank you for visiting MessiStat!</h3>
-        
-        <div class="donation-apology-box">
-          <p><strong>🙏 Sincere Apology for the Advertisements:</strong></p>
-          <p>We know ads can sometimes be distracting, and we sincerely apologize for displaying them on the site. To keep <b>MessiStat completely free</b>, blazing fast, and updated after every match with high-definition goal video streaming and zero paywalls, ads are currently necessary to cover our high monthly hosting and video CDN servers.</p>
-        </div>
-
-        <p class="donation-plea-text">
-          If you enjoy using MessiStat and want to help keep the servers running (and help us show fewer ads in the future!), please consider supporting us with a small donation on Ko-fi or via crypto:
-        </p>
-
-        <div class="donation-modal-actions">
-          <a href="https://ko-fi.com/messistat" target="_blank" rel="noopener noreferrer" class="btn-popup-kofi">
-            <span>💖 Support on Ko-fi</span>
-          </a>
-
-          <div class="popup-crypto-card">
-            <span class="popup-crypto-header">🪙 Direct Crypto Wallet (BEP-20 / BNB Chain - USDT / BNB / ETH)</span>
-            <div class="popup-crypto-row">
-              <code class="popup-crypto-address" id="popup-crypto-val">0xe78ee7a6ce01978562c90df0fa3f775215457390</code>
-              <button type="button" class="btn-popup-copy" id="btn-popup-copy-action" aria-label="Copy Crypto Wallet Address">Copy 📋</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="donation-modal-footer">
-        <button type="button" class="btn-popup-dismiss" id="donation-modal-dismiss-btn">
-          Continue Browsing
-        </button>
-      </div>
-    </div>
-  `;
-
-  document.body.appendChild(backdrop);
-
-  const close = () => {
-    try {
-      localStorage.setItem("messistat_donation_dismissed", String(Date.now()));
-    } catch (_) {}
-    backdrop.style.animation = "donationFadeOut 0.2s ease-out forwards";
-    setTimeout(() => {
-      if (backdrop.parentNode) backdrop.parentNode.removeChild(backdrop);
-    }, 200);
-  };
-
-  const closeX = backdrop.querySelector("#donation-modal-close-x");
-  const dismissBtn = backdrop.querySelector("#donation-modal-dismiss-btn");
-  if (closeX) closeX.addEventListener("click", close);
-  if (dismissBtn) dismissBtn.addEventListener("click", close);
-
-  backdrop.addEventListener("click", (e) => {
-    if (e.target === backdrop) close();
-  });
-
-  const handleKeydown = (e) => {
-    if (e.key === "Escape") {
-      close();
-      window.removeEventListener("keydown", handleKeydown);
-    }
-  };
-  window.addEventListener("keydown", handleKeydown);
-
-  const copyBtn = backdrop.querySelector("#btn-popup-copy-action");
-  if (copyBtn) {
-    copyBtn.addEventListener("click", () => {
-      navigator.clipboard.writeText("0xe78ee7a6ce01978562c90df0fa3f775215457390").then(() => {
-        copyBtn.textContent = "✓ Copied!";
-        setTimeout(() => {
-          copyBtn.textContent = "Copy 📋";
-        }, 2500);
-      }).catch(() => {});
-    });
-  }
-}
-
-
 
 /* ================= ARGENTINA FAREWELL MATCH STREAM NOTIFICATION ================= */
 const ARGENTINA_STREAM_I18N = {
@@ -1603,7 +1590,7 @@ if (typeof document !== "undefined") {
     if (menuTrigger) {
       e.preventDefault();
       const drawer = document.getElementById("mobile-nav-drawer");
-      if (drawer && !drawer.hidden) {
+      if (drawer && drawer.open) {
         closeMobileMenuDrawer();
       } else {
         openMobileMenuDrawer();
@@ -1633,17 +1620,16 @@ if (typeof document !== "undefined") {
       openLangModal();
       return;
     }
+    const cmdTrigger = e.target.closest("[data-open-cmd]");
+    if (cmdTrigger) {
+      e.preventDefault();
+      openCommandPalette();
+      return;
+    }
     const drawerTheme = e.target.closest("#drawer-theme-btn");
     if (drawerTheme) {
       e.preventDefault();
-      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-      const next = current === "dark" ? "light" : "dark";
-      if (next === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-      } else {
-        document.documentElement.removeAttribute("data-theme");
-      }
-      try { localStorage.setItem("theme", next); } catch (_) {}
+      if (window.__toggleMessiTheme) window.__toggleMessiTheme();
       return;
     }
 
@@ -1675,14 +1661,7 @@ if (typeof document !== "undefined") {
     const mobTheme = e.target.closest("#mobile-theme-btn, .mobile-theme-btn");
     if (mobTheme) {
       e.preventDefault();
-      const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
-      const next = current === "dark" ? "light" : "dark";
-      if (next === "dark") {
-        document.documentElement.setAttribute("data-theme", "dark");
-      } else {
-        document.documentElement.removeAttribute("data-theme");
-      }
-      try { localStorage.setItem("theme", next); } catch (_) {}
+      if (window.__toggleMessiTheme) window.__toggleMessiTheme();
       return;
     }
   });
@@ -1766,6 +1745,9 @@ function initLanguageAndMobileTopBar() {
           <span class="mobile-topbar-title">Messi<b>Stats</b></span>
         </a>
         <div class="mobile-topbar-actions">
+          <button type="button" class="mobile-search-btn" data-open-cmd aria-label="Search stats and pages">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg>
+          </button>
           <button type="button" class="mobile-lang-btn" id="mobile-lang-btn" aria-label="Change language">
             <span class="mobile-lang-flag">${curLangObj.flag}</span>
             <span class="mobile-lang-code">${curLangObj.code.toUpperCase()}</span>
@@ -2174,6 +2156,7 @@ function normalize(d) {
     const rApps = R.appearances ?? 1339;
     const goals = t.goals, apps = t.apps;
     const assists = t.assists.official, tmAssists = t.assists.transfermarkt;
+    const prevGoals = LIVE.goals;
     Object.assign(LIVE, {
       goals, apps,
       clubGoals: t.clubs.goals, argGoals: t.country.goals, argCaps: t.country.apps,
@@ -2215,6 +2198,19 @@ function normalize(d) {
       lgOpp: LGJ.opponent ?? LIVE.lgOpp,
       lgDate: LGJ.formattedDate ?? d.lastUpdated,
     });
+    if (typeof document !== "undefined" && LIVE.goals !== prevGoals) {
+      const lang = getCurrentLangCode();
+      const railSubLabels = {
+        en: `${LIVE.goals} Goals · Official`,
+        es: `${LIVE.goals} Goles · Oficial`,
+        pt: `${LIVE.goals} Gols · Oficial`,
+        fr: `${LIVE.goals} Buts · Officiel`,
+      };
+      const subText = railSubLabels[lang] || railSubLabels.en;
+      document.querySelectorAll("[data-rail-goals-sub]").forEach((node) => {
+        node.textContent = subText;
+      });
+    }
   }
 }
 
@@ -2886,23 +2882,40 @@ function renderHome(d) {
 
   setHead(d, dict.head(t, p, d));
 
+  document.querySelectorAll("[data-live-goal-num]").forEach((node) => {
+    node.textContent = String(LIVE.lgNum || t.goals);
+  });
+
   const prof = el("profile");
   if (prof) {
-    const dob = new Date(p.born + "T00:00:00").toLocaleDateString(dict.locale || "en-GB", { day: "numeric", month: "long", year: "numeric" });
-    prof.innerHTML =
-      `<figure class="identity-photo"><picture><source srcset="/img/messi-450.webp 1x, /img/messi.webp 2x" type="image/webp"><img src="/img/messi.jpg" alt="Lionel Messi" width="148" height="197" loading="eager" fetchpriority="high" decoding="async"></picture><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
-      `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="${dict.shirt10}">${p.number}</span></p>` +
-      `<p class="identity-meta">${dict.meta(p, dob)}</p>` +
-      `<dl class="identity-facts"><div><dt>${dict.roleLabel}</dt><dd>${esc(p.role)}</dd></div>` +
-      `<div><dt>${dict.teamsLabel}</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
-      `<div><dt>${dict.nowLabel}</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
-    prof.classList.add("identity--tight");
+    if (prof.classList.contains("bento-profile-card")) {
+      const splitVals = prof.querySelectorAll(".bento-split-item .bs-val");
+      const splitSubs = prof.querySelectorAll(".bento-split-item .bs-sub");
+      const wantGoals = [n(agg.barcelona.goals), n(t.country.goals), n(agg.miami.goals), n(agg.psg.goals)];
+      const wantApps = [agg.barcelona.apps, t.country.apps, agg.miami.apps, agg.psg.apps];
+      splitVals.forEach((vEl, idx) => { if (idx < wantGoals.length) vEl.textContent = wantGoals[idx]; });
+      splitSubs.forEach((sEl, idx) => {
+        if (idx < wantApps.length) {
+          sEl.textContent = sEl.textContent.replace(/\d[\d.,\s]*/, String(wantApps[idx]));
+        }
+      });
+    } else {
+      const dob = new Date(p.born + "T00:00:00").toLocaleDateString(dict.locale || "en-GB", { day: "numeric", month: "long", year: "numeric" });
+      prof.innerHTML =
+        `<figure class="identity-photo"><picture><source srcset="/img/messi-450.webp 1x, /img/messi.webp 2x" type="image/webp"><img src="/img/messi.jpg" alt="Lionel Messi" width="148" height="197" loading="eager" fetchpriority="high" decoding="async"></picture><figcaption class="photo-credit">Lionel Messi · Argentina & Inter Miami</figcaption></figure><div class="identity-main">` +
+        `<p class="identity-name">${esc(p.short)} <span class="jersey" aria-label="${dict.shirt10}">${p.number}</span></p>` +
+        `<p class="identity-meta">${dict.meta(p, dob)}</p>` +
+        `<dl class="identity-facts"><div><dt>${dict.roleLabel}</dt><dd>${esc(p.role)}</dd></div>` +
+        `<div><dt>${dict.teamsLabel}</dt><dd>${esc(p.teams.join(" · "))}</dd></div>` +
+        `<div><dt>${dict.nowLabel}</dt><dd>${esc(p.current.join(" · "))}</dd></div></dl></div>`;
+      prof.classList.add("identity--tight");
+    }
     if (!document.getElementById("quick-jump-nav")) {
       const quickJumpI18n = {
-        en: { goals: "Career Record", kpis: "KPIs & 1k Road", clubs: "Club Breakdown", faq: "FAQ" },
-        es: { goals: "Registro Oficial", kpis: "Métricas Clave", clubs: "Por Clubes", faq: "Preguntas" },
-        pt: { goals: "Registro Oficial", kpis: "Métricas", clubs: "Por Clubes", faq: "Perguntas" },
-        fr: { goals: "Bilan Officiel", kpis: "Chiffres Clés", clubs: "Par Clubs", faq: "FAQ" }
+        en: { goals: "Official Ledger", kpis: "Road to 1,000", clubs: "Explore Hubs", faq: "FAQ" },
+        es: { goals: "Registro Oficial", kpis: "Rumbo a 1.000", clubs: "Explorar", faq: "Preguntas" },
+        pt: { goals: "Registro Oficial", kpis: "Rumo a 1.000", clubs: "Explorar", faq: "Perguntas" },
+        fr: { goals: "Bilan Officiel", kpis: "Cap des 1 000", clubs: "Explorer", faq: "FAQ" }
       };
       const qj = quickJumpI18n[lang] || quickJumpI18n.en;
       const qjBar = document.createElement("nav");
@@ -2910,40 +2923,44 @@ function renderHome(d) {
       qjBar.className = "quick-jump-bar";
       qjBar.setAttribute("aria-label", "Section quick jump");
       qjBar.innerHTML =
-        `<a href="#messi-total-goals" class="qj-pill">⚽ <span>${qj.goals}</span></a>` +
-        `<a href="#kpis" class="qj-pill">📊 <span>${qj.kpis}</span></a>` +
-        `<a href="#byclub" class="qj-pill">👕 <span>${qj.clubs}</span></a>` +
-        `<a href="#faq" class="qj-pill">❓ <span>${qj.faq}</span></a>`;
-      prof.after(qjBar);
+        `<a href="#messi-total-goals" class="qj-pill"><span>${qj.goals}</span></a>` +
+        `<a href="#road-1000" class="qj-pill"><span>${qj.kpis}</span></a>` +
+        `<a href="#explore" class="qj-pill"><span>${qj.clubs}</span></a>` +
+        `<a href="#faq" class="qj-pill"><span>${qj.faq}</span></a>`;
+      (prof.closest(".hero-bento") || prof).after(qjBar);
     }
   }
 
   const kpis = el("kpis");
-  function kpi(l, v, s) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s}</span></div>`; }
   if (kpis) {
-    const togo = 1000 - t.goals;
-    const done = d.calendarYears.filter((r) => !r.provisional);
-    const last3 = done.slice(-3);
-    const pace = last3.reduce((s, r) => s + r.goals, 0) / last3.length;
-    const projYear = done[done.length - 1].year + Math.max(1, Math.ceil(togo / pace));
-    kpis.innerHTML =
-      kpi(dict.kpiCareer, n(t.goals), dict.kpiCareerNote(t.goalsPerGame, seasons)) +
-      kpi(dict.kpiApps, n(t.apps), dict.kpiAppsNote(n(t.clubs.apps), n(t.country.apps))) +
-      kpi(dict.kpiArg, n(t.country.goals), dict.kpiArgNote(gpg(t.country.goals, t.country.apps), n(t.country.apps))) +
-      kpi(dict.kpiTrophies, String(LIVE.trophies), dict.kpiTrophiesNote(lang)) +
-      `<div class="kpi progress"><span class="kpi-label">${dict.kpiRoad}</span>` +
-      `<span class="kpi-value">${n(t.goals)} <small style="font-size:1rem;color:var(--muted)">/ 1,000</small></span>` +
-      `<div class="progress-track"><div class="progress-fill" style="width:${(t.goals / 10).toFixed(1)}%"></div></div>` +
-      `<span class="kpi-note">${dict.kpiRoadNote(togo, projYear, pace)}</span></div>`;
-    kpis.classList.add("kpi--hero");
-    if (!el("copyStats")) {
-      kpis.insertAdjacentHTML("afterend",
-        `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">${dict.copyStatsBtn}</button>` +
-        `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
+    const existingNums = kpis.querySelectorAll(".kpi-num");
+    if (existingNums.length === 6) {
+      const sep = lang === "fr" ? " " : (lang === "es" || lang === "pt") ? "." : ",";
+      const fmtGrp = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
+      const want6 = [String(t.goals), `${LIVE.assists}*`, fmtGrp(LIVE.ga), fmtGrp(t.apps), String(LIVE.trophies), "8"];
+      existingNums.forEach((sp, i) => { if (i < want6.length) sp.textContent = want6[i]; });
+      const r1000Foot = document.querySelector("#road-1000 .road-1000-footer");
+      if (r1000Foot && !el("copyStats")) {
+        r1000Foot.insertAdjacentHTML("beforeend",
+          `<div class="bento-footer-actions"><button type="button" class="btn-primary btn-copy-inline" id="copyStats">${dict.copyStatsBtn}</button><span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
+      }
+    } else {
+      function kpi(l, v, s2) { return `<div class="kpi"><span class="kpi-label">${l}</span><span class="kpi-value">${v}</span><span class="kpi-note">${s2}</span></div>`; }
+      kpis.innerHTML =
+        kpi(dict.kpiCareer, n(t.goals), dict.kpiCareerNote(t.goalsPerGame, seasons)) +
+        kpi(dict.kpiApps, n(t.apps), dict.kpiAppsNote(n(t.clubs.apps), n(t.country.apps))) +
+        kpi(dict.kpiArg, n(t.country.goals), dict.kpiArgNote(gpg(t.country.goals, t.country.apps), n(t.country.apps))) +
+        kpi(dict.kpiTrophies, String(LIVE.trophies), dict.kpiTrophiesNote(lang));
+      kpis.classList.add("kpi--hero");
+      if (!el("copyStats")) {
+        kpis.insertAdjacentHTML("afterend",
+          `<div class="share-row"><button type="button" class="btn-primary" id="copyStats">${dict.copyStatsBtn}</button>` +
+          `<span class="share-msg" id="copyMsg" role="status" aria-live="polite"></span></div>`);
+      }
     }
   }
 
-  const copyStatsBtn = el("copyStats");
+    const copyStatsBtn = el("copyStats");
   if (copyStatsBtn) {
     copyStatsBtn.addEventListener("click", async () => {
       const text = dict.copyText(n(t.goals), n(t.apps), n(t.clubs.goals), n(t.country.goals), d.lastUpdated);
@@ -3005,7 +3022,7 @@ function renderHome(d) {
     yearWidget.innerHTML =
       `<div class="year-pick-head"><h3 class="year-pick-title">${dict.yearTitle}</h3>` +
       `<div class="year-pick-control"><label for="yearPick">${dict.yearLabel}</label><select id="yearPick" class="inline">` +
-      ys.slice().reverse().map((r) => `<option value="${r.year}"${r.year === cur.year ? " selected" : ""}>${r.year}</option>`).join("") +
+      ys.toReversed().map((r) => `<option value="${r.year}"${r.year === cur.year ? " selected" : ""}>${r.year}</option>`).join("") +
       `</select></div></div><div class="year-tiles" id="yearTiles"></div>` +
       `<figure style="margin:12px 0 0"><div class="spark-wrap" id="yearSpark"></div>` +
       `<figcaption class="figcap">${dict.yearFigcap(ys[0].year, cur.year, cur.provisional, lang)}</figcaption></figure>`;
@@ -3156,7 +3173,7 @@ function initBdayQuickForm() {
     const m = monthSel.value || "01";
     const maxDays = daysInMonth[m] || 31;
     const currentVal = selectedDay || parseInt(daySel.value || "1", 10);
-    daySel.innerHTML = "";
+    daySel.replaceChildren();
     for (let i = 1; i <= maxDays; i++) {
       const opt = document.createElement("option");
       const val = String(i).padStart(2, "0");
@@ -3601,7 +3618,7 @@ function renderByYear(d) {
     yearTable.innerHTML =
       `<div class="table-wrap"><table class="data-table"><caption>${cfg.caption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thYear}</th><th scope="col">${cfg.thGoals}</th><th scope="col">${cfg.thTotal}</th><th scope="col">${cfg.thAge}</th></tr></thead><tbody>` +
-      ys.slice().reverse().map((r) =>
+      ys.toReversed().map((r) =>
         `<tr id="y${r.year}"${r.provisional ? ' class="total"' : ""}><th scope="row">${r.year}${r.provisional ? " *" : ""}</th><td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`
       ).join("") + `</tbody></table></div>` +
       (last.provisional ? `<p class="caveat">${cfg.inProgNote}</p>` : "");
@@ -3728,7 +3745,7 @@ function renderBySeason(d) {
     countryTable.innerHTML =
       `<div class="table-wrap"><table class="data-table"><caption>${cfg.countryCaption}</caption>` +
       `<thead><tr><th scope="col" class="left">${cfg.thYear}</th><th scope="col">${cfg.thApps}</th><th scope="col">${cfg.thGoals}</th><th scope="col" class="left">${cfg.thNote}</th></tr></thead><tbody>` +
-      cy.slice().reverse().map((s) => {
+      cy.toReversed().map((s) => {
         const note = s.note || `${s.competitive[0]} apps, ${s.competitive[1]} goals · ${s.friendly[0]} apps, ${s.friendly[1]} goals`;
         return `<tr${s.provisional ? ' class="total"' : ""}><th scope="row">${s.year}${s.provisional ? " *" : ""}</th><td>${s.apps}</td><td><b>${s.goals}</b></td><td class="left">${esc(note)}</td></tr>`;
       }).join("") +
@@ -3960,7 +3977,7 @@ function renderDashboard(d, team) {
       { id: "all", label: "All Teams", goals: d.totals.goals, apps: d.totals.apps, crest: "" },
       { id: "barcelona", label: "FC Barcelona", goals: 672, apps: 778, crest: "img/teams/barcelona.png" },
       { id: "argentina", label: "Argentina", goals: 126, apps: 208, crest: "img/teams/argentina.png" },
-      { id: "miami", label: "Inter Miami", goals: 102, apps: 117, crest: "img/teams/miami.png" },
+      { id: "miami", label: "Inter Miami", goals: clubAgg(d).miami.goals, apps: clubAgg(d).miami.apps, crest: "img/teams/miami.png" },
       { id: "psg", label: "Paris Saint-Germain", goals: 32, apps: 75, crest: "img/teams/psg.png" }
     ];
     pillsEl.className = "dash-team-selector";
@@ -4027,7 +4044,166 @@ function renderDashboard(d, team) {
     `).join("");
   }
 
-  // 3. Body Part Breakdown Card
+  // 2B. Broadcast Tactical Pitch & Scoring Zone Map
+  {
+    const gridParent = document.querySelector(".dash-sections-grid") || el("kpis");
+    if (gridParent) {
+      let pitchHost = el("pitch-zone-card");
+      if (!pitchHost) {
+        pitchHost = document.createElement("section");
+        pitchHost.id = "pitch-zone-card";
+        pitchHost.className = "dash-pitch-banner card";
+        if (gridParent.classList.contains("dash-sections-grid")) {
+          gridParent.before(pitchHost);
+        } else {
+          gridParent.after(pitchHost);
+        }
+      }
+      const PITCH_I18N = {
+        en: {
+          tag: "TACTICAL SPATIAL PROFILE",
+          title: "Shot Origin & Scoring Zone Map",
+          sub: "Career spatial distribution across 937 official goals — penalty box clinical finishing vs Zone-14 range & direct free kicks.",
+          inBox: "Inside 18-Yard Box",
+          inBoxSub: "Cutbacks, 1v1s & 6-yard finishes",
+          outBox: "Outside Box (Zone 14)",
+          outBoxSub: "Signature curling strikes &FKs",
+          fk: "Direct Free Kicks",
+          fkSub: "2nd all-time in world football",
+          pen: "Penalty Spot",
+          penSub: "110 / 141 converted (78.0%)"
+        },
+        es: {
+          tag: "MAPA TÁCTICO DE ZONAS",
+          title: "Mapa de Zonas de Disparo y Definición",
+          sub: "Distribución espacial de sus 937 goles oficiales — área grande, frontal Zona 14, tiros libres y punto de penalti.",
+          inBox: "Dentro del Área",
+          inBoxSub: "Definiciones, diagonales y mano a mano",
+          outBox: "Fuera del Área (Zona 14)",
+          outBoxSub: "Disparos con rosca y media distancia",
+          fk: "Tiros Libres Directos",
+          fkSub: "2.º máximo histórico mundial",
+          pen: "Punto de Penalti",
+          penSub: "110 / 141 convertidos (78,0%)"
+        },
+        pt: {
+          tag: "MAPA TÁTICO DE FINALIZAÇÃO",
+          title: "Mapa de Zonas de Chute e Gols",
+          sub: "Distribuição espacial dos 937 gols oficiais — grande área, meia-lua (Zona 14), faltas diretas e pênaltis.",
+          inBox: "Dentro da Área",
+          inBoxSub: "Infiltrações, 1x1 e pequena área",
+          outBox: "Fora da Área (Zona 14)",
+          outBoxSub: "Chutes colocados e faltas",
+          fk: "Faltas Diretas",
+          fkSub: "2º maior da história do futebol",
+          pen: "Marca do Pênalti",
+          penSub: "110 / 141 convertidos (78,0%)"
+        },
+        fr: {
+          tag: "CARTE TACTIQUE DES TIRS",
+          title: "Carte des Zones de Tir & Finition",
+          sub: "Répartition spatiale des 937 buts officiels — surface de réparation, Zone 14 hors surface, coups francs et penaltys.",
+          inBox: "Dans la Surface",
+          inBoxSub: "Face-à-face, centres en retrait",
+          outBox: "Hors Surface (Zone 14)",
+          outBoxSub: "Frappes enroulées & coups francs",
+          fk: "Coups Francs Directs",
+          fkSub: "2e total de l'histoire mondiale",
+          pen: "Point de Penalty",
+          penSub: "110 / 141 transformés (78,0%)"
+        }
+      };
+      const pt = PITCH_I18N[lang] || PITCH_I18N.en;
+      const inBoxGoals = d.totals.goals - 160;
+      const inBoxPct = ((inBoxGoals / d.totals.goals) * 100).toFixed(1);
+      const outBoxPct = ((160 / d.totals.goals) * 100).toFixed(1);
+
+      pitchHost.innerHTML = `
+        <div class="pitch-banner-head">
+          <div>
+            <span class="pitch-eyebrow">${pt.tag}</span>
+            <h3 class="pitch-title">${pt.title}</h3>
+            <p class="pitch-sub">${pt.sub}</p>
+          </div>
+        </div>
+        <div class="pitch-banner-grid">
+          <div class="pitch-svg-wrap">
+            <svg viewBox="0 0 520 300" class="tactical-pitch-svg" role="img" aria-label="${pt.title}">
+              <defs>
+                <linearGradient id="pitchTurf" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0" stop-color="#0d3b2a"/>
+                  <stop offset="1" stop-color="#09291d"/>
+                </linearGradient>
+                <radialGradient id="heatBox" cx="50%" cy="32%" r="46%">
+                  <stop offset="0" stop-color="#38bdf8" stop-opacity="0.52"/>
+                  <stop offset="1" stop-color="#0284c7" stop-opacity="0.06"/>
+                </radialGradient>
+                <radialGradient id="heatZone14" cx="54%" cy="68%" r="36%">
+                  <stop offset="0" stop-color="#f59e0b" stop-opacity="0.55"/>
+                  <stop offset="1" stop-color="#d97706" stop-opacity="0.04"/>
+                </radialGradient>
+              </defs>
+              <rect x="8" y="8" width="504" height="284" rx="10" fill="url(#pitchTurf)" stroke="rgba(255,255,255,0.22)" stroke-width="1.5"/>
+              <line x1="8" y1="64" x2="512" y2="64" stroke="rgba(255,255,255,0.04)" stroke-width="28"/>
+              <line x1="8" y1="120" x2="512" y2="120" stroke="rgba(255,255,255,0.04)" stroke-width="28"/>
+              <line x1="8" y1="176" x2="512" y2="176" stroke="rgba(255,255,255,0.04)" stroke-width="28"/>
+              <line x1="8" y1="232" x2="512" y2="232" stroke="rgba(255,255,255,0.04)" stroke-width="28"/>
+              <!-- Goal frame -->
+              <rect x="218" y="2" width="84" height="8" rx="2" fill="none" stroke="#ffffff" stroke-width="2"/>
+              <!-- 18-yard Penalty Area + Heatmap -->
+              <rect class="pitch-zone" data-zone="inbox" x="110" y="8" width="300" height="142" fill="url(#heatBox)" stroke="rgba(255,255,255,0.65)" stroke-width="1.6"/>
+              <!-- 6-yard Box -->
+              <rect x="188" y="8" width="144" height="52" fill="rgba(56,189,248,0.12)" stroke="rgba(255,255,255,0.55)" stroke-width="1.4"/>
+              <!-- Penalty Arc + Zone 14 Heatmap -->
+              <ellipse class="pitch-zone" data-zone="outbox" cx="274" cy="196" rx="115" ry="52" fill="url(#heatZone14)"/>
+              <path d="M 204 150 A 62 62 0 0 0 316 150" fill="none" stroke="rgba(255,255,255,0.65)" stroke-width="1.6"/>
+              <!-- Halfway arc -->
+              <path d="M 198 292 A 62 62 0 0 1 322 292" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.4"/>
+              <!-- Penalty Spot -->
+              <circle cx="260" cy="106" r="6" fill="#facc15" stroke="#fff" stroke-width="1.5"/>
+              <!-- Free Kick Hotspots (Right-of-center Messi sweet spot) -->
+              <circle cx="302" cy="186" r="7" fill="#f97316" stroke="#fff" stroke-width="1.5"/>
+              <circle cx="242" cy="194" r="5.5" fill="#f97316" stroke="#fff" stroke-width="1.2" opacity="0.85"/>
+              <path d="M 302 186 Q 294 92 286 12" fill="none" stroke="#fbbf24" stroke-width="1.8" stroke-dasharray="4 3"/>
+              <!-- Callout Pills on Pitch -->
+              <g transform="translate(124, 24)">
+                <rect width="114" height="26" rx="5" fill="rgba(9,14,24,0.84)" stroke="rgba(56,189,248,0.6)"/>
+                <text x="57" y="17" text-anchor="middle" fill="#e0f2fe" font-size="11.5" font-weight="800" font-family="Plus Jakarta Sans, sans-serif">${inBoxGoals}G (${inBoxPct}%)</text>
+              </g>
+              <g transform="translate(284, 212)">
+                <rect width="128" height="26" rx="5" fill="rgba(9,14,24,0.86)" stroke="rgba(251,191,36,0.7)"/>
+                <text x="64" y="17" text-anchor="middle" fill="#fef3c7" font-size="11.5" font-weight="800" font-family="Plus Jakarta Sans, sans-serif">160+ Outside · 76 FK</text>
+              </g>
+            </svg>
+          </div>
+          <div class="pitch-zones-list">
+            <div class="pitch-zone-stat" data-zone-card="inbox">
+              <div class="pzs-top"><span class="pzs-dot sky"></span><strong>${pt.inBox}</strong><span class="pzs-num tnum">${n(inBoxGoals)} <small>(${inBoxPct}%)</small></span></div>
+              <div class="pzs-bar"><span class="sky" style="width:${inBoxPct}%"></span></div>
+              <span class="pzs-sub">${pt.inBoxSub}</span>
+            </div>
+            <div class="pitch-zone-stat" data-zone-card="outbox">
+              <div class="pzs-top"><span class="pzs-dot amber"></span><strong>${pt.outBox}</strong><span class="pzs-num tnum">160+ <small>(${outBoxPct}%)</small></span></div>
+              <div class="pzs-bar"><span class="amber" style="width:${outBoxPct}%"></span></div>
+              <span class="pzs-sub">${pt.outBoxSub}</span>
+            </div>
+            <div class="pitch-zone-stat">
+              <div class="pzs-top"><span class="pzs-dot orange"></span><strong>${pt.fk}</strong><span class="pzs-num tnum">${d.byFinish.freeKicks} <small>(${((d.byFinish.freeKicks / d.totals.goals) * 100).toFixed(1)}%)</small></span></div>
+              <div class="pzs-bar"><span class="orange" style="width:${((d.byFinish.freeKicks / 160) * 100).toFixed(1)}%"></span></div>
+              <span class="pzs-sub">${pt.fkSub}</span>
+            </div>
+            <div class="pitch-zone-stat">
+              <div class="pzs-top"><span class="pzs-dot gold"></span><strong>${pt.pen}</strong><span class="pzs-num tnum">${d.byFinish.penalties} <small>(${((d.byFinish.penalties / d.totals.goals) * 100).toFixed(1)}%)</small></span></div>
+              <div class="pzs-bar"><span class="gold" style="width:78%"></span></div>
+              <span class="pzs-sub">${pt.penSub}</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+    // 3. Body Part Breakdown Card
   const bodyCard = el("body-card");
   if (bodyCard) {
     const bodyRows = [
@@ -4287,7 +4463,7 @@ function renderDashboard(d, team) {
     const ys = d.calendarYears;
     yrTable.innerHTML = `<div class="table-wrap"><table class="data-table"><caption>Goals, running career total and age for every calendar year since Messi's 2004 debut.</caption>` +
       `<thead><tr><th scope="col" class="left">Year</th><th scope="col">Goals</th><th scope="col">Career Total</th><th scope="col">Age</th></tr></thead><tbody>` +
-      ys.slice().reverse().map((r) => `<tr id="y${r.year}">` +
+      ys.toReversed().map((r) => `<tr id="y${r.year}">` +
         `<th scope="row">${r.year}${r.provisional ? " *" : ""}${r.year === 2012 ? ` <span class="yr-note">World Record 91G</span>` : ""}</th>` +
         `<td><b>${r.goals}</b></td><td>${n(r.careerTotal)}</td><td>${r.age}</td></tr>`).join("") +
       `</tbody></table></div>`;
@@ -5810,7 +5986,7 @@ async function renderBirthday(d) {
         });
       } else {
         videoGoalsNav.hidden = true;
-        videoGoalsNav.innerHTML = "";
+        videoGoalsNav.replaceChildren();
       }
     }
 
@@ -5843,7 +6019,7 @@ async function renderBirthday(d) {
         const isCurrentlyOpen = !container.hidden;
         matchListEl.querySelectorAll(".bday-card-inline-player").forEach((p) => {
           p.hidden = true;
-          p.innerHTML = "";
+          p.replaceChildren();
         });
         matchListEl.querySelectorAll(".bday-inline-toggle-btn").forEach((b) => {
           b.classList.remove("active");
@@ -6758,9 +6934,234 @@ function initBackToTop() {
   }, { passive: true });
 }
 
+/* ================= GLOBAL COMMAND PALETTE (⌘K / /) & VIDEO LIGHTBOX ================= */
+let __CMD_DATA_CACHE = null;
+
+function ensureCommandPalette() {
+  if (typeof document === "undefined") return null;
+  let dlg = document.getElementById("cmd-palette");
+  if (dlg) return dlg;
+
+  const lang = getCurrentLangCode();
+  const CMD_I18N = {
+    en: { ph: "Jump to year (2012), rival (Ronaldo, Real Madrid), date (18 Dec), or hub…", esc: "ESC", empty: "No matching stats or pages found." },
+    es: { ph: "Ir a año (2012), rival (Ronaldo, Real Madrid), fecha (18 Dic) o sección…", esc: "ESC", empty: "Sin resultados." },
+    pt: { ph: "Ir para ano (2012), rival (Ronaldo, Real Madrid), data (18 Dez) ou página…", esc: "ESC", empty: "Nenhum resultado encontrado." },
+    fr: { ph: "Aller à une année (2012), rival (Ronaldo, Real Madrid), date ou page…", esc: "ESC", empty: "Aucun résultat trouvé." }
+  };
+  const tx = CMD_I18N[lang] || CMD_I18N.en;
+
+  dlg = document.createElement("dialog");
+  dlg.id = "cmd-palette";
+  dlg.className = "cmd-dialog";
+  dlg.setAttribute("closedby", "any");
+  dlg.setAttribute("aria-label", "Quick Search");
+  dlg.innerHTML = `
+    <div class="cmd-shell">
+      <div class="cmd-input-row">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg>
+        <input type="search" id="cmd-input" class="cmd-input" placeholder="${tx.ph}" autocomplete="off" autofocus />
+        <form method="dialog" style="margin:0"><button class="cmd-esc-btn" id="cmd-close-btn">${tx.esc}</button></form>
+      </div>
+      <div class="cmd-results" id="cmd-results" role="listbox"></div>
+    </div>
+  `;
+  document.body.appendChild(dlg);
+  bindDialogLightDismissFallback(dlg);
+
+  const inp = dlg.querySelector("#cmd-input");
+  const listEl = dlg.querySelector("#cmd-results");
+
+  let activeIdx = 0;
+  let currentItems = [];
+
+  const getItems = () => {
+    const base = [
+      { cat: "Hub", title: "Career Overview & Official Ledger", sub: `${n(LIVE.goals)} goals · ${n(LIVE.apps)} senior matches`, badge: `${LIVE.goals}G`, href: `/${lang}`, kw: "home stats career total goals assists" },
+      { cat: "Live", title: `Latest Goal Video (#${LIVE.lgNum})`, sub: `Watch replay vs ${LIVE.lgOpp} & live matchday status`, badge: "LIVE ▶", href: `/${lang}/latest-goal`, kw: "latest goal today video watch clip highlight" },
+      { cat: "Interactive", title: "Birthday Goal Explorer (366 Days)", sub: "Check if Messi scored on your birthday with video clips", badge: "366d", href: `/${lang}/birthday`, kw: "birthday calendar date day born" },
+      { cat: "Rivalry", title: "Messi vs Cristiano Ronaldo", sub: `${LIVE.goals} vs ${LIVE.rGoals} goals · ${LIVE.assists}+ vs ${LIVE.rAssists} assists · 36 H2H`, badge: "GOAT", href: `/${lang}/messi-vs-ronaldo`, kw: "ronaldo cr7 goat comparison free kicks penalties non penalty" },
+      { cat: "Rivalry", title: "Messi vs Real Madrid (El Clásico)", sub: "26 goals & 14 assists in 45 matches — All-time Clásico record", badge: "26G", href: `/${lang}/vs-real-madrid`, kw: "real madrid clasico bernabeu 500th shirt" },
+      { cat: "Tournament", title: "UEFA Champions League Hub", sub: "129 goals, 4 titles, 8 hat-tricks across Barcelona & PSG", badge: "129G", href: `/${lang}/champions-league`, kw: "ucl champions league europe wembley leverkusen" },
+      { cat: "Analytics", title: "Interactive Stats Dashboard & Pitch Map", sub: "Filter by Barcelona, Argentina, Inter Miami & PSG", badge: "Hub", href: `/${lang}/dashboard`, kw: "dashboard analytics chart body part left foot free kicks pitch map" },
+      { cat: "Archive", title: "Goals by Calendar Year (2004–2026)", sub: "Includes the 91-goal Guinness World Record in 2012", badge: "91 in '12", href: `/${lang}/goalsbyyear`, kw: "year calendar annual 2012 91" },
+      { cat: "Archive", title: "Goals by Club Season", sub: "All 23 club campaigns (73 goals in 2011/12)", badge: "73 in 11/12", href: `/${lang}/goalsbyseason`, kw: "season club la liga mls ligue 1" },
+      { cat: "History", title: "Career Timeline: Through the Years", sub: "Every iconic debut, final, Ballon d'Or & milestone", badge: "2004–26", href: `/${lang}/timeline`, kw: "timeline history milestones debut world cup" },
+      { cat: "Honours", title: `${LIVE.trophies} Trophies & 8 Ballons d'Or`, sub: "Most decorated footballer in world history", badge: `${LIVE.trophies} Cups`, href: `/${lang}/achievements`, kw: "trophies honours awards ballon dor golden shoe world cup copa america" },
+      { cat: "Historic Date", title: "18 December — 2022 World Cup Final", sub: "2 goals vs France in Lusail to crown Argentina World Champions", badge: "WC Final", href: "/en/birthday/12-18", kw: "18 dec december world cup final france lusail qatar" },
+      { cat: "Historic Date", title: "2 May — 6–2 Bernabéu Masterclass", sub: "10 career goals scored on 2 May (most prolific calendar day)", badge: "10G", href: "/en/birthday/05-02", kw: "2 may bernabeu clasico false 9" },
+      { cat: "Team Filter", title: "FC Barcelona Analytics (2004–2021)", sub: "672 goals & 269 assists in 778 official matches", badge: "672G", href: `/${lang}/dashboard?team=barcelona`, kw: "barcelona barca fcb camp nou" },
+      { cat: "Team Filter", title: "Argentina National Team Analytics", sub: `${LIVE.argGoals} goals in ${LIVE.argCaps} senior caps`, badge: `${LIVE.argGoals}G`, href: `/${lang}/dashboard?team=argentina`, kw: "argentina albiceleste international caps" },
+      { cat: "Team Filter", title: "Inter Miami CF Analytics (2023–2026)", sub: `${LIVE.miamiGoals} goals in ${LIVE.miamiApps} official matches`, badge: `${LIVE.miamiGoals}G`, href: `/${lang}/dashboard?team=miami`, kw: "inter miami mls leagues cup" }
+    ];
+    if (__CMD_DATA_CACHE && Array.isArray(__CMD_DATA_CACHE.calendarYears)) {
+      __CMD_DATA_CACHE.calendarYears.toReversed().forEach((yr) => {
+        base.push({
+          cat: "Year",
+          title: `${yr.year} Calendar Year Record`,
+          sub: `${yr.goals} goals scored (Age ${yr.age}) · Running total: ${n(yr.careerTotal)}`,
+          badge: `${yr.goals}G`,
+          href: `/${lang}/goalsbyyear#y${yr.year}`,
+          kw: `year ${yr.year} ${yr.goals} goals age ${yr.age}`
+        });
+      });
+    }
+    return base;
+  };
+
+  const renderList = (q) => {
+    const query = (q || "").trim().toLowerCase();
+    const all = getItems();
+    currentItems = query
+      ? all.filter((it) => (it.title + " " + it.sub + " " + it.kw + " " + it.badge).toLowerCase().includes(query)).slice(0, 12)
+      : all.slice(0, 9);
+    activeIdx = 0;
+    if (!currentItems.length) {
+      listEl.innerHTML = `<div class="cmd-empty">${tx.empty}</div>`;
+      return;
+    }
+    listEl.innerHTML = currentItems.map((it, i) => `
+      <a href="${it.href}" class="cmd-item${i === 0 ? " is-active" : ""}" role="option" data-cidx="${i}">
+        <span class="cmd-item-cat">${it.cat}</span>
+        <div class="cmd-item-main">
+          <strong class="cmd-item-title">${it.title}</strong>
+          <span class="cmd-item-sub">${it.sub}</span>
+        </div>
+        <span class="cmd-item-badge tnum">${it.badge}</span>
+      </a>
+    `).join("");
+  };
+
+  inp.addEventListener("input", () => renderList(inp.value));
+  inp.addEventListener("keydown", (e) => {
+    const rows = listEl.querySelectorAll(".cmd-item");
+    if (!rows.length) return;
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      activeIdx = (activeIdx + 1) % rows.length;
+      rows.forEach((r, idx) => r.classList.toggle("is-active", idx === activeIdx));
+      rows[activeIdx].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      activeIdx = (activeIdx - 1 + rows.length) % rows.length;
+      rows.forEach((r, idx) => r.classList.toggle("is-active", idx === activeIdx));
+      rows[activeIdx].scrollIntoView({ block: "nearest" });
+    } else if (e.key === "Enter" && currentItems[activeIdx]) {
+      e.preventDefault();
+      const dest = currentItems[activeIdx].href;
+      dlg.close();
+      window.location.href = dest;
+    }
+  });
+
+  dlg._refreshList = () => {
+    inp.value = "";
+    renderList("");
+    setTimeout(() => inp.focus(), 20);
+  };
+  return dlg;
+}
+
+function openCommandPalette() {
+  const dlg = ensureCommandPalette();
+  if (!dlg) return;
+  if (typeof dlg.showModal === "function" && !dlg.open) {
+    dlg.showModal();
+  } else {
+    dlg.setAttribute("open", "");
+  }
+  if (dlg._refreshList) dlg._refreshList();
+}
+
+if (typeof document !== "undefined") {
+  document.addEventListener("keydown", (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+      e.preventDefault();
+      openCommandPalette();
+      return;
+    }
+    if (e.key === "/" && !["INPUT", "TEXTAREA", "SELECT"].includes(document.activeElement?.tagName)) {
+      const pageSearch = document.querySelector("#tl-filter, #gear-search");
+      if (!pageSearch) {
+        e.preventDefault();
+        openCommandPalette();
+      }
+    }
+  });
+
+  // Intercept direct cdn.messiallgoals.com/*.mp4 links so they play inside an inline HD Lightbox <dialog>
+  document.addEventListener("click", (e) => {
+    const mp4Link = e.target.closest('a[href*="cdn.messiallgoals.com/"][href$=".mp4"]');
+    if (!mp4Link) return;
+    e.preventDefault();
+    let lb = document.getElementById("global-goal-lightbox");
+    if (!lb) {
+      lb = document.createElement("dialog");
+      lb.id = "global-goal-lightbox";
+      lb.className = "cmd-dialog video-lightbox-dialog";
+      lb.setAttribute("closedby", "any");
+      lb.setAttribute("aria-label", "Goal Video Player");
+      lb.innerHTML = `
+        <div class="vlb-shell">
+          <div class="vlb-head">
+            <strong class="vlb-title" id="vlb-title">Goal Highlight</strong>
+            <form method="dialog" style="margin:0"><button class="cmd-esc-btn" id="vlb-close" aria-label="Close video">✕</button></form>
+          </div>
+          <video id="vlb-video" controls playsinline preload="metadata" style="width:100%;aspect-ratio:16/9;background:#000;display:block;border-radius:6px;"></video>
+        </div>
+      `;
+      document.body.appendChild(lb);
+      bindDialogLightDismissFallback(lb);
+      lb.addEventListener("close", () => {
+        const v = lb.querySelector("#vlb-video");
+        if (v) { v.pause(); v.removeAttribute("src"); v.load(); }
+      });
+    }
+    const cardTitle = mp4Link.closest(".card")?.querySelector("h3")?.textContent || mp4Link.textContent.trim();
+    const titleEl = lb.querySelector("#vlb-title");
+    if (titleEl) titleEl.textContent = cardTitle;
+    const vid = lb.querySelector("#vlb-video");
+    if (vid) {
+      vid.src = mp4Link.href;
+      vid.play().catch(() => {});
+    }
+    if (typeof lb.showModal === "function" && !lb.open) lb.showModal();
+  });
+}
+
+function bindSparkTooltips() {
+  if (typeof document === "undefined") return;
+  let hud = document.getElementById("spark-hover-hud");
+  if (!hud) {
+    hud = document.createElement("div");
+    hud.id = "spark-hover-hud";
+    hud.className = "spark-hover-hud";
+    hud.hidden = true;
+    document.body.appendChild(hud);
+  }
+  document.querySelectorAll("svg.spark .bar").forEach((bar) => {
+    if (bar.dataset.hudBound === "1") return;
+    bar.dataset.hudBound = "1";
+    const show = () => {
+      const tip = bar.querySelector("title")?.textContent || (bar.dataset.year ? `${bar.dataset.year}: ${bar.dataset.val} goals` : "");
+      if (!tip) return;
+      hud.textContent = tip;
+      hud.hidden = false;
+      const r = bar.getBoundingClientRect();
+      const left = Math.min(window.innerWidth - 180, Math.max(12, r.left + r.width / 2));
+      hud.style.left = `${left}px`;
+      hud.style.top = `${Math.max(12, r.top - 10)}px`;
+    };
+    const hide = () => { hud.hidden = true; };
+    bar.addEventListener("mouseenter", show);
+    bar.addEventListener("mouseleave", hide);
+  });
+}
+
 /* ================= BOOT ================= */
 load().then((d) => {
   normalize(d);
+  __CMD_DATA_CACHE = d;
   const page = document.body.dataset.page;
   try {
     if (page === "home") renderHome(d);
@@ -6781,6 +7182,8 @@ load().then((d) => {
   /* Chart entrance: bars grow, donuts sweep, KPIs tick on visibility — one shared
      boot observer, same pattern as the timeline .tl-reveal wiring. */
   armEntrance();
+  bindSparkTooltips();
+  window.addEventListener("messi:spark-relayout", () => setTimeout(bindSparkTooltips, 30));
   initBackToTop();
   initArgentinaStreamNotification();
 }).catch(() => {

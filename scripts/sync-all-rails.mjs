@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { S } from "./stats.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
@@ -8,10 +9,17 @@ const rootDir = path.resolve(__dirname, "..");
 const NAV_LABELS = {
   en: {
     badgeAria: "MessiStats home",
+    brandSub: `${S.goals} Goals · Official`,
+    collapseAria: "Collapse or expand sidebar",
     langName: "English",
     langTag: "EN",
     langSelectAria: "Select Language (English)",
     langSelectTitle: "Select Language",
+    searchLabel: "Quick Search",
+    searchAria: "Search stats, years, matches and pages (Ctrl+K)",
+    grpLive: "Hubs & Live",
+    grpRivals: "Rivalries & Cups",
+    grpArchive: "Career Archive",
     home: "Home",
     latestGoal: "Latest Goal",
     bday: "Birthday Goals",
@@ -29,10 +37,17 @@ const NAV_LABELS = {
   },
   es: {
     badgeAria: "Inicio MessiStats",
+    brandSub: `${S.goals} Goles · Oficial`,
+    collapseAria: "Contraer o expandir barra lateral",
     langName: "Español",
     langTag: "ES",
     langSelectAria: "Seleccionar idioma (Español)",
     langSelectTitle: "Seleccionar idioma",
+    searchLabel: "Búsqueda rápida",
+    searchAria: "Buscar estadísticas, años y páginas (Ctrl+K)",
+    grpLive: "En Vivo",
+    grpRivals: "Rivales y Copas",
+    grpArchive: "Archivo",
     home: "Inicio",
     latestGoal: "Último Gol",
     bday: "Cumpleaños",
@@ -50,10 +65,17 @@ const NAV_LABELS = {
   },
   pt: {
     badgeAria: "MessiStats",
+    brandSub: `${S.goals} Gols · Oficial`,
+    collapseAria: "Recolher ou expandir barra lateral",
     langName: "Português",
     langTag: "PT",
     langSelectAria: "Selecionar idioma (Português)",
     langSelectTitle: "Selecionar idioma",
+    searchLabel: "Busca rápida",
+    searchAria: "Buscar estatísticas, anos e páginas (Ctrl+K)",
+    grpLive: "Destaques",
+    grpRivals: "Rivais e Copas",
+    grpArchive: "Arquivo",
     home: "Início",
     latestGoal: "Último Gol",
     bday: "Aniversário",
@@ -71,10 +93,17 @@ const NAV_LABELS = {
   },
   fr: {
     badgeAria: "Accueil MessiStats",
+    brandSub: `${S.goals} Buts · Officiel`,
+    collapseAria: "Réduire ou agrandir la barre latérale",
     langName: "Français",
     langTag: "FR",
     langSelectAria: "Changer de langue (Français)",
     langSelectTitle: "Changer de langue",
+    searchLabel: "Recherche rapide",
+    searchAria: "Rechercher stats, années et pages (Ctrl+K)",
+    grpLive: "À la Une",
+    grpRivals: "Rivaux & Coupes",
+    grpArchive: "Archives",
     home: "Accueil",
     latestGoal: "Dernier But",
     bday: "Anniversaire",
@@ -99,45 +128,40 @@ function generateRailHtml(lang, activeSlug) {
   const onBday = (slug) => isAct(slug) ? ' aria-current="page" class="on nav-bday-link"' : ' class="nav-bday-link"';
 
   const uclLink = lang === "en" ? "/en/champions-league" : `/${lang}/champions-league`;
-  const uclItem = `\n<a${onAria("champions-league")} href="${uclLink}" aria-label="${L.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span>${L.ucl}</span></a>`;
+  const uclItem = `\n<a${onAria("champions-league")} href="${uclLink}" aria-label="${L.ucl}"><svg aria-hidden="true" viewbox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg><span class="rail-link-text">${L.ucl}</span><em class="rail-item-meta tnum">129G</em></a>`;
 
   const latestGoalLink = lang === "en" ? "/en/latest-goal" : `/${lang}/latest-goal`;
-  const latestGoalItem = `\n<a${onAria("latest-goal")} href="${latestGoalLink}" aria-label="${L.latestGoal}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span>${L.latestGoal} <b class="nav-badge-hot">LIVE ⚡</b></span></a>`;
+  const latestGoalItem = `\n<a${onAria("latest-goal")} href="${latestGoalLink}" aria-label="${L.latestGoal}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><polygon points="10 8 16 12 10 16 10 8" fill="currentColor"></polygon></svg><span class="rail-link-text">${L.latestGoal}</span><em class="rail-item-meta is-live"><i class="rail-live-dot"></i>LIVE</em></a>`;
 
   const gearLink = lang === "en" ? "/en/gear" : `/${lang}/gear`;
-  const gearItem = `\n<a${onAria("gear")} href="${gearLink}" aria-label="${L.gear}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span>${L.gear} 🛍️</span></a>`;
-
-  const adminLink = "";
+  const gearItem = `\n<a${onAria("gear")} href="${gearLink}" aria-label="${L.gear}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg><span class="rail-link-text">${L.gear}</span></a>`;
 
   return `<aside aria-label="Navigation" class="rail">
-<a aria-label="${L.badgeAria}" class="rail-badge" href="/${lang}"><svg aria-hidden="true" class="rail-mark" viewbox="0 0 64 64"><defs><lineargradient id="msg-${lang}-${activeSlug}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></lineargradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-${lang}-${activeSlug})" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg><span class="rail-word">Messi<b>Stats</b></span></a>
-<div class="rail-lang-wrap">
-  <button type="button" class="rail-lang-btn" id="rail-lang-btn" aria-label="${L.langSelectAria}" title="${L.langSelectTitle}">
-    <svg class="rail-lang-globe" viewBox="0 0 24 24" aria-hidden="true">
-      <circle cx="12" cy="12" r="10"></circle>
-      <line x1="2" y1="12" x2="22" y2="12"></line>
-      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-    </svg>
-    <span class="rail-lang-label">${L.langName}</span>
-    <span class="rail-lang-tag">${L.langTag}</span>
-  </button>
+<div class="rail-head">
+  <a aria-label="${L.badgeAria}" class="rail-badge" href="/${lang}"><svg aria-hidden="true" class="rail-mark" viewbox="0 0 64 64"><defs><lineargradient id="msg-${lang}-${activeSlug}" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="#6d0f2e"></stop><stop offset=".55" stop-color="#1d3fae"></stop><stop offset="1" stop-color="#0e7cc0"></stop></lineargradient></defs><path d="M32 3 55 10v20c0 16-11 26-23 31C20 56 9 46 9 30V10Z" fill="url(#msg-${lang}-${activeSlug})" stroke="#e3b93e" stroke-linejoin="round" stroke-width="2.5"></path><path d="M47.5 9.5l1.7 3.5 3.8.6-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.6z" fill="#e3b93e"></path><text fill="#fff" font-family="'Plus Jakarta Sans',Arial,sans-serif" font-size="19" font-weight="800" text-anchor="middle" x="31" y="44">M10</text></svg><span class="rail-word"><span class="rail-word-main">Messi<b>Stat</b></span><small class="rail-word-sub" data-rail-goals-sub>${L.brandSub}</small></span></a>
+  <button type="button" class="rail-collapse-btn" id="rail-collapse-btn" aria-label="${L.collapseAria}" aria-expanded="true" title="${L.collapseAria}"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"></rect><line x1="9" y1="3" x2="9" y2="21"></line><polyline class="rail-collapse-chevron" points="15 9 12 12 15 15"></polyline></svg></button>
 </div>
-<nav>
-<a${onAria("home")} href="/${lang}" aria-label="${L.home}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg><span>${L.home}</span></a>${latestGoalItem}
-<a${onBday("birthday")} href="/${lang}/birthday" aria-label="${L.bday}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg><span>${L.bday} <b class="nav-badge-hot">HOT 🔥</b></span></a>
-<a${onAria("messi-vs-ronaldo")} href="/${lang}/messi-vs-ronaldo" aria-label="${L.ronaldo}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg><span>${L.ronaldo}</span></a>
-<a${onAria("vs-real-madrid")} href="/${lang}/vs-real-madrid" aria-label="${L.madrid}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg><span>${L.madrid}</span></a>${uclItem}
-<a${onAria("byyear")} href="/${lang}/goalsbyyear" aria-label="${L.byyear}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg><span>${L.byyear}</span></a>
-<a${onAria("byseason")} href="/${lang}/goalsbyseason" aria-label="${L.byseason}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg><span>${L.byseason}</span></a>
-<a${onAria("dashboard")} href="/${lang}/dashboard" aria-label="${L.dashboard}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg><span>${L.dashboard}</span></a>
-<a${onAria("timeline")} href="/${lang}/timeline" aria-label="${L.timeline}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span>${L.timeline}</span></a>
-<a${onAria("achievements")} href="/${lang}/achievements" aria-label="${L.achievements}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg><span>${L.achievements}</span></a>${gearItem}
+<div class="rail-tools-stack">
+  <button type="button" class="rail-search-btn" data-open-cmd aria-label="${L.searchAria}" title="${L.searchAria}"><svg class="rail-search-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg><span class="rail-search-label">${L.searchLabel}</span><kbd class="rail-search-kbd">⌘K</kbd></button>
+</div>
+<nav aria-label="Primary">
+<span class="rail-nav-group-label" aria-hidden="true">${L.grpLive}</span>
+<a${onAria("home")} href="/${lang}" aria-label="${L.home}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3 11.5 12 3l9 8.5"></path><path d="M5.5 10.5V21h5v-6h3v6h5V10.5"></path></svg><span class="rail-link-text">${L.home}</span><em class="rail-item-meta tnum">${S.goals}</em></a>${latestGoalItem}
+<a${onBday("birthday")} href="/${lang}/birthday" aria-label="${L.bday}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="4" rx="1" width="18" x="3" y="8"></rect><path d="M12 8v13M19 12v9H5v-9M7.5 8a2.5 2.5 0 0 1 0-5A4.8 4.8 0 0 1 12 8a4.8 4.8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"></path></svg><span class="rail-link-text">${L.bday}</span><em class="rail-item-meta">366d</em></a>
+<span class="rail-nav-group-label" aria-hidden="true">${L.grpRivals}</span>
+<a${onAria("messi-vs-ronaldo")} href="/${lang}/messi-vs-ronaldo" aria-label="${L.ronaldo}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M16 16v1a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v1"></path><path d="M18 8l4 4-4 4"></path></svg><span class="rail-link-text">${L.ronaldo}</span><em class="rail-item-meta">H2H</em></a>
+<a${onAria("vs-real-madrid")} href="/${lang}/vs-real-madrid" aria-label="${L.madrid}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M14.5 17.5 3 6V3h3l11.5 11.5"></path><path d="m13 19 6-6"></path><path d="m16 16 4 4"></path><path d="m19 21 2-2"></path></svg><span class="rail-link-text">${L.madrid}</span><em class="rail-item-meta tnum">26G</em></a>${uclItem}
+<span class="rail-nav-group-label" aria-hidden="true">${L.grpArchive}</span>
+<a${onAria("dashboard")} href="/${lang}/dashboard" aria-label="${L.dashboard}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M3.5 20.5h17"></path><path d="M6.5 20v-7M12 20V5M17.5 20v-10"></path></svg><span class="rail-link-text">${L.dashboard}</span></a>
+<a${onAria("byyear")} href="/${lang}/goalsbyyear" aria-label="${L.byyear}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="15.5" rx="2.5" width="17" x="3.5" y="5"></rect><path d="M3.5 10h17M8 2.8V6.5M16 2.8V6.5"></path></svg><span class="rail-link-text">${L.byyear}</span></a>
+<a${onAria("byseason")} href="/${lang}/goalsbyseason" aria-label="${L.byseason}"><svg aria-hidden="true" viewbox="0 0 24 24"><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="3.5"></rect><rect height="7.5" rx="1.5" width="7.5" x="3.5" y="13"></rect><rect height="7.5" rx="1.5" width="7.5" x="13" y="13"></rect></svg><span class="rail-link-text">${L.byseason}</span></a>
+<a${onAria("timeline")} href="/${lang}/timeline" aria-label="${L.timeline}"><svg aria-hidden="true" viewbox="0 0 24 24"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg><span class="rail-link-text">${L.timeline}</span></a>
+<a${onAria("achievements")} href="/${lang}/achievements" aria-label="${L.achievements}"><svg aria-hidden="true" viewbox="0 0 24 24"><path d="M8 3.5h8V9a4 4 0 0 1-8 0V3.5Z"></path><path d="M8 5H4.5A1.5 1.5 0 0 0 6 10H8M16 5h3.5A1.5 1.5 0 0 1 18 10h-2M12 13v3.5M8.5 20.5h7M10 16.5h4V20h-4z"></path></svg><span class="rail-link-text">${L.achievements}</span><em class="rail-item-meta tnum">${S.trophies}</em></a>${gearItem}
 </nav>
-<button aria-label="${L.themeToggle}" class="theme-toggle" id="theme-toggle" title="${L.themeToggle}" type="button">
-<svg aria-hidden="true" class="sun-icon" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg>
-<svg aria-hidden="true" class="moon-icon" viewbox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-<span class="theme-label">${L.darkMode}</span>
-</button>
+<div class="rail-footer">
+  <div class="rail-lang-wrap"><button type="button" class="rail-lang-btn" id="rail-lang-btn" aria-label="${L.langSelectAria}" title="${L.langSelectTitle}"><svg class="rail-lang-globe" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg><span class="rail-lang-label">${L.langName}</span><span class="rail-lang-tag">${L.langTag}</span></button></div>
+  <button aria-label="${L.themeToggle}" class="theme-toggle" id="theme-toggle" title="${L.themeToggle}" type="button"><svg aria-hidden="true" class="sun-icon" viewbox="0 0 24 24"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path></svg><svg aria-hidden="true" class="moon-icon" viewbox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg><span class="theme-label">${L.darkMode}</span></button>
+</div>
 </aside>`;
 }
 
@@ -169,8 +193,7 @@ const PAGES_MAP = {
   "dashboard.html": "dashboard",
   "timeline.html": "timeline",
   "achievements.html": "achievements",
-  "gear.html": "gear",
-  "admin.html": "admin"
+  "gear.html": "gear"
 };
 
 // 1. Root English files
@@ -182,7 +205,6 @@ for (const [file, slug] of Object.entries(PAGES_MAP)) {
 const ALL_LANGS = ["es", "pt", "fr"];
 for (const lang of ALL_LANGS) {
   for (const [file, slug] of Object.entries(PAGES_MAP)) {
-    if (file === "admin.html") continue;
     updateFileRail(path.join(rootDir, lang, file), lang, slug);
   }
 }

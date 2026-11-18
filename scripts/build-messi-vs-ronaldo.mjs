@@ -986,6 +986,7 @@ ${getHreflangs(lang, "messi-vs-ronaldo")}
 <script src="/js/ad-guard.js"></script>
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"/>
 <meta name="theme-color" content="#16243a"/>
+<meta name="color-scheme" content="light dark"/>
 <meta name="author" content="${t.brand}"/>
 <meta property="og:type" content="article"/>
 <meta property="og:site_name" content="${t.brand}"/>
@@ -1060,15 +1061,25 @@ ${JSON.stringify(jsonLd, null, 2)}
 
 <div class="page">
   <main class="wrap" id="main">
-    <div class="desktop-brand-header">
+    <header class="desktop-brand-header">
       <a href="${slugPath}" class="desktop-brand-logo-link" aria-label="${t.brand}">
-        <img src="/img/logo.png" alt="${t.logoAlt}" class="desktop-brand-logo" width="48" height="48" />
+        <img src="/img/logo.png" alt="${t.logoAlt}" class="desktop-brand-logo" width="40" height="40" />
       </a>
       <div class="desktop-brand-titles">
         <div class="desktop-brand-name">Messi<span>Stat</span></div>
         <div class="desktop-brand-sub">${t.brandSub}</div>
       </div>
-    </div>
+      <div class="masthead-actions">
+        <button type="button" class="masthead-search-trigger" data-open-cmd aria-label="Quick Search">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><circle cx="11" cy="11" r="7.5"></circle><line x1="20.5" y1="20.5" x2="16.3" y2="16.3"></line></svg>
+          <span>⌘K</span>
+        </button>
+        <a href="${slugPath}/latest-goal" class="masthead-live-pill">
+          <span class="live-dot-mini" aria-hidden="true"></span>
+          <span>#${S.goals} ▶</span>
+        </a>
+      </div>
+    </header>
 
     <!-- Top Header Ad Banner Slot -->
     <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
@@ -1140,6 +1151,54 @@ ${JSON.stringify(jsonLd, null, 2)}
       </div>
 
       <div class="goat-vote-results" id="goat-page-vote-results" style="display:none;"></div>
+    </section>
+
+    <!-- Broadcast Visual Head-to-Head Tug-of-War Arena -->
+    <section class="rivalry-tug-arena card" id="rivalry-tug-arena" aria-label="${t.coreHeader}">
+      <div class="tug-arena-head">
+        <div class="tug-player messi-side">
+          <img src="/img/messi.webp" alt="Lionel Messi" width="52" height="52" class="tug-avatar" loading="lazy" />
+          <div>
+            <strong class="tug-p-name">Lionel Messi</strong>
+            <span class="tug-p-sub tnum">${S.apps.toLocaleString("en-US")} · ${S.gaPerGame.toFixed(2)} G+A/M</span>
+          </div>
+        </div>
+        <div class="tug-center-badge">VS</div>
+        <div class="tug-player ronaldo-side">
+          <div>
+            <strong class="tug-p-name">Cristiano Ronaldo</strong>
+            <span class="tug-p-sub tnum">${S.rApps.toLocaleString("en-US")} · ${(S.rGa / S.rApps).toFixed(2)} G+A/M</span>
+          </div>
+          <img src="/img/ronaldo.webp" alt="Cristiano Ronaldo" width="52" height="52" class="tug-avatar" loading="lazy" />
+        </div>
+      </div>
+      <div class="tug-rows">
+        ${[
+          { lbl: t.statGoals, m: S.goals, r: S.rGoals, mDisp: String(S.goals), rDisp: String(S.rGoals), win: S.goals >= S.rGoals ? "m" : "r" },
+          { lbl: t.statGoalContrib, m: S.ga, r: S.rGa, mDisp: `${S.ga.toLocaleString("en-US")}+`, rDisp: S.rGa.toLocaleString("en-US"), win: "m" },
+          { lbl: t.statAssists, m: S.assists, r: S.rAssists, mDisp: `${S.assists}+`, rDisp: String(S.rAssists), win: "m" },
+          { lbl: t.statNPG, m: S.npg, r: S.npgR, mDisp: String(S.npg), rDisp: String(S.npgR), win: "m" },
+          { lbl: t.statFreeKicks, m: 76, r: 64, mDisp: "76", rDisp: "64", win: "m" },
+          { lbl: t.statRatio, m: S.gpg, r: Number(S.rGpg), mDisp: S.gpg.toFixed(2), rDisp: Number(S.rGpg).toFixed(2), win: "m" },
+          { lbl: t.statTrophies, m: SPLITS.trophies.messi, r: SPLITS.trophies.ronaldo, mDisp: String(SPLITS.trophies.messi), rDisp: String(SPLITS.trophies.ronaldo), win: "m" },
+          { lbl: t.statBallons, m: 8, r: 5, mDisp: "8", rDisp: "5", win: "m" }
+        ].map((row) => {
+          const sum = (Number(row.m) + Number(row.r)) || 1;
+          const mPct = ((Number(row.m) / sum) * 100).toFixed(1);
+          const rPct = (100 - parseFloat(mPct)).toFixed(1);
+          return `<div class="tug-row">
+          <div class="tug-row-top">
+            <span class="tug-val messi tnum${row.win === "m" ? " lead" : ""}">${row.mDisp}</span>
+            <span class="tug-stat-lbl">${row.lbl}</span>
+            <span class="tug-val ronaldo tnum${row.win === "r" ? " lead" : ""}">${row.rDisp}</span>
+          </div>
+          <div class="tug-bar" role="img" aria-label="${row.lbl}: Messi ${row.mDisp} vs Ronaldo ${row.rDisp}">
+            <span class="tug-fill-messi${row.win === "m" ? " is-lead" : ""}" style="width:${mPct}%"></span>
+            <span class="tug-fill-ronaldo${row.win === "r" ? " is-lead" : ""}" style="width:${rPct}%"></span>
+          </div>
+        </div>`;
+        }).join("\n        ")}
+      </div>
     </section>
 
     <!-- 1. All-Time Career Overview Matrix Table -->
