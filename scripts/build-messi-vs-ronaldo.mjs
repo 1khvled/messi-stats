@@ -22,7 +22,7 @@ SPLITS = SPLITS || { worldCup: { messi: { goals: 21, assists: 12 }, ronaldo: { g
   // The conversion rate and both leads are computed from the cells beside
   // them, so a daily stats update can never leave a stale figure behind, and
   // a number that means one thing here can never be mistaken for another.
-  const PEN = { messiGoals: 110, messiAttempts: 141, ronaldoGoals: 184, ronaldoAttempts: 221 };
+  const PEN = { messiGoals: 110, messiAttempts: 141, ronaldoGoals: 184, ronaldoAttempts: 222 };
   const BIG_CHANCES = { messi: 430, ronaldo: 210 };
   const PEN_PCT = (goals, attempts) => (goals / attempts) * 100;
   // the rate as it is shown: rounded once, so the cell, the sentence and
@@ -276,7 +276,7 @@ const I18N = {
     faqs: [
       {
         q: "Who has more total career goals: Messi or Ronaldo?",
-        a: `Cristiano Ronaldo holds the all-time world record with ${S.rGoals} official senior career goals in ${S.rApps.toLocaleString('en-US')} appearances (0.73 goals per match), while Lionel Messi has scored ${S.goals} goals in ${S.apps.toLocaleString('en-US')} appearances (0.79 goals per match). Ronaldo leads by 48 goals, though Messi has played 161 fewer matches and maintains a higher scoring ratio.`
+        a: `Cristiano Ronaldo holds the all-time world record with ${S.rGoals} official senior career goals in ${S.rApps.toLocaleString('en-US')} appearances (0.73 goals per match), while Lionel Messi has scored ${S.goals} goals in ${S.apps.toLocaleString('en-US')} appearances (0.79 goals per match). Ronaldo leads by 49 goals, though Messi has played 161 fewer matches and maintains a higher scoring ratio.`
       },
       {
         q: "Who has more non-penalty goals: Messi or Ronaldo?",
