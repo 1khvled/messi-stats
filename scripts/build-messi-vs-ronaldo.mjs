@@ -230,6 +230,10 @@ const I18N = {
     footerDir: "Career Records & Rivalries",
     footerSister: "RonaldoStats — Cristiano Ronaldo Stats",
     footerIntl: "International Editions / Idiomas",
+    sisterEyebrow: "SISTER SITE",
+    sisterTitle: "Cristiano Ronaldo stats",
+    sisterSub: "Goals, trophies and records for CR7 — updated daily.",
+    sisterCta: "Visit RonaldoStats →",
     crestNote: "Club crests are trademarks of their respective clubs, shown for identification purposes.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goals, All-Time Record)`,
     badgeMessiNPG: `Messi (+${S.npgLead} NPG)`,
@@ -418,6 +422,10 @@ const I18N = {
     footerDir: "Récords y Rivalidades",
     footerSister: "RonaldoStats — Estadísticas de Cristiano Ronaldo",
     footerIntl: "Ediciones Internacionales / Idiomas",
+    sisterEyebrow: "SITIO HERMANO",
+    sisterTitle: "Estadísticas de Cristiano Ronaldo",
+    sisterSub: "Goles, trofeos y récords de CR7 — actualizado a diario.",
+    sisterCta: "Visitar RonaldoStats →",
     crestNote: "Los escudos de clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goles, récord histórico)`,
     badgeMessiNPG: `Messi (+${S.npgLead} goles sin penalti)`,
@@ -606,6 +614,10 @@ const I18N = {
     footerDir: "Recordes e Rivalidades",
     footerSister: "RonaldoStats — Estatísticas de Cristiano Ronaldo",
     footerIntl: "Edições Internacionais / Idiomas",
+    sisterEyebrow: "SITE IRMÃO",
+    sisterTitle: "Estatísticas de Cristiano Ronaldo",
+    sisterSub: "Gols, troféus e recordes do CR7 — atualizado diariamente.",
+    sisterCta: "Ver RonaldoStats →",
     crestNote: "Os escudos dos clubes são marcas registradas de seus respectivos times, exibidos para fins de identificação.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} gols, recorde histórico)`,
     badgeMessiNPG: `Messi (+${S.npgLead} gols sem pênalti)`,
@@ -794,6 +806,10 @@ const I18N = {
     footerDir: "Records et Rivalités",
     footerSister: "RonaldoStats — Statistiques de Cristiano Ronaldo",
     footerIntl: "Éditions Internationales / Langues",
+    sisterEyebrow: "SITE SŒUR",
+    sisterTitle: "Statistiques de Cristiano Ronaldo",
+    sisterSub: "Buts, trophées et records de CR7 — mis à jour chaque jour.",
+    sisterCta: "Voir RonaldoStats →",
     crestNote: "Les logos de clubs sont des marques déposées de leurs propriétaires respectifs, utilisés à des fins d'identification.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} buts, record historique)`,
     badgeMessiNPG: `Messi (+${S.npgLead} buts hors penalty)`,
@@ -984,6 +1000,10 @@ const I18N = {
     footerDir: "Recorduri și Rivalități",
     footerSister: "RonaldoStats — Statisticile lui Cristiano Ronaldo",
     footerIntl: "Ediții Internaționale / Limbi",
+    sisterEyebrow: "SITE SURORĂ",
+    sisterTitle: "Statisticile lui Cristiano Ronaldo",
+    sisterSub: "Goluri, trofee și recorduri CR7 — actualizate zilnic.",
+    sisterCta: "Vezi RonaldoStats →",
     crestNote: "Siglele cluburilor sunt mărci înregistrate ale respectivelor echipe, afișate strict în scop de identificare.",
     badgeRonaldoGoals: "Ronaldo (+48 goluri, record all-time)",
     badgeMessiNPG: "Messi (+26 goluri fără penalty)",
@@ -1173,6 +1193,10 @@ const I18N = {
     footerDir: "Karyera rekordlari va Raqobat",
     footerSister: "RonaldoStats — Cristiano Ronaldo statistikasi",
     footerIntl: "Xalqaro nashrlar / Tillar",
+    sisterEyebrow: "HAMKOR SAYT",
+    sisterTitle: "Cristiano Ronaldo statistikasi",
+    sisterSub: "CR7 gollari, kuboklari va rekordlari — har kuni yangilanadi.",
+    sisterCta: "RonaldoStats ga o'tish →",
     crestNote: "Klub logotiplari tegishli klublarning savdo belgilari hisoblanadi va faqat maʼlumot berish uchun koʻrsatilgan.",
     badgeRonaldoGoals: "Ronaldu (+48 ta gol, tarixdagi mutlaq rekord)",
     badgeMessiNPG: "Messi (+26 ta penaltisiz gol)",
@@ -1362,6 +1386,10 @@ const I18N = {
     footerDir: "الأرقام القياسية والمنافسات",
     footerSister: "رونالدوستاتس — إحصائيات كريستيانو رونالدو",
     footerIntl: "النسخ الدولية / اللغات",
+    sisterEyebrow: "الموقع الشقيق",
+    sisterTitle: "إحصائيات كريستيانو رونالدو",
+    sisterSub: "أهداف كريستيانو رونالدو وإنجازاته — تُحَدَّث يومياً.",
+    sisterCta: "زيارة رونالدوستاتس ←",
     crestNote: "شعارات الأندية علامات تجارية لأنديتها وتُعرض لغايات التعريف بالفرق فقط.",
     badgeRonaldoGoals: "رونالدو (+48 هدفاً، الرقم القياسي التاريخي)",
     badgeMessiNPG: "ميسي (+26 هدفاً بدون جزاء)",
@@ -2198,6 +2226,15 @@ ${faqItemsHtml}
 
     <h2>${t.exploreTitle}</h2>
     <nav class="explore" id="explore"></nav>
+    <aside class="sister-ad" aria-label="Sister site">
+      <span class="sister-ad__mark">CR7</span>
+      <div class="sister-ad__text">
+        <span class="sister-ad__eyebrow">${t.sisterEyebrow}</span>
+        <strong class="sister-ad__title">${t.sisterTitle}</strong>
+        <span class="sister-ad__sub">${t.sisterSub}</span>
+      </div>
+      <a class="sister-ad__cta" href="https://www.ronaldostats.site" target="_blank" rel="noopener noreferrer">${t.sisterCta}</a>
+    </aside>
     <footer class="site-footer">
       <nav class="footer-nav" aria-label="${t.siteDirAria}">
         <div class="footer-group">
