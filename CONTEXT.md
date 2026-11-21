@@ -344,3 +344,4 @@ Live: **930 goals / 1,176 apps** (805 club + 125 Argentina), 46 team trophies, 8
 
 - 2026-11-21 — opencode (hy4-flash-free) — pending (orchestrator commits) — sitewide sister-site footer backlink added to all 84 EN/locale shells (12 EN + 12 es + 12 fr + 12 pt + 12 ro + 12 uz + 12 ar) + prebuild generator; target: RonaldoStats canonical domain, EN + 6 localized labels, target=_blank rel=noopener noreferrer, no nofollow; source .site href only. Files: 84 HTML shells, scripts/build-messi-vs-ronaldo.mjs, CONTEXT.md. Verify: 84/84 source hrefs, no BOM/U+FFFD, build + audit + audit:i18n green.
 
+- 2026-11-21 — orchestrator — 2cb413b — commit SHA for the sitewide RonaldoStats sister-site backlink entry above (84 shells + rivalry generator). Verify: build/audit/i18n/tag/wc/guard gates green.
