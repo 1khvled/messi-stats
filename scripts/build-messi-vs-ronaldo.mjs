@@ -228,6 +228,7 @@ const I18N = {
     faqHeader: "Frequently Asked Questions: Messi vs Ronaldo",
     exploreTitle: "Explore the full statistics",
     footerDir: "Career Records & Rivalries",
+    footerSister: "RonaldoStats — Cristiano Ronaldo Stats",
     footerIntl: "International Editions / Idiomas",
     crestNote: "Club crests are trademarks of their respective clubs, shown for identification purposes.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goals, All-Time Record)`,
@@ -415,6 +416,7 @@ const I18N = {
     faqHeader: "Preguntas Frecuentes: Messi vs Cristiano Ronaldo",
     exploreTitle: "Explora las estadísticas completas",
     footerDir: "Récords y Rivalidades",
+    footerSister: "RonaldoStats — Estadísticas de Cristiano Ronaldo",
     footerIntl: "Ediciones Internacionales / Idiomas",
     crestNote: "Los escudos de clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goles, récord histórico)`,
@@ -602,6 +604,7 @@ const I18N = {
     faqHeader: "Perguntas Frequentes: Messi vs Cristiano Ronaldo",
     exploreTitle: "Explore todas as estatísticas",
     footerDir: "Recordes e Rivalidades",
+    footerSister: "RonaldoStats — Estatísticas de Cristiano Ronaldo",
     footerIntl: "Edições Internacionais / Idiomas",
     crestNote: "Os escudos dos clubes são marcas registradas de seus respectivos times, exibidos para fins de identificação.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} gols, recorde histórico)`,
@@ -789,6 +792,7 @@ const I18N = {
     faqHeader: "Foire Aux Questions : Messi vs Ronaldo",
     exploreTitle: "Explorer toutes les statistiques",
     footerDir: "Records et Rivalités",
+    footerSister: "RonaldoStats — Statistiques de Cristiano Ronaldo",
     footerIntl: "Éditions Internationales / Langues",
     crestNote: "Les logos de clubs sont des marques déposées de leurs propriétaires respectifs, utilisés à des fins d'identification.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} buts, record historique)`,
@@ -978,6 +982,7 @@ const I18N = {
     faqHeader: "Întrebări Frecvente: Messi vs Ronaldo",
     exploreTitle: "Explorează toate statisticile",
     footerDir: "Recorduri și Rivalități",
+    footerSister: "RonaldoStats — Statisticile lui Cristiano Ronaldo",
     footerIntl: "Ediții Internaționale / Limbi",
     crestNote: "Siglele cluburilor sunt mărci înregistrate ale respectivelor echipe, afișate strict în scop de identificare.",
     badgeRonaldoGoals: "Ronaldo (+48 goluri, record all-time)",
@@ -1166,6 +1171,7 @@ const I18N = {
     faqHeader: "Koʻp beriladigan savollar: Messi vs Ronaldu",
     exploreTitle: "Toʻliq statistikani koʻrish",
     footerDir: "Karyera rekordlari va Raqobat",
+    footerSister: "RonaldoStats — Cristiano Ronaldo statistikasi",
     footerIntl: "Xalqaro nashrlar / Tillar",
     crestNote: "Klub logotiplari tegishli klublarning savdo belgilari hisoblanadi va faqat maʼlumot berish uchun koʻrsatilgan.",
     badgeRonaldoGoals: "Ronaldu (+48 ta gol, tarixdagi mutlaq rekord)",
@@ -1354,6 +1360,7 @@ const I18N = {
     faqHeader: "الأسئلة الشائعة: ميسي ضد رونالدو",
     exploreTitle: "استكشف كافة الإحصائيات",
     footerDir: "الأرقام القياسية والمنافسات",
+    footerSister: "رونالدوستاتس — إحصائيات كريستيانو رونالدو",
     footerIntl: "النسخ الدولية / اللغات",
     crestNote: "شعارات الأندية علامات تجارية لأنديتها وتُعرض لغايات التعريف بالفرق فقط.",
     badgeRonaldoGoals: "رونالدو (+48 هدفاً، الرقم القياسي التاريخي)",
@@ -2207,6 +2214,7 @@ ${faqItemsHtml}
             <a href="${slugPath}/dashboard">${t.dashboardName}</a>
             <a href="${slugPath}/timeline">${t.timelineName}</a>
             <a href="${slugPath}/achievements">${t.achievementsName}</a>
+            <a href="https://www.ronaldostats.site" target="_blank" rel="noopener noreferrer">${t.footerSister}</a>
           </div>
         </div>
         <div class="footer-group">
