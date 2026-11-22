@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-11-21",
+    "updated": "2026-11-22",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -37,7 +37,8 @@
       "Auto-synced on 2026-10-25: Inter Miami CF at Red Bull New York (+0G).",
       "Auto-synced on 2026-10-29: Inter Miami vs FC Cincinnati (+0G).",
       "Auto-synced on 2026-11-06: Inter Miami vs New England Revolution (+1G).",
-      "Auto-synced on 2026-11-07: Inter Miami vs Charlotte FC (+0G)."
+      "Auto-synced on 2026-11-07: Inter Miami vs Charlotte FC (+0G).",
+      "Auto-synced on 2026-11-22: Inter Miami vs Columbus Crew (+0G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -58,7 +59,8 @@
       "761891",
       "761908",
       "761932",
-      "761938"
+      "761938",
+      "401933739"
     ]
   },
   "profile": {
@@ -84,7 +86,7 @@
   },
   "totals": {
     "club": {
-      "appearances": 977,
+      "appearances": 978,
       "goals": 811,
       "goalsPerGame": 0.83
     },
@@ -94,7 +96,7 @@
       "goalsPerGame": 0.61
     },
     "combined": {
-      "appearances": 1185,
+      "appearances": 1186,
       "goals": 937
     },
     "assists": {
@@ -114,7 +116,7 @@
         "inter_miami": {
           "official": 48,
           "transfermarkt": 53,
-          "appearances": 124
+          "appearances": 125
         },
         "psg": {
           "official": 34,
@@ -134,7 +136,7 @@
     "goalContributions": {
       "official": 1346,
       "transfermarkt": 1388,
-      "perGameOfficial": 1.14
+      "perGameOfficial": 1.13
     },
     "note": "Apps/goals are cross-checked sums of the rows below. Official assists reflect Opta/FIFA senior match standards (451 assists); Transfermarkt criteria includes penalties won and rebounds (450 assists).",
     "goalsPerGame": 0.79
@@ -629,7 +631,7 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        30,
+        31,
         26
       ],
       "cup": [
@@ -644,7 +646,7 @@
         3,
         3
       ],
-      "apps": 36,
+      "apps": 37,
       "goals": 30
     }
   ],
