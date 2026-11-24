@@ -173,13 +173,7 @@ function renderRailNav(lang, activeSlug) {
 }
 
 function renderAdSlot(lang) {
-  const L = LANGS[lang];
-  return `<aside aria-label="${L.adLabel}" class="ad-native-wrap">
-<span class="ad-native-label">${L.adLabel}</span>
-<div class="ad-native-slot">
-<iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6161.html" style="width:100%;height:320px" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
-</div>
-</aside>`;
+  return "";
 }
 
 function renderBdayPromo(lang) {

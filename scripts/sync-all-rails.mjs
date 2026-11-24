@@ -202,6 +202,34 @@ const NAV_LABELS = {
     gear: "متجر ميسي",
     themeToggle: "تبديل الوضع",
     darkMode: "الوضع الداكن"
+  },
+  id: {
+    badgeAria: "Beranda MessiStat",
+    brandSub: `${S.goals} Gol · Resmi`,
+    collapseAria: "Ciutkan atau perluas bilah sisi",
+    langName: "Indonesia",
+    langTag: "ID",
+    langSelectAria: "Pilih Bahasa (Indonesia)",
+    langSelectTitle: "Pilih Bahasa",
+    searchLabel: "Cari Cepat",
+    searchAria: "Cari statistik, tahun, dan halaman (Ctrl+K)",
+    grpLive: "Pusat & Langsung",
+    grpRivals: "Rival & Piala",
+    grpArchive: "Arsip Karier",
+    home: "Beranda",
+    latestGoal: "Gol Terbaru",
+    bday: "Gol Ulang Tahun",
+    ronaldo: "vs Ronaldo",
+    madrid: "vs Real Madrid",
+    ucl: "Liga Champions",
+    byyear: "Gol per Tahun",
+    byseason: "Gol per Musim",
+    dashboard: "Dasbor",
+    timeline: "Linimasa Karier",
+    achievements: "Trofi & Prestasi",
+    gear: "Perlengkapan Messi",
+    themeToggle: "Ganti tema tampilan",
+    darkMode: "Mode gelap"
   }
 };
 
@@ -285,8 +313,8 @@ for (const [file, slug] of Object.entries(PAGES_MAP)) {
   updateFileRail(path.join(rootDir, file), "en", slug);
 }
 
-// 2. All six localized languages (es, pt, fr, ro, uz, ar)
-const ALL_LANGS = ["es", "pt", "fr", "ro", "uz", "ar"];
+// 2. All seven localized languages (es, pt, fr, ro, uz, ar, id)
+const ALL_LANGS = ["es", "pt", "fr", "ro", "uz", "ar", "id"];
 for (const lang of ALL_LANGS) {
   for (const [file, slug] of Object.entries(PAGES_MAP)) {
     updateFileRail(path.join(rootDir, lang, file), lang, slug);

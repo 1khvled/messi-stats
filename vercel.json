@@ -7,7 +7,7 @@
   "trailingSlash": false,
   "redirects": [
     {
-      "source": "/:lang(es|pt|fr|ar|ro|uz)/birthday",
+      "source": "/:lang(es|pt|fr|ar|ro|uz|id)/birthday",
       "has": [
         {
           "type": "query",
@@ -19,7 +19,7 @@
       "permanent": true
     },
     {
-      "source": "/:lang(es|pt|fr|ar|ro|uz)",
+      "source": "/:lang(es|pt|fr|ar|ro|uz|id)",
       "has": [
         {
           "type": "query",
@@ -31,7 +31,7 @@
       "permanent": true
     },
     {
-      "source": "/:lang(es|pt|fr|ar|ro|uz)/birthday",
+      "source": "/:lang(es|pt|fr|ar|ro|uz|id)/birthday",
       "has": [
         {
           "type": "query",
@@ -755,6 +755,86 @@
     {
       "source": "/ar/latest-goal",
       "destination": "/ar/latest-goal.html"
+    },
+    {
+      "source": "/id/data/:path*",
+      "destination": "/data/:path*"
+    },
+    {
+      "source": "/id/img/:path*",
+      "destination": "/img/:path*"
+    },
+    {
+      "source": "/id/fonts/:path*",
+      "destination": "/fonts/:path*"
+    },
+    {
+      "source": "/id/assets/:path*",
+      "destination": "/assets/:path*"
+    },
+    {
+      "source": "/id",
+      "destination": "/id/index.html"
+    },
+    {
+      "source": "/id/goalsbyyear",
+      "destination": "/id/goalsbyyear.html"
+    },
+    {
+      "source": "/id/goalsbyseason",
+      "destination": "/id/goalsbyseason.html"
+    },
+    {
+      "source": "/id/dashboard",
+      "destination": "/id/dashboard.html"
+    },
+    {
+      "source": "/id/timeline",
+      "destination": "/id/timeline.html"
+    },
+    {
+      "source": "/id/throughtheyears",
+      "destination": "/id/timeline.html"
+    },
+    {
+      "source": "/id/achievements",
+      "destination": "/id/achievements.html"
+    },
+    {
+      "source": "/id/gear",
+      "destination": "/id/gear.html"
+    },
+    {
+      "source": "/id/birthday",
+      "destination": "/id/birthday.html"
+    },
+    {
+      "source": "/id/birthday/:date",
+      "destination": "/id/birthday.html"
+    },
+    {
+      "source": "/id/vs/ronaldo",
+      "destination": "/id/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/id/messi-vs-ronaldo",
+      "destination": "/id/messi-vs-ronaldo.html"
+    },
+    {
+      "source": "/id/vs/real-madrid",
+      "destination": "/id/vs-real-madrid.html"
+    },
+    {
+      "source": "/id/vs-real-madrid",
+      "destination": "/id/vs-real-madrid.html"
+    },
+    {
+      "source": "/id/champions-league",
+      "destination": "/id/champions-league.html"
+    },
+    {
+      "source": "/id/latest-goal",
+      "destination": "/id/latest-goal.html"
     }
   ],
   "headers": [
@@ -791,7 +871,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://www.googletagservices.com https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' https://cdn.messiallgoals.com blob: https:; connect-src 'self' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https: wss:; frame-src 'self' https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://fundingchoicesmessages.google.com https://www.google.com https: data: about:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://www.googletagservices.com https://*.adtrafficquality.google https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://*.googleadservices.com https://*.gstatic.com https://*.google.com https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https: blob:; font-src 'self' data: https:; media-src 'self' https://cdn.messiallgoals.com blob: https:; connect-src 'self' https://pagead2.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://*.googleadservices.com https://*.gstatic.com https://*.google.com https: wss:; frame-src 'self' https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://*.googlesyndication.com https://*.doubleclick.net https://*.adtrafficquality.google https://ep1.adtrafficquality.google https://ep2.adtrafficquality.google https://fundingchoicesmessages.google.com https://*.googleadservices.com https://*.gstatic.com https://www.google.com https://*.google.com https: data: about:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self';"
         }
       ]
     },

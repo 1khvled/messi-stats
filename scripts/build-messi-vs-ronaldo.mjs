@@ -6,7 +6,7 @@ import { S } from "./stats.mjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
-const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar"];
+const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar", "id"];
 
 // Rivalry splits: single source of truth is public/data/messi-data.json
 // (splits block, verified). Embedded fallback keeps builds working offline.
@@ -30,7 +30,7 @@ SPLITS = SPLITS || { worldCup: { messi: { goals: 21, assists: 12 }, ronaldo: { g
   const PCT_NUM = (goals, attempts) => Math.round((goals / attempts) * 1000) / 10;
   const PCT = (v, sep) => v.toFixed(1).replace(".", sep || ".");
   // the decimal separator each language writes a percentage with
-  const PCT_SEP = { en: ".", es: ",", pt: ",", fr: ",", ro: ",", uz: ",", ar: "." };
+  const PCT_SEP = { en: ".", es: ",", pt: ",", fr: ",", ro: ",", uz: ",", ar: ".", id: "," };
 function getHreflangs(lang, slug) {
   return [
     `  <link rel="canonical" href="https://www.messistat.com/${lang}/${slug}"/>`,
@@ -54,6 +54,8 @@ function getHreflangs(lang, slug) {
     `  <link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/${slug}"/>`,
     `  <link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/${slug}"/>`,
     `  <link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/${slug}"/>`,
+    `  <link rel="alternate" hreflang="id" href="https://www.messistat.com/id/${slug}"/>`,
+    `  <link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/${slug}"/>`,
   ].join("\n");
 }
 
@@ -125,6 +127,23 @@ const POLL_I18N = {
     ronaldoBadge: "LE BUTEUR RECORD",
     messiCta: "Voter pour Messi →",
     ronaldoCta: "Voter pour Ronaldo →"
+  },
+  id: {
+    badge: "POLLING FANS LANGSUNG",
+    title: "Siapa Pemain Terbaik Sepanjang Masa (GOAT)?",
+    sub: "Berikan suara Anda di bawah ini dan lihat persentase penggemar global secara real-time:",
+    messiName: "Lionel Messi",
+    messiDesc: `${S.goals} Gol · 47 Trofi · 8 Ballon d'Or · Juara Piala Dunia`,
+    ronaldoName: "Cristiano Ronaldo",
+    ronaldoDesc: `${S.rGoals} Gol · 37 Trofi · 5 Ballon d'Or · Top Skor Sepanjang Masa UCL`,
+    votedMsg: "✓ Suara Anda telah dicatat! Hasil komunitas global:",
+    totalVotes: "suara masuk dari seluruh dunia",
+    shareVote: "Bagikan Pilihan Anda",
+    votePrefix: "Pilih ",
+    messiBadge: "THE PLAYMAKER GOAT",
+    ronaldoBadge: "THE RECORD GOALSCORER",
+    messiCta: "Pilih Messi →",
+    ronaldoCta: "Pilih Ronaldo →"
   }
 };
 
@@ -1476,6 +1495,198 @@ const I18N = {
         a: `تضع النماذج الإحصائية ميسي في الصدارة لجمعه الفريد بين صدارة التهديف وصدارة صناعة اللعب: معدل تهديف أعلى (0.79 مقابل 0.72)، 26 هدفاً أكثر بدون ركلات جزاء في 161 مباريات أقل، فارق هائل يفوق ${S.astLead} تمريرة حاسمة، معدل دقائق مذهل لكل مساهمة في هدف (72 دقيقة مقابل 88 دقيقة)، وتتويجه بكأس العالم 2022.`
       }
     ]
+  },
+  id: {
+    dir: "ltr",
+    title: `Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} Gol, Assist, Trofi & H2H`,
+    desc: `Perbandingan lengkap Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} gol, ${S.assists}+ vs ${S.rAssists} assist, ${S.npg} vs ${S.npgR} gol non-penalti, 76 vs 64 tendangan bebas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trofi & 36 laga H2H.`,
+    keywords: "messi vs ronaldo, statistik messi vs ronaldo, gol messi vs ronaldo, tendangan bebas messi vs ronaldo, trofi messi vs ronaldo, ballon d'or messi ronaldo, siapa goat messi atau ronaldo, head to head messi ronaldo",
+    brand: "MessiStat",
+    homeName: "Beranda",
+    latestGoalName: "Gol Terbaru",
+    bdayName: "Gol Ulang Tahun",
+    vsRonaldoName: "vs Ronaldo",
+    vsRealMadridName: "vs Real Madrid",
+    uclName: "Liga Champions",
+    goalsByYearName: "Gol per Tahun",
+    goalsBySeasonName: "Gol per Musim",
+    dashboardName: "Dasbor",
+    timelineName: "Linimasa Karier",
+    achievementsName: "Trofi & Prestasi",
+    skipText: "Lewati ke konten utama",
+    eyebrow: "Rivalitas Terbesar <i></i> <span>Head-to-Head &amp; Perbandingan Karier Lengkap</span>",
+    h1: "Messi vs Ronaldo",
+    lead: "Perbandingan statistik terlengkap antara dua ikon terbesar sepak bola modern. Gol sepanjang masa, gol non-penalti, tendangan bebas, penalti, assist, trofi, penghargaan individu, dan semua 36 pertemuan langsung.",
+    verdictBadge: "VERDIK GOAT • TOTAL RESMI LENGKAP",
+    verdictTitle: "Siapa yang memiliki statistik karier lebih baik: Messi atau Ronaldo?",
+    verdictText: `Sepanjang laga resmi senior, <b>Lionel Messi mencetak ${S.goals} gol dan ${S.assists}+ assist dalam ${S.apps.toLocaleString('en-US')} pertandingan</b> (1,14 kontribusi gol per laga), sementara <b>Cristiano Ronaldo memegang rekor gol terbanyak dengan ${S.rGoals} gol dan 261 assist dalam ${S.rApps.toLocaleString('en-US')} pertandingan</b> (0,93 kontribusi per laga). Meski Ronaldo unggul dalam jumlah gol (<b>${S.rGoals} vs ${S.goals}</b>), Messi mencapai ${S.goals} gol dalam <b>161 laga lebih sedikit</b> dengan rasio gol lebih tinggi (<b>0,79 vs 0,73</b>), unggul dalam <b>gol non-penalti (${S.npg} vs ${S.npgR})</b> dan assist (<b>${S.assists}+ vs 261</b>), menjuarai <b>Piala Dunia FIFA (2022)</b> dengan dua Bola Emas, serta unggul dalam <b>Ballon d'Or (8 vs 5)</b> dan <b>trofi tim (${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo})</b>.`,
+    tableStat: "Statistik",
+    tableLeader: "Keunggulan",
+    coreHeader: "Total Karier Senior Sepanjang Masa",
+    coreIntro: "Angka resmi terverifikasi di seluruh kompetisi klub dan tim nasional senior.",
+    statGoals: "Gol Karier Senior",
+    statApps: "Penampilan Karier Senior",
+    statRatio: "Gol per Pertandingan (Rasio)",
+    statAssists: "Assist Karier",
+    statGoalContrib: "Kontribusi Gol (Gol + Assist)",
+    statContribRatio: "Kontribusi Gol per Laga",
+    statMinsContrib: "Menit per Kontribusi Gol",
+    statTrophies: "Total Trofi Tim",
+    statBallons: "Penghargaan Ballon d'Or",
+    statGoldenShoes: "Sepatu Emas Eropa",
+    statWorldCup: "Piala Dunia FIFA",
+    statH2HWins: "Kemenangan Head-to-Head Langsung",
+    scoringHeader: "Mekanisme Gol: Tendangan Bebas, Penalti &amp; Non-Penalti",
+    scoringIntro: "Rincian mendalam cara kedua pemain mencetak gol — efisiensi open-play, bola mati, dan jarak tembak.",
+    statNPG: "Gol Non-Penalti",
+    statNPGRatio: "Gol Non-Penalti per Laga",
+    statFreeKicks: "Gol Tendangan Bebas Langsung",
+    statPenalties: "Penalti Masuk (Percobaan)",
+    statPenConversion: "Persentase Konversi Penalti",
+    statHatTricks: "Hat-trick Karier",
+    statPokers: "Laga 4+ Gol (Poker)",
+    stat5Goals: "Laga 5 Gol dalam Satu Pertandingan",
+    statOutsideBox: "Gol dari Luar Kotak Penalti",
+    statOpenPlay: "Gol Open-Play",
+    playmakingHeader: "Playmaking, Kreativitas &amp; Pengaruh Serangan",
+    playmakingIntro: "Assist, dominasi kreasi peluang, dan pengaruh keseluruhan di lapangan.",
+    statAllAssists: "Total Assist Karier",
+    statClubAssists: "Assist Karier Klub",
+    statIntAssists: "Assist Internasional",
+    statBigChances: "Peluang Emas Diciptakan",
+    intlHeader: "Dominasi Internasional &amp; Final Turnamen",
+    intlIntro: "Rekor di panggung terbesar sepak bola — Piala Dunia FIFA, turnamen kontinental, dan laga final.",
+    statWCTitles: "Gelar Piala Dunia",
+    statWCGoldenBall: "Bola Emas Piala Dunia (Pemain Terbaik)",
+    statWCGoals: "Gol Piala Dunia",
+    statWCAssists: "Assist Piala Dunia",
+    statWCKO: "Gol Fase Gugur Piala Dunia",
+    statWCKOAssists: "Assist Fase Gugur Piala Dunia",
+    statContTitles: "Kejuaraan Kontinental",
+    statFinalsGoals: "Gol di Laga Final Piala",
+    h2hHeader: "36 Pertemuan Head-to-Head Langsung",
+    h2hIntro: "Setiap kali Lionel Messi dan Cristiano Ronaldo berhadapan langsung di atas lapangan.",
+    kpiMessiWins: "Messi Menang",
+    kpiDraws: "Imbang",
+    kpiRonaldoWins: "Ronaldo Menang",
+    kpiGoalsScored: "Gol Dicetak",
+    kpiEqualMatches: "Pertandingan Setara",
+    compClasico: "El Clásico (Real Madrid vs Barcelona)",
+    compUCL: "Liga Champions UEFA",
+    compIntl: "Laga Persahabatan Internasional",
+    bdayTitle: "Apakah Lionel Messi mencetak gol di hari ulang tahun Cristiano Ronaldo?",
+    bdayDesc: "Cristiano Ronaldo lahir pada 5 Februari. Lihat apa yang dilakukan Messi pada 5 Februari dan cek gol di hari ulang tahun Anda sendiri!",
+    bdayBtn: "Cek 5 Februari ",
+    supportAria: "Dukung MessiStat",
+    supportTitle: "Dukung MessiStat",
+    supportText: `MessiStat adalah proyek independen untuk melacak ${S.goals}+ gol karier dan video replay tanpa paywall. Dukung kami di Ko-fi atau donasi kripto untuk biaya server dan CDN video!`,
+    supportCta: "Dukung di Ko-fi",
+    cryptoLabel: "Donasi Dompet Langsung (USDT / BNB / ETH / BUSD):",
+    copyBtn: "Salin",
+    copiedMsg: "✓ Tersalin!",
+    brandSub: "Basis Data Statistik & Video Terverifikasi Lionel Messi",
+    logoAlt: "Logo MessiStat",
+    showdownAlt: "Lionel Messi dan Cristiano Ronaldo berhadapan di lapangan",
+    showdownBadge: "36 PERTEMUAN LANGSUNG · TOTAL 13 BALLON D'OR",
+    tocAria: "Bagian Perbandingan",
+    verdictAria: "Ringkasan Verdik GOAT",
+    siteDirAria: "Direktori situs",
+    closeAdAria: "Tutup iklan",
+    faqHeader: "Pertanyaan yang Sering Diajukan: Messi vs Ronaldo",
+    exploreTitle: "Jelajahi statistik lengkap",
+    footerDir: "Rekor Karier &amp; Rivalitas",
+    footerSister: "RonaldoStats — Statistik Cristiano Ronaldo",
+    footerIntl: "Edisi Internasional / Bahasa",
+    sisterEyebrow: "SITUS MITRA",
+    sisterTitle: "Statistik Cristiano Ronaldo",
+    sisterSub: "Gol dan pencapaian CR7 — diperbarui setiap hari.",
+    sisterCta: "Kunjungi RonaldoStats →",
+    crestNote: "Logo klub adalah merek dagang pemiliknya masing-masing dan ditampilkan hanya untuk identifikasi.",
+    badgeRonaldoGoals: "Ronaldo (+48 gol, Rekor Dunia)",
+    badgeMessiNPG: "Messi (+26 NPG)",
+    badgeMessiFK: "Messi (+12 tendangan bebas)",
+    badgeRonaldoPen: "Ronaldo (+74 penalti)",
+    badgeMessiAssists: `Messi (+${S.astLead} assist)`,
+    badgeRonaldoHT: "Ronaldo (+4 hat-trick)",
+    badgeMessiWC: "Messi (Juara Dunia, 2 Bola Emas)",
+    badgeMessiTrophies: "Messi (+10 trofi, Rekor Dunia)",
+    badgeMessiBallon: "Messi (+3 Ballon d'Or, Rekor)",
+    badgeMessiH2H: "Messi (+5 menang, 16 vs 11)",
+    badgeMessiFinals: "Messi (+13 gol final)",
+    thCompetition: "Kompetisi",
+    thMatches: "Laga",
+    thMessiWins: "Messi Menang",
+    thDraws: "Imbang",
+    thRonaldoWins: "Ronaldo Menang",
+    thMessiGoals: "Gol Messi",
+    thRonaldoGoals: "Gol Ronaldo",
+    tableTotal: "Total",
+    badge16Wins: "16 Menang",
+    badge11Wins: "11 Menang",
+    tied2All: "Imbang (2 sama)",
+    badgeMessiRecord: "Messi (Rekor)",
+    wcKOStageMessi: "Messi (+6)",
+    goalsKnockoutMessi: "7 Gol",
+    goalsKnockoutRonaldo: "1 Gol",
+    assistsKnockoutMessi: "10 Assist",
+    assistsKnockoutRonaldo: "0 Assist",
+    finalsRecordMessi: "36 Gol dalam 52 Final",
+    finalsRecordRonaldo: "23 Gol dalam 40 Final",
+    continentalMessi: "3 (2 Copa América, 1 Finalissima)",
+    continentalRonaldo: "3 (1 Euro, 2 Nations League)",
+    contTie: "Imbang 3–3",
+    adLabel: "Iklan",
+    showdownCaption: `<strong>Rivalitas Terbesar Sepanjang Masa:</strong> Lionel Messi dan Cristiano Ronaldo — dua ikon generasi yang mendefinisikan era keemasan sepak bola modern dalam 36 pertemuan langsung.`,
+    bdayPromoBadge: "FITUR INTERAKTIF VIRAL",
+    bdayPromoAria: "Apakah Messi mencetak gol di hari ulang tahun Anda?",
+    jumpCore: "Total Karier",
+    jumpScoring: "Tendangan Bebas &amp; Penalti",
+    jumpPlaymaking: "Playmaking &amp; Assist",
+    jumpIntl: "Piala Dunia &amp; Final",
+    jumpH2H: "36 Laga H2H",
+    jumpFaq: "FAQ",
+    faqs: [
+      {
+        q: "Siapa yang mencetak gol lebih banyak: Messi atau Cristiano Ronaldo?",
+        a: `Cristiano Ronaldo memegang rekor gol resmi terbanyak dengan ${S.rGoals} gol dalam ${S.rApps.toLocaleString('en-US')} laga (0,73 gol/laga), sementara Lionel Messi mencetak ${S.goals} gol dalam ${S.apps.toLocaleString('en-US')} laga (0,79 gol/laga) dengan 161 pertandingan lebih sedikit.`
+      },
+      {
+        q: "Siapa yang mencetak lebih banyak gol non-penalti?",
+        a: `Lionel Messi mencetak ${S.npg} gol non-penalti dalam ${S.apps.toLocaleString('en-US')} laga (0,70/laga), unggul 26 gol atas Cristiano Ronaldo (${S.npgR} gol non-penalti dalam ${S.rApps.toLocaleString('en-US')} laga).`
+      },
+      {
+        q: "Siapa yang lebih banyak mencetak gol tendangan bebas langsung?",
+        a: "Lionel Messi unggul dengan 76 gol tendangan bebas langsung (50 Barcelona, 12 Argentina, 12 Inter Miami, 2 PSG) dibandingkan 64 milik Ronaldo."
+      },
+      {
+        q: "Siapa yang memiliki lebih banyak assist: Messi atau Ronaldo?",
+        a: `Lionel Messi unggul jauh dengan ${S.assists}+ assist resmi dibandingkan 261 milik Ronaldo (selisih +${S.astLead} assist).`
+      },
+      {
+        q: "Siapa yang lebih banyak mencetak penalti dan bagaimana rasio konversinya?",
+        a: `Cristiano Ronaldo mencetak ${PEN.ronaldoGoals} penalti dari ${PEN.ronaldoAttempts} percobaan (${PCT(PCT_NUM(PEN.ronaldoGoals, PEN.ronaldoAttempts), PCT_SEP.id)}%), sedangkan Lionel Messi mencetak 110 penalti dari 141 percobaan (78,0%).`
+      },
+      {
+        q: "Siapa yang lebih banyak mencetak hat-trick: Messi atau Ronaldo?",
+        a: "Cristiano Ronaldo mengoleksi 66 hat-trick karier, sedangkan Lionel Messi mencatat 62 hat-trick (48 Barcelona, 11 Argentina, 3 Inter Miami)."
+      },
+      {
+        q: "Siapa yang lebih baik di Piala Dunia FIFA?",
+        a: "Lionel Messi menjuarai Piala Dunia FIFA 2022 bersama Argentina dan menjadi satu-satunya pemain yang meraih 2 Bola Emas Piala Dunia (2014 & 2022), dengan total 21 gol dan 12 assist (7 gol fase gugur) dibanding 11 gol dan 2 assist milik Ronaldo (1 gol fase gugur)."
+      },
+      {
+        q: "Siapa yang menang lebih banyak dalam 36 pertemuan head-to-head?",
+        a: "Dalam 36 pertemuan langsung, tim Lionel Messi menang 16 kali, tim Ronaldo menang 11 kali, dan 9 laga berakhir imbang. Messi mencetak 22 gol dan Ronaldo 21 gol."
+      },
+      {
+        q: "Berapa jumlah Ballon d'Or dan trofi masing-masing?",
+        a: `Lionel Messi memegang rekor dunia dengan ${SPLITS.trophies.messi} trofi tim resmi dan 8 Ballon d'Or, sementara Cristiano Ronaldo meraih ${SPLITS.trophies.ronaldo} trofi tim dan 5 Ballon d'Or.`
+      },
+      {
+        q: "Mengapa model analitik menilai Messi sebagai GOAT?",
+        a: `Model statistik menempatkan Messi di puncak karena menggabungkan efisiensi gol (0,79 vs 0,73), keunggulan 26 gol non-penalti dalam 161 laga lebih sedikit, dominasi +${S.astLead} assist, serta gelar juara Piala Dunia 2022.`
+      }
+    ]
   }
 };
 
@@ -1628,7 +1839,6 @@ ${JSON.stringify(jsonLd, null, 2)}
 <link rel="dns-prefetch" href="https://highrevenueformat.com" />
 <link rel="preconnect" href="https://araplhn.org" crossorigin />
 <link rel="dns-prefetch" href="https://araplhn.org" />
-<link rel="preload" href="/ads/hrf-top.html" as="document" media="(min-width: 769px)" fetchpriority="high" />
 </head>
 <body data-page="vs-ronaldo">
 <a class="skip" href="#main">${t.skipText}</a>
@@ -1686,14 +1896,6 @@ ${JSON.stringify(jsonLd, null, 2)}
         </a>
       </div>
     </header>
-
-    <!-- Top Header Ad Banner Slot -->
-    <aside aria-label="${t.adLabel}" class="ad-banner-wrap ad-banner-top">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame safe-ad-top" src="/ads/hrf-top.html" width="728" height="90" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
-      </div>
-    </aside>
 
     <p class="eyebrow">${t.eyebrow}</p>
     <h1>${t.h1}</h1>
@@ -2083,14 +2285,6 @@ ${JSON.stringify(jsonLd, null, 2)}
       </table>
     </div>
 
-    <!-- Banner Ad Slot -->
-    <aside aria-label="${t.adLabel}" class="ad-banner-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-banner-slot">
-        <iframe class="safe-ad-frame" src="/ads/hrf-300x250.html" width="300" height="250" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>
-      </div>
-    </aside>
-
     <!-- 5. 36 Direct Encounters (Head-to-Head Table) -->
     <div class="shead"><h2>${t.h2hHeader}</h2></div>
     <p class="comparison-intro-p">${t.h2hIntro}</p>
@@ -2184,14 +2378,6 @@ ${JSON.stringify(jsonLd, null, 2)}
 ${faqItemsHtml}
     </div>
 
-    <!-- Post-FAQ Native Ad Slot (format alternation, lazy: below fold) -->
-    <aside aria-label="${t.adLabel}" class="ad-native-wrap">
-      <span class="ad-native-label">${t.adLabel}</span>
-      <div class="ad-native-slot">
-        <iframe class="safe-ad-frame safe-ad-native" src="/ads/prc-native-6161.html" style="width:100%;height:320px" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no" loading="lazy"></iframe>
-      </div>
-    </aside>
-
     <!-- Support & Donation Card -->
     <section class="support-card" id="support" aria-label="${t.supportAria}">
       <div class="support-inner">
@@ -2205,7 +2391,7 @@ ${faqItemsHtml}
             <span>${t.supportCta}</span>
           </a>
           <a href="https://t.me/messistatdotcom" target="_blank" rel="noopener noreferrer" class="btn-support tg">
-            <span>${lang === 'es' ? 'Canal de Telegram' : lang === 'pt' ? 'Canal no Telegram' : lang === 'fr' ? 'Chaîne Telegram' : lang === 'ro' ? 'Canal Telegram' : lang === 'uz' ? 'Telegram Kanali' : lang === 'ar' ? 'قناة تيليغرام' : 'Join Telegram Channel'}</span>
+            <span>${lang === 'es' ? 'Canal de Telegram' : lang === 'pt' ? 'Canal no Telegram' : lang === 'fr' ? 'Chaîne Telegram' : lang === 'ro' ? 'Canal Telegram' : lang === 'uz' ? 'Telegram Kanali' : lang === 'ar' ? 'قناة تيليغرام' : lang === 'id' ? 'Saluran Telegram' : 'Join Telegram Channel'}</span>
           </a>
         </div>
       </div>
@@ -2264,6 +2450,7 @@ ${faqItemsHtml}
             <a href="/uz" hreflang="uz">O'zbekcha</a>
             <a href="/ar" hreflang="ar">العربية</a>
             <a href="/fr" hreflang="fr">Français (France, Niger)</a>
+            <a href="/id" hreflang="id">Bahasa Indonesia (Indonesia)</a>
           </div>
         </div>
       </nav>

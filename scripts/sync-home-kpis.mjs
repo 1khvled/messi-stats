@@ -92,7 +92,7 @@ export function syncHomeKpis() {
     });
   };
 
-  const files = ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html"];
+  const files = ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html", "id/index.html"];
   let n = 0;
 
   for (const rel of files) {
@@ -191,7 +191,7 @@ export function syncHomeKpis() {
     // that unambiguously mean one fact. Trophies-46 handled explicitly
     // (never blanket: "46 assists" collision); WC splits untouched here.
     {
-      const TROPHY_WORDS = /troph|t[ií]tul|titre|trofe|palmar|record.*cup|cups|kubok|sovrin|بطول|ألقاب|لقب/i;
+      const TROPHY_WORDS = /troph|t[ií]tul|titre|trofe|trofi|palmar|record.*cup|cups|kubok|sovrin|بطول|ألقاب|لقب/i;
       const ASSIST_WORDS = /assist|asist|pase|تمرير/i;
       const transplantPlus = (txt, allowTrophies, trophies) => {
         let out = transplantNums(txt);

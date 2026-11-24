@@ -27,6 +27,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -69,6 +71,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -95,6 +99,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
@@ -127,6 +133,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -153,6 +161,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -179,6 +189,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
@@ -210,6 +222,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
@@ -241,6 +255,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
     <image:image>
       <image:loc>https://www.messistat.com/img/era-2011-wembley.webp</image:loc>
@@ -272,6 +288,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
@@ -320,6 +338,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
     <image:image>
       <image:loc>https://www.messistat.com/img/era-2008-olympic.webp</image:loc>
@@ -388,6 +408,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
     <image:image>
       <image:loc>https://www.messistat.com/img/cab-ballon.webp</image:loc>
@@ -444,6 +466,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -476,6 +500,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -512,6 +538,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -538,6 +566,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -564,6 +594,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -590,6 +622,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -616,6 +650,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -642,6 +678,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -668,6 +706,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -694,6 +734,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -736,6 +778,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -762,6 +806,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -788,6 +834,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -814,6 +862,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -850,6 +900,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -876,6 +928,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -902,6 +956,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -928,6 +984,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -954,6 +1012,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -980,6 +1040,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -1006,6 +1068,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -1032,6 +1096,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -1074,6 +1140,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -1100,6 +1168,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -1126,6 +1196,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -1152,6 +1224,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -1188,6 +1262,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -1214,6 +1290,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -1240,6 +1318,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -1266,6 +1346,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -1292,6 +1374,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -1318,6 +1402,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -1344,6 +1430,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -1370,6 +1458,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -1412,6 +1502,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -1438,6 +1530,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -1464,6 +1558,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -1490,6 +1586,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -1526,6 +1624,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -1552,6 +1652,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -1578,6 +1680,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -1604,6 +1708,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -1630,6 +1736,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -1656,6 +1764,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -1682,6 +1792,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -1708,6 +1820,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -1750,6 +1864,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -1776,6 +1892,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -1802,6 +1920,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -1828,6 +1948,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -1864,6 +1986,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -1890,6 +2014,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -1916,6 +2042,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -1942,6 +2070,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -1968,6 +2098,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -1994,6 +2126,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -2020,6 +2154,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -2046,6 +2182,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -2088,6 +2226,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -2114,6 +2254,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -2140,6 +2282,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>
@@ -2166,6 +2310,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
     <image:image>
       <image:loc>https://www.messistat.com/img/logo.png</image:loc>
@@ -2202,6 +2348,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
   </url>
   <url>
@@ -2228,6 +2376,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
   </url>
   <url>
@@ -2254,6 +2404,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
   </url>
   <url>
@@ -2280,6 +2432,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
   </url>
   <url>
@@ -2306,6 +2460,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
   </url>
   <url>
@@ -2332,6 +2488,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
   </url>
   <url>
@@ -2358,6 +2516,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
   </url>
   <url>
@@ -2384,6 +2544,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
     <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
@@ -2426,6 +2588,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
   </url>
   <url>
@@ -2452,6 +2616,8 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
   </url>
   <url>
@@ -2478,6 +2644,370 @@
     <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
     <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en" />
+    <image:image>
+      <image:loc>https://www.messistat.com/img/logo.png</image:loc>
+      <image:title>MessiStat Official Logo</image:title>
+      <image:caption>MessiStat - Lionel Messi Career Statistics and Analytics</image:caption>
+    </image:image>
+    <image:image>
+      <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
+      <image:title>Total Gol Messi: 937 Gol Resmi & Replay HD</image:title>
+      <image:caption>Statistik lengkap karier Lionel Messi: 937 gol dalam 1.185 pertandingan resmi, 47 trofi tim, dan 8 Ballon d'Or.</image:caption>
+    </image:image>
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/dashboard</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/dashboard" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/dashboard" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/dashboard" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/dashboard" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/dashboard" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/dashboard" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/dashboard" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/dashboard" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/dashboard" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/dashboard" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/dashboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/dashboard" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/birthday</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/birthday" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/birthday" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/birthday" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/birthday" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/birthday" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/birthday" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/birthday" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/birthday" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/birthday" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/birthday" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/birthday" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/birthday" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/birthday" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/birthday" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/goalsbyseason</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyseason" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyseason" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/goalsbyyear</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/goalsbyyear" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/goalsbyyear" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/messi-vs-ronaldo</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/messi-vs-ronaldo" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/messi-vs-ronaldo" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/vs-real-madrid</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/vs-real-madrid" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/vs-real-madrid" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/champions-league</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/champions-league" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/champions-league" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/champions-league" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/champions-league" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/champions-league" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/champions-league" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/champions-league" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/champions-league" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/champions-league" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/champions-league" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/champions-league" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/champions-league" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/champions-league" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/champions-league" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/champions-league" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/champions-league" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/champions-league" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/champions-league" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/champions-league" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/latest-goal</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/latest-goal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/latest-goal" />
+    <video:video>
+      <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
+      <video:title>Gol Terbaru Lionel Messi: Gol #937 vs New England Revolution</video:title>
+      <video:description>Tonton gol #937 Lionel Messi untuk Inter Miami melawan New England Revolution di MLS pada 2 November 2026.</video:description>
+      <video:content_loc>https://cdn.messiallgoals.com/Goal937.mp4</video:content_loc>
+      <video:duration>35</video:duration>
+      <video:publication_date>2026-11-02T22:00:00Z</video:publication_date>
+      <video:family_friendly>yes</video:family_friendly>
+      <video:tag>Lionel Messi</video:tag>
+      <video:tag>Gol 937</video:tag>
+      <video:tag>New England Revolution</video:tag>
+      <video:tag>MLS</video:tag>
+      <video:tag>Gol terbaru Messi</video:tag>
+      <video:category>Sports</video:category>
+      <video:uploader info="https://www.messistat.com">MessiStats Official</video:uploader>
+    </video:video>
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/timeline</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/timeline" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/timeline" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/timeline" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/timeline" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/timeline" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/timeline" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/timeline" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/timeline" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/timeline" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/timeline" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/timeline" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/timeline" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/timeline" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/timeline" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/achievements</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/achievements" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/achievements" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/achievements" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/achievements" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/achievements" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/achievements" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/achievements" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/achievements" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/achievements" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/achievements" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/achievements" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/achievements" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/achievements" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/achievements" />
+  </url>
+  <url>
+    <loc>https://www.messistat.com/id/gear</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.messistat.com/en/gear" />
+    <xhtml:link rel="alternate" hreflang="en-US" href="https://www.messistat.com/en/gear" />
+    <xhtml:link rel="alternate" hreflang="en-NG" href="https://www.messistat.com/en/gear" />
+    <xhtml:link rel="alternate" hreflang="en-IN" href="https://www.messistat.com/en/gear" />
+    <xhtml:link rel="alternate" hreflang="en-PH" href="https://www.messistat.com/en/gear" />
+    <xhtml:link rel="alternate" hreflang="es" href="https://www.messistat.com/es/gear" />
+    <xhtml:link rel="alternate" hreflang="es-AR" href="https://www.messistat.com/es/gear" />
+    <xhtml:link rel="alternate" hreflang="es-ES" href="https://www.messistat.com/es/gear" />
+    <xhtml:link rel="alternate" hreflang="pt" href="https://www.messistat.com/pt/gear" />
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://www.messistat.com/pt/gear" />
+    <xhtml:link rel="alternate" hreflang="pt-PT" href="https://www.messistat.com/pt/gear" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://www.messistat.com/fr/gear" />
+    <xhtml:link rel="alternate" hreflang="fr-FR" href="https://www.messistat.com/fr/gear" />
+    <xhtml:link rel="alternate" hreflang="fr-NE" href="https://www.messistat.com/fr/gear" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://www.messistat.com/ro/gear" />
+    <xhtml:link rel="alternate" hreflang="ro-RO" href="https://www.messistat.com/ro/gear" />
+    <xhtml:link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz/gear" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar/gear" />
+    <xhtml:link rel="alternate" hreflang="id" href="https://www.messistat.com/id/gear" />
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id/gear" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en/gear" />
   </url>
   <url>

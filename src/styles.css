@@ -12017,15 +12017,10 @@ body.mst-toast-open .back-to-top-btn {
 @keyframes ms-fade-out { to { opacity: 0; } }
 @keyframes ms-fade-in { from { opacity: 0; } }
 
-/* 2. Page Geometry, Skyscraper Right Gutter & Mobile Ad Anchor Ergonomics (Adsterra-Safe) */
+/* 2. Page Geometry & Mobile Nav Ergonomics */
 .wrap {
   max-width: 1140px;
   padding: 18px 28px 60px;
-}
-@media (min-width: 1360px) {
-  .page {
-    margin-right: 196px; /* Reserves clean gutter for 160x600 .ad-skyscraper-dock so it never overlaps content */
-  }
 }
 .ad-banner-wrap.ad-banner-top {
   margin: 0.35rem auto 0.85rem auto;
@@ -12037,12 +12032,8 @@ body.mst-toast-open .back-to-top-btn {
   .wrap { padding: 14px 14px 48px; }
 }
 @media (max-width: 768px) {
-  .ad-anchor-bottom {
-    bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 4px);
-    z-index: 8800;
-  }
   body {
-    padding-bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 70px) !important;
+    padding-bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 18px) !important;
   }
 }
 
@@ -13958,12 +13949,6 @@ dialog::backdrop {
   }
 }
 
-@media (min-width: 1360px) {
-  .page {
-    margin-right: 192px !important;
-  }
-}
-
 /* Mobile Safety: keep bottom tab bar strictly 4 core nav links + More button */
 @media (max-width: 900px) {
   .rail-head,
@@ -14005,7 +13990,13 @@ dialog::backdrop {
 [data-owner-noads="1"] .ad-banner-wrap,
 [data-owner-noads="1"] .ad-native-wrap,
 [data-owner-noads="1"] #ad-mobile-anchor,
-[data-owner-noads="1"] #ad-desktop-skyscraper {
+[data-owner-noads="1"] #ad-desktop-skyscraper,
+[data-owner-noads="1"] .adsbygoogle,
+[data-owner-noads="1"] .google-auto-placed,
+[data-owner-noads="1"] #lg-cpa-deck,
+[data-owner-noads="1"] .lg-cpa-deck,
+[data-owner-noads="1"] #ms-inpage-push,
+[data-owner-noads="1"] .ms-inpage-push {
   display: none !important;
 }
 
@@ -14480,7 +14471,7 @@ dialog::backdrop {
     right: 12px;
     left: 12px;
     width: auto;
-    bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 88px);
+    bottom: calc(var(--mobile-nav-h, 60px) + env(safe-area-inset-bottom, 0px) + 12px);
   }
 }
 [data-owner-noads="1"] #ms-inpage-push,
@@ -14572,10 +14563,6 @@ dialog::backdrop {
   }
 }
 @media (min-width: 1360px) {
-  html[dir="rtl"] .page {
-    margin-left: 196px !important;
-    margin-right: var(--rail-w) !important;
-  }
   html[dir="rtl"] #ad-desktop-skyscraper,
   html[dir="rtl"] .ad-skyscraper-dock {
     left: 12px;

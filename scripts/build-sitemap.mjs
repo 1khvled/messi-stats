@@ -7,7 +7,7 @@ const rootDir = path.resolve(__dirname, "..");
 const publicSitemap = path.join(rootDir, "public", "sitemap.xml");
 const distSitemap = path.join(rootDir, "dist", "sitemap.xml");
 
-const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar"];
+const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar", "id"];
 
 const todayIso = new Date().toISOString().split("T")[0];
 
@@ -71,6 +71,8 @@ function getHreflangsXml(slugPath) {
     `    <xhtml:link rel="alternate" hreflang="uz" href="${base}/uz${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="ar" href="${base}/ar${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="ar-EG" href="${base}/ar${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="id" href="${base}/id${slugPath}" />`,
+    `    <xhtml:link rel="alternate" hreflang="id-ID" href="${base}/id${slugPath}" />`,
     `    <xhtml:link rel="alternate" hreflang="x-default" href="${base}/en${slugPath}" />`
   ].join("\n");
 }
@@ -240,6 +242,11 @@ const videoMeta = {
     title: `آخر هدف لليونيل ميسي: هدف #${LG_NUM} ضد ${LG_OPP}`,
     desc: `شاهد هدف ليونيل ميسي رقم #${LG_NUM} مع ${LG_TEAM} ضد ${LG_OPP} في ${LG_COMP} بتاريخ ${LG_DATE}.`,
     tags: ["Lionel Messi", `هدف ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "آخر هدف ميسي"]
+  },
+  id: {
+    title: `Gol Terbaru Lionel Messi: Gol #${LG_NUM} vs ${LG_OPP}`,
+    desc: `Tonton gol #${LG_NUM} Lionel Messi untuk ${LG_TEAM} melawan ${LG_OPP} di ${LG_COMP} pada ${LG_DATE}.`,
+    tags: ["Lionel Messi", `Gol ${LG_NUM}`, LG_OPP_TAG, LG_COMP, "Gol terbaru Messi"]
   }
 };
 
@@ -287,7 +294,7 @@ urlBlocks.push(`  <url>
 // 3. Other languages: Homepage + Subpages
 // Number rendering per locale (each remaining locale uses its group separator).
 const groupNum = (n, sep) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
-const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " ", ro: ".", uz: " ", ar: "," };
+const APPS_SEP = { en: ",", es: ".", pt: ".", fr: " ", ro: ".", uz: " ", ar: ",", id: "." };
 const num = (_l, n) => String(n);
 const appsNum = (l) => groupNum(CAREER_APPS, APPS_SEP[l] || ",");
 const trophyNum = (l) => num(l, CAREER_TROPHIES);
@@ -323,10 +330,15 @@ const langHomeMeta = {
     priority: "0.95",
     title: `أهداف ميسي: ${num("ar", CAREER_GOALS)} هدفاً رسمياً مباشرة`,
     caption: `إحصائيات مسيرة ليونيل ميسي الكاملة: ${num("ar", CAREER_GOALS)} هدفاً في ${appsNum("ar")} مباراة رسمية، ${trophyNum("ar")} لقباً و${ballonNum("ar")} كرات ذهبية.`
+  },
+  id: {
+    priority: "0.95",
+    title: `Total Gol Messi: ${num("id", CAREER_GOALS)} Gol Resmi & Replay HD`,
+    caption: `Statistik lengkap karier Lionel Messi: ${num("id", CAREER_GOALS)} gol dalam ${appsNum("id")} pertandingan resmi, ${trophyNum("id")} trofi tim, dan ${ballonNum("id")} Ballon d'Or.`
   }
 };
 
-for (const lang of ["es", "pt", "fr", "ro", "uz", "ar"]) {
+for (const lang of ["es", "pt", "fr", "ro", "uz", "ar", "id"]) {
   const meta = langHomeMeta[lang];
   // Homepage
   urlBlocks.push(`  <url>

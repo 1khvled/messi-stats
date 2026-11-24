@@ -3,7 +3,7 @@ const fs = require("fs");
 const dist = "./dist";
 const must = ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html",
   "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "latest-goal.html",
-  "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html",
+  "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html", "id/index.html",
   "404.html", "sitemap.xml", "robots.txt", "llms.txt", "18188f5363f745f1bbf821767e0f0daf.txt",
   "data/messi-data.json", "data/birthday-goals.json", "fonts/dm-sans-latin.woff2", "img/og-messi.jpg",
   "img/era-2008-olympic.webp", "img/teams/barcelona.png", "favicon.svg", "favicon.ico", "favicon-48x48.png",
@@ -12,14 +12,14 @@ let ok = true;
 for (const f of must) {
   if (!fs.existsSync(dist + "/" + f)) { ok = false; console.log("MISSING " + f); }
 }
-for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html", "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "latest-goal.html", "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html"]) {
+for (const p of ["index.html", "goalsbyyear.html", "goalsbyseason.html", "dashboard.html", "timeline.html", "achievements.html", "birthday.html", "vs-real-madrid.html", "messi-vs-ronaldo.html", "champions-league.html", "latest-goal.html", "es/index.html", "es/birthday.html", "es/latest-goal.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html", "id/index.html"]) {
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   if (!s.includes('class="skip"') || !s.includes('id="main"')) { ok = false; console.log("NO SKIP in " + p); }
   if (!s.includes('G-FERBLJWWWZ')) { ok = false; console.log("NO GTAG in " + p); }
 }
 const d = JSON.parse(fs.readFileSync(dist + "/data/messi-data.json", "utf8"));
 const totalGoalsStr = String(d.totals?.combined?.goals || 931);
-for (const p of ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html"]) {
+for (const p of ["index.html", "es/index.html", "pt/index.html", "fr/index.html", "ro/index.html", "uz/index.html", "ar/index.html", "id/index.html"]) {
   const s = fs.readFileSync(dist + "/" + p, "utf8");
   const hasGoals = s.includes(totalGoalsStr);
   if (!s.includes('id="messi-total-goals"') || !hasGoals) {

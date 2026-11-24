@@ -76,9 +76,9 @@ export function buildNarrative({ g, seniorGoals, apps, miamiGoals, intlGoals, go
   });
 
   const RW = {
-    win: { en: "win", es: "victoria", pt: "vitória", fr: "victoire", ro: "victorie", uz: "g'alaba", ar: "فوز" },
-    draw: { en: "draw", es: "empate", pt: "empate", fr: "match nul", ro: "egal", uz: "durang", ar: "تعادل" },
-    loss: { en: "defeat", es: "derrota", pt: "derrota", fr: "défaite", ro: "înfrângere", uz: "mag'lubiyat", ar: "خسارة" },
+    win: { en: "win", es: "victoria", pt: "vitória", fr: "victoire", ro: "victorie", uz: "g'alaba", ar: "فوز", id: "kemenangan" },
+    draw: { en: "draw", es: "empate", pt: "empate", fr: "match nul", ro: "egal", uz: "durang", ar: "تعادل", id: "imbang" },
+    loss: { en: "defeat", es: "derrota", pt: "derrota", fr: "défaite", ro: "înfrângere", uz: "mag'lubiyat", ar: "خسارة", id: "kekalahan" },
   };
   const rw = (RW[R.word] && RW[R.word][lang]) || RW[R.word].en;
 
@@ -134,6 +134,7 @@ export function buildNarrative({ g, seniorGoals, apps, miamiGoals, intlGoals, go
 function fmtApps(apps, lang) {
   const s = String(apps);
   if (lang === "fr") return s.replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  if (lang === "id") return s.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return s.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 }
 
@@ -152,6 +153,7 @@ const teamClause = {
   es: ({ n, ord, club }) => `su gol número ${ord} con ${club}`,
   pt: ({ n, ord, club }) => `seu gol número ${ord} com ${club}`,
   fr: ({ n, ord, club }) => `son but n°${ord} avec ${club}`,
+  id: ({ n, club }) => `gol ke-${n} untuk ${club}`,
 };
 
 const MONTH = {
@@ -161,7 +163,8 @@ const MONTH = {
   fr: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
   ro: ["ianuarie", "februarie", "martie", "aprilie", "mai", "iunie", "iulie", "august", "septembrie", "octombrie", "noiembrie", "decembrie"],
   uz: ["yanvar", "fevral", "mart", "aprel", "may", "iyun", "iyul", "avgust", "sentabr", "oktabr", "noyabr", "dekabr"],
-  ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"]
+  ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+  id: ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"]
 };
 
 const COPY = {
@@ -263,6 +266,20 @@ const COPY = {
     milestoneH2: "أرقام قياسية بالهدف #{N}",
     bdayLink: "عرض أهداف {bdayLabel} &larr;",
   },
+  id: {
+    desc: "Apakah Messi mencetak gol hari ini? Cek status gol terbaru Lionel Messi, hasil laga & video replay HD Gol #{N} vs {opp}.",
+    videoName: "Gol Terbaru Lionel Messi: Gol #{N} vs {opp} ({date})",
+    videoDesc: "Tonton Lionel Messi mencetak Gol #{N} dalam kariernya ({teamClause}) melawan {opp} di {comp} pada {date}.",
+    todayDesc: "<b>Apakah Messi mencetak gol hari ini?</b> Laga resmi terbaru Lionel Messi berlangsung pada <b>{date}</b> di {comp}, di mana ia mencetak <b>Gol #{N}</b> ({teamClause}) pada menit ke-{minOrd} lewat {techLower} dalam {rw} {score} vs {opp}.",
+    faqScoredToday: "Laga resmi terbaru Lionel Messi berlangsung pada {date} di {comp}, di mana ia mencetak Gol #{N} ({teamClause}) lewat {techLower} pada menit ke-{minOrd} dalam {rw} {score} vs {opp}.",
+    faqWhenScored: "Lionel Messi mencetak gol terakhirnya pada {date} di {venue} melawan {opp} ({score}) di {comp}.",
+    faqGoalNumber: "Gol resmi terakhir Messi adalah Gol #{N} dalam karier seniornya ({teamClause}), menjadikan total resminya {N} gol dalam {apps} laga.",
+    faq1000: "Lionel Messi saat ini mengoleksi {N} gol resmi senior dan membutuhkan tepat {needed} gol lagi untuk mencapai tonggak sejarah 1.000 gol.",
+    analysis: "Lionel Messi terus mencetak rekor sepak bola dunia pada 2026. Gol terbarunya melawan {opp} di {comp} di {venue} membawa koleksinya menjadi <b>{N} gol senior</b> ({teamClause}) dalam {apps} penampilan.",
+    recentLine: "<b>#{N}:</b> {date} – {matchTitle} ({min}, {techLower})",
+    milestoneH2: "Pencapaian dari Gol #{N}",
+    bdayLink: "Lihat gol {bdayLabel} &rarr;",
+  },
 };
 
 
@@ -274,7 +291,8 @@ const COMP_LABELS = {
   fr: { "International Friendly": "Match amical international" },
   ro: { "International Friendly": "Amical internațional" },
   uz: { "International Friendly": "Xalqaro o'rtoqlik o'yini" },
-  ar: { "International Friendly": "ودية دولية" }
+  ar: { "International Friendly": "ودية دولية" },
+  id: { "International Friendly": "Laga Persahabatan Internasional" }
 };
 
 export function compLabel(comp, lang) {

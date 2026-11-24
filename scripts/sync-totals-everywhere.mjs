@@ -352,7 +352,7 @@ const tracked = execSync("git ls-files", { cwd: root })
   .toString("utf8")
   .split(/\r?\n/)
   .filter((f) => f.endsWith(".html"));
-const extraDirs = ["ro", "uz", "ar"].flatMap((d) => {
+const extraDirs = ["ro", "uz", "ar", "id"].flatMap((d) => {
   const dir = path.join(root, d);
   return fs.existsSync(dir) ? fs.readdirSync(dir).filter((f) => f.endsWith(".html")).map((f) => `${d}/${f}`) : [];
 });

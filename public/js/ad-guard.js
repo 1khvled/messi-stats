@@ -47,12 +47,13 @@
     'messistat.com',
     'araplhn.org',
     'localhost',
-    // Google AdSense & DoubleClick - must be allowed so CPC clicks and
-    // vignette/anchor ad units can open their landing pages.
+    // Google AdSense, DoubleClick & Funding Choices - must be allowed so CPC clicks,
+    // vignette/anchor ad units, and GDPR consent dialogs can open their landing pages.
     'googleads.g.doubleclick.net',
     'googlesyndication.com',
     'adtrafficquality.google',
     'googleadservices.com',
+    'fundingchoicesmessages.google.com',
     'doubleclick.net',
     'google.com'
   ];
@@ -105,6 +106,8 @@
     'googlesyndication.com',
     'doubleclick.net',
     'adtrafficquality.google',
+    'fundingchoicesmessages.google.com',
+    'googleadservices.com',
     'google.com'
   ];
 
@@ -113,16 +116,25 @@
       let node = el;
       while (node && node.nodeType === 1) {
         const id = node.id || '';
-        // id-based detection
+        // id-based detection (AdSense frames, vignettes, Funding Choices consent)
         if (
           id.startsWith('aswift_') ||
           id.startsWith('google_ads_iframe') ||
-          id.startsWith('google_esf')
+          id.startsWith('google_esf') ||
+          id.includes('google_vignette') ||
+          id.includes('fc-consent-root') ||
+          id.includes('fc-dialog')
         ) return true;
 
         // class / tag based detection
         const cls = typeof node.className === 'string' ? node.className : '';
-        if (cls.includes('adsbygoogle')) return true;
+        if (
+          cls.includes('adsbygoogle') ||
+          cls.includes('google-auto-placed') ||
+          cls.includes('google_vignette') ||
+          cls.includes('fc-consent-root') ||
+          cls.includes('fc-dialog')
+        ) return true;
         if (node.tagName === 'INS' && node.classList && node.classList.contains('adsbygoogle')) return true;
         if (node.hasAttribute && node.hasAttribute('data-ad-client')) return true;
 

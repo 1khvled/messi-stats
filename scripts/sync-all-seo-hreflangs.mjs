@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, "..");
 
-const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar"];
+const LANGS = ["en", "es", "pt", "fr", "ro", "uz", "ar", "id"];
 
 const SUBPAGES = [
   "index",
@@ -45,6 +45,8 @@ function getHreflangTags(pageSlug) {
     `<link rel="alternate" hreflang="uz" href="https://www.messistat.com/uz${slugPath}"/>`,
     `<link rel="alternate" hreflang="ar" href="https://www.messistat.com/ar${slugPath}"/>`,
     `<link rel="alternate" hreflang="ar-EG" href="https://www.messistat.com/ar${slugPath}"/>`,
+    `<link rel="alternate" hreflang="id" href="https://www.messistat.com/id${slugPath}"/>`,
+    `<link rel="alternate" hreflang="id-ID" href="https://www.messistat.com/id${slugPath}"/>`,
     `<link rel="alternate" hreflang="x-default" href="https://www.messistat.com/en${slugPath}"/>`
   ].join("\n");
 }
@@ -89,4 +91,4 @@ for (const l of LANGS.filter((x) => x !== "en")) {
   }
 }
 
-console.log("Synchronized canonicals and 20 hreflang tags across all 7 languages and 12 pages (84 files)!");
+console.log("Synchronized canonicals and 22 hreflang tags across all 8 languages and 12 pages (96 files)!");

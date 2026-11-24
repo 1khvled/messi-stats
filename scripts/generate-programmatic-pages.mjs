@@ -57,8 +57,8 @@ const exploreCardHtml = `
 `;
 
 cleanTemplate = cleanTemplate.replace(
-  /(<\/section>\s*)(<aside\s+class="ad-banner-wrap")/i,
-  `$1\n${exploreCardHtml}\n$2`
+  /(<section\s+class="support-card"|<footer\s+class="site-footer")/i,
+  `${exploreCardHtml}\n$1`
 );
 
 const escapeHtml = (str) =>

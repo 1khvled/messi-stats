@@ -52,7 +52,8 @@ function initTheme() {
       fr: { toLight: "Mode clair", toDark: "Mode sombre", ariaLight: "Passer en mode clair", ariaDark: "Passer en mode sombre" },
       ro: { toLight: "Mod luminos", toDark: "Mod întunecat", ariaLight: "Comută la modul luminos", ariaDark: "Comută la modul întunecat" },
       uz: { toLight: "Yorug' rejim", toDark: "Tungi rejim", ariaLight: "Yorug' rejimga o'tish", ariaDark: "Tungi rejimga o'tish" },
-      ar: { toLight: "الوضع الفاتح", toDark: "الوضع الداكن", ariaLight: "التبديل إلى الوضع الفاتح", ariaDark: "التبديل إلى الوضع الداكن" }
+      ar: { toLight: "الوضع الفاتح", toDark: "الوضع الداكن", ariaLight: "التبديل إلى الوضع الفاتح", ariaDark: "التبديل إلى الوضع الداكن" },
+      id: { toLight: "Mode terang", toDark: "Mode gelap", ariaLight: "Beralih ke mode terang", ariaDark: "Beralih ke mode gelap" }
     };
     const ts = themeStrings[themeLang] || themeStrings.en;
     const btns = document.querySelectorAll(".theme-toggle");
@@ -277,53 +278,17 @@ function initMonetizationUnits() {
     }
   }, { capture: true });
 
-  // 2. Mobile Sticky Bottom Anchor Banner (320x50) - Eager Loaded
+  // 2. Mobile Sticky Bottom Anchor Banner (320x50) - Disabled so AdSense Auto Ads has clean mobile real estate
   function armMobileAnchor() {
-    if (window.innerWidth > 768) return;
-    if (document.getElementById("ad-mobile-anchor")) return;
-
-    const aside = document.createElement("aside");
-    aside.id = "ad-mobile-anchor";
-    aside.className = "ad-anchor-bottom";
-    aside.setAttribute("aria-label", "Advertisement");
-    aside.innerHTML = [
-      '<button type="button" class="ad-anchor-close" aria-label="Close advertisement">&times;</button>',
-      '<div class="ad-anchor-slot">',
-      '  <iframe class="safe-ad-frame" src="/ads/hrf-320x50.html" width="320" height="50" loading="eager" fetchpriority="high" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
-      '</div>'
-    ].join("");
-
-    const closeBtn = aside.querySelector(".ad-anchor-close");
-    if (closeBtn) {
-      closeBtn.addEventListener("click", () => {
-        aside.remove();
-        document.body.style.paddingBottom = "";
-      });
-    }
-
-    (document.body || document.documentElement).appendChild(aside);
+    // Intentionally stubbed: removed dead $0.00 Adsterra 320x50 anchor
   }
 
-  // 3. Desktop Floating Right Skyscraper Dock (160x600) - Eager Loaded
+  // 3. Desktop Floating Right Skyscraper Dock (160x600) - Disabled so AdSense Auto Ads Side Rails have clean whitespace
   function armDesktopSkyscraper() {
-    if (window.innerWidth < 1360) return;
-    if (document.getElementById("ad-desktop-skyscraper")) return;
-
-    const aside = document.createElement("aside");
-    aside.id = "ad-desktop-skyscraper";
-    aside.className = "ad-skyscraper-dock";
-    aside.setAttribute("aria-label", "Advertisement");
-    aside.innerHTML = [
-      '<span class="ad-native-label" style="font-size:10px;text-transform:uppercase;color:var(--muted);margin-bottom:4px;letter-spacing:0.5px;">Advertisement</span>',
-      '<div class="ad-skyscraper-slot">',
-      '  <iframe class="safe-ad-frame" src="/ads/hrf-160x600.html" width="160" height="600" loading="eager" fetchpriority="high" sandbox="allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox" title="Advertisement" scrolling="no"></iframe>',
-      '</div>'
-    ].join("");
-
-    (document.body || document.documentElement).appendChild(aside);
+    // Intentionally stubbed: removed dead $0.00 Adsterra 160x600 skyscraper
   }
 
-  // Arm both immediately without waiting for DOMContentLoaded
+  // Keep stub calls safe if referenced
   armMobileAnchor();
   armDesktopSkyscraper();
 }
@@ -338,7 +303,8 @@ const LANGUAGES = [
   { code: "fr", flag: "🇫🇷", name: "French", native: "Français", note: "France, Niger" },
   { code: "ro", flag: "🇷🇴", name: "Romanian", native: "Română", note: "România, Moldova" },
   { code: "uz", flag: "🇺🇿", name: "Uzbek", native: "Oʻzbekcha", note: "Oʻzbekiston" },
-  { code: "ar", flag: "🇸🇦", name: "Arabic", native: "العربية", note: "الشرق الأوسط وشمال أفريقيا", rtl: true }
+  { code: "ar", flag: "🇸🇦", name: "Arabic", native: "العربية", note: "الشرق الأوسط وشمال أفريقيا", rtl: true },
+  { code: "id", flag: "🇮🇩", name: "Indonesian", native: "Bahasa Indonesia", note: "Indonesia" }
 ];
 
 function getCurrentLangCode() {
@@ -670,6 +636,29 @@ function ensureMobileMenuDrawer() {
       vsRealMadrid: "ضد ريال مدريد (الكلاسيكو)",
       championsLeague: "دوري أبطال أوروبا",
       toggleTheme: "تبديل المظهر"
+    },
+    id: {
+      menuTitle: "Menu Messi<b>Stats</b>",
+      statGoals: "Total Gol",
+      statApps: "Pertandingan",
+      statTrophies: "Trofi",
+      statBallons: "Ballon d'Or",
+      catFeatured: "Unggulan",
+      catHistory: "Sejarah & Trofi",
+      catStats: "Laga Besar & Data",
+      home: "Beranda & Statistik",
+      vsRonaldo: "Messi vs Ronaldo",
+      latestGoal: "Tayangan Ulang Gol Terakhir",
+      birthday: "Gol di Hari Ulang Tahunmu",
+      days: "Semua 366 Hari",
+      achievements: "Semua 47 Trofi & Penghargaan",
+      timeline: "Linimasa & Foto",
+      goalsByYear: "Gol per Tahun Kalender",
+      goalsBySeason: "Gol per Musim",
+      dashboard: "Dasbor Analitik",
+      vsRealMadrid: "vs Real Madrid (El Clásico)",
+      championsLeague: "Pusat Liga Champions",
+      toggleTheme: "Ganti Tema"
     }
   };
 
@@ -823,7 +812,8 @@ function ensureMobileMoreNavBtn() {
     fr: "Plus",
     ro: "Mai mult",
     uz: "Ko'proq",
-    ar: "المزيد"
+    ar: "المزيد",
+    id: "Lainnya"
   };
   const label = moreLabels[curLang] || "More";
   const moreBtn = document.createElement("button");
@@ -858,7 +848,8 @@ function ensureDesktopBrandHeader() {
     fr: "Rechercher 937 buts, années, rivaux…",
     ro: "Caută 937 goluri, ani, rivali…",
     uz: "937 gol, yil va raqiblarni qidiring…",
-    ar: "ابحث في 937 هدفاً، السنوات، المنافسين…"
+    ar: "ابحث في 937 هدفاً، السنوات، المنافسين…",
+    id: "Cari 937 gol, tahun, rival…"
   };
   const brandSubs = {
     en: "Verified Career Archive &amp; Video Database",
@@ -867,7 +858,8 @@ function ensureDesktopBrandHeader() {
     fr: "Archives Officielles &amp; Base Vidéo",
     ro: "Arhivă Oficială și Bază Video",
     uz: "Tasdiqlangan Karyera Arxivi va Video Baza",
-    ar: "الأرشيف الرسمي وقاعدة بيانات الأهداف"
+    ar: "الأرشيف الرسمي وقاعدة بيانات الأهداف",
+    id: "Arsip Karier Terverifikasi &amp; Basis Data Video"
   };
   const existing = wrap.querySelector(".desktop-brand-header");
   if (existing) {
@@ -930,7 +922,8 @@ function ensureSkipLink() {
     fr: "Aller au contenu",
     ro: "Sari la conținut",
     uz: "Kontentga o'tish",
-    ar: "تخطي إلى المحتوى"
+    ar: "تخطي إلى المحتوى",
+    id: "Langsung ke konten"
   };
   const link = document.createElement("a");
   link.className = "skip-link";
@@ -1014,7 +1007,8 @@ function mountHubMonetizeBar() {
     fr: "▶ Voir les Buts HD & Matchs en Direct",
     ro: "▶ Vezi Goluri HD și Meciuri Live",
     uz: "▶ HD Gollar va Jonli Efirni Ko'rish",
-    ar: "▶ شاهد أهداف HD والمباريات المباشرة"
+    ar: "▶ شاهد أهداف HD والمباريات المباشرة",
+    id: "▶ Tonton Cuplikan Gol HD & Live Streaming"
   };
   const ARIA_LABELS = {
     en: "Goal Highlights & Official Gear",
@@ -1023,7 +1017,8 @@ function mountHubMonetizeBar() {
     fr: "Temps Forts & Équipement Officiel",
     ro: "Momente Cheie & Echipament Oficial",
     uz: "Gol Lahzalari & Rasmiy Forma",
-    ar: "أبرز الأهداف والأدوات الرسمية"
+    ar: "أبرز الأهداف والأدوات الرسمية",
+    id: "Cuplikan Gol & Jersey Resmi"
   };
   const KIT_CONFIG = {
     classic: {
@@ -1035,7 +1030,8 @@ function mountHubMonetizeBar() {
         fr: "Maillot #10 Classique & Crampons F50 ↗",
         ro: "Tricou Clasic #10 și Ghete F50 ↗",
         uz: "Klassik #10 Forma va F50 Poyabzal ↗",
-        ar: "الطقم الكلاسيكي #10 وحذاء F50 ↗"
+        ar: "الطقم الكلاسيكي #10 وحذاء F50 ↗",
+        id: "Jersey Klasik #10 & Sepatu F50 ↗"
       }
     },
     argentina: {
@@ -1047,7 +1043,8 @@ function mountHubMonetizeBar() {
         fr: "Maillot Argentine 3 Étoiles #10 ↗",
         ro: "Tricou Argentina 3 Stele #10 ↗",
         uz: "Argentina 3 Yulduzli #10 Forma ↗",
-        ar: "قميص الأرجنتين 3 نجوم #10 ↗"
+        ar: "قميص الأرجنتين 3 نجوم #10 ↗",
+        id: "Jersey Argentina 3 Bintang #10 ↗"
       }
     },
     miami: {
@@ -1059,7 +1056,8 @@ function mountHubMonetizeBar() {
         fr: "Maillot Officiel Inter Miami #10 ↗",
         ro: "Tricou Oficial Inter Miami #10 ↗",
         uz: "Inter Mayami Rasmiy #10 Forma ↗",
-        ar: "الزي الرسمي لإنتر ميامي #10 ↗"
+        ar: "الزي الرسمي لإنتر ميامي #10 ↗",
+        id: "Jersey Resmi Inter Miami #10 ↗"
       }
     }
   };
@@ -1221,6 +1219,18 @@ function mountLatestGoalCpaDeck() {
       kitBadge: "القميص الرسمي",
       kitTitle: `ارتدِ قميص الهدف #${goalNum} — الزي الرسمي لإنتر ميامي CF #10`,
       kitBtn: "تحقق من السعر والمقاسات ↗"
+    },
+    id: {
+      aria: "Streaming Langsung, VPN & Jersey Resmi",
+      streamBadge: "SIARAN LANGSUNG HD",
+      streamTitle: "Tonton Inter Miami & Argentina Live — Match Pass Resmi & Stream HD",
+      streamBtn: "Tonton Live ▶",
+      vpnBadge: "VPN STREAMING",
+      vpnTitle: "Buka Blokir Pertandingan Terbatas Wilayah di Mana Saja dalam HD",
+      vpnBtn: "Dapatkan VPN ↗",
+      kitBadge: "JERSEY RESMI",
+      kitTitle: `Pakai Jersey Gol #${goalNum} — Resmi Inter Miami CF #10`,
+      kitBtn: "Cek Harga & Ukuran ↗"
     }
   };
 
@@ -1353,6 +1363,13 @@ function initInPageSocialBar() {
       subtitle: `شاهد أحدث أهداف ميسي ضد ${opp} + البث المباشر`,
       cta: "شاهد الإعادة ▶",
       dismiss: "إغلاق"
+    },
+    id: {
+      badge: `TAYANGAN ULANG · #${goalNum}`,
+      title: `Gol #${goalNum} Tayangan Ulang HD & Live`,
+      subtitle: `Tonton gol terbaru Messi vs ${opp} + siaran langsung pertandingan`,
+      cta: "Tonton Replay HD ▶",
+      dismiss: "Tutup"
     }
   };
 
@@ -1492,6 +1509,16 @@ const ARGENTINA_STREAM_I18N = {
     closeAria: "إغلاق الإشعار",
     matchCardTitle: "مباراة الوداع التاريخية · 6 أكتوبر 2026",
     matchCardDesc: "شاهد آخر مباراة دولية لليونيل ميسي مع الأرجنتين مباشرة وبدون إعلانات."
+  },
+  id: {
+    badge: "LAGA TERAKHIR ARGENTINA",
+    title: "Laga Perpisahan Lionel Messi",
+    text: "Laga perpisahan Lionel Messi pada 6 Oktober 2026! Tonton siaran LANGSUNG gratis TANPA IKLAN.",
+    highlight: "Live stream gratis · Tanpa iklan",
+    cta: "Tonton Stream Gratis ▶",
+    closeAria: "Tutup notifikasi",
+    matchCardTitle: "Laga Perpisahan Bersejarah · 6 Okt 2026",
+    matchCardDesc: "Tonton laga internasional terakhir Lionel Messi bersama Argentina secara langsung tanpa iklan."
   }
 };
 
@@ -2895,8 +2922,8 @@ function setHead(d, ledeHTML) {
     } else if (d.lastUpdatedIso) {
       try {
         const dt = new Date(d.lastUpdatedIso + "T00:00:00");
-        const locMap = { es: "es-ES", pt: "pt-PT", fr: "fr-FR", ro: "ro-RO", uz: "uz-Latn-UZ", ar: "ar-EG-u-nu-latn" };
-        const prefixMap = { es: "Actualizado el ", pt: "Atualizado em ", fr: "Mis à jour le ", ro: "Actualizat la ", uz: "Yangilangan: ", ar: "مُحدّث في " };
+        const locMap = { es: "es-ES", pt: "pt-PT", fr: "fr-FR", ro: "ro-RO", uz: "uz-Latn-UZ", ar: "ar-EG-u-nu-latn", id: "id-ID" };
+        const prefixMap = { es: "Actualizado el ", pt: "Atualizado em ", fr: "Mis à jour le ", ro: "Actualizat la ", uz: "Yangilangan: ", ar: "مُحدّث في ", id: "Diperbarui " };
         const loc = locMap[lang];
         if (loc && prefixMap[lang]) {
           el("upd").textContent = prefixMap[lang] + dt.toLocaleDateString(loc, { day: "numeric", month: "long", year: "numeric" });
@@ -2928,7 +2955,10 @@ function setHead(d, ledeHTML) {
         `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Yangilangan sana: ${d.lastUpdated}.`,
       ar: `ليونيل ميسي: ${n(d.totals.apps)} مباراة رسمية، ${n(d.totals.goals)} هدفاً ` +
         `(${n(d.totals.clubs.apps)} مباراة / ${n(d.totals.clubs.goals)} هدفاً مع الأندية، ` +
-        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} مع الأرجنتين). آخر تحديث ${d.lastUpdated}.`
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} مع الأرجنتين). آخر تحديث ${d.lastUpdated}.`,
+      id: `Lionel Messi: ${n(d.totals.apps)} penampilan senior, ${n(d.totals.goals)} gol ` +
+        `(${n(d.totals.clubs.apps)} laga / ${n(d.totals.clubs.goals)} gol klub, ` +
+        `${n(d.totals.country.apps)} / ${n(d.totals.country.goals)} Argentina). Diperbarui ${d.lastUpdated}.`
     };
     el("foot-date").textContent = footDates[lang] ||
       `Lionel Messi: ${n(d.totals.apps)} senior appearances, ${n(d.totals.goals)} goals ` +
@@ -2976,7 +3006,7 @@ const EXPLORE = [
 
 function getLang() {
   const l = (document.documentElement.lang || "en").toLowerCase();
-  for (const c of ["es", "pt", "fr", "ro", "uz", "ar"]) {
+  for (const c of ["es", "pt", "fr", "ro", "uz", "ar", "id"]) {
     if (l.startsWith(c)) return c;
   }
   return "en";
@@ -3042,6 +3072,16 @@ const EXPLORE_LANGS = {
     { href: "/ar", page: "home", t: "إحصائيات مسيرة ميسي", d: (d) => `الأرقام الرئيسية: ${n(d.totals.goals)} هدفاً في ${n(d.totals.apps)} مباراة رسمية.` },
     { href: "/ar/dashboard", page: "dashboard", t: "لوحة إحصائيات ميسي", d: () => "صفّ جميع الرسوم البيانية حسب برشلونة أو باريس أو إنتر ميامي أو الأرجنتين." },
     { href: "/ar/timeline", page: "timeline", t: "ميسي عبر السنين", d: () => "كل محطة تاريخية في مسيرته مرتبة زمنياً من 2004 حتى اليوم." },
+  ],
+  id: [
+    { href: "/id/birthday", page: "birthday", t: "Apakah Messi mencetak gol di hari ulang tahunmu?", d: (d) => `Telusuri semua 366 hari kalender dengan klip video dari ${n(d.totals.goals)} gol karier Messi.` },
+    { href: "/id/messi-vs-ronaldo", page: "messi-vs-ronaldo", t: "Messi vs Ronaldo Sepanjang Masa", d: () => `Head-to-head: ${n(LIVE.goals)} vs ${n(LIVE.rGoals)} gol, ${LIVE.trophies} vs ${LIVE.rTrophies} trofi, 8 vs 5 Ballon d'Or.` },
+    { href: "/id/vs-real-madrid", page: "vs-real-madrid", t: "Messi vs Real Madrid", d: () => "Semua 26 gol El Clásico dalam 45 laga, 14 assist, dan video cuplikan." },
+    { href: "/id/champions-league", page: "champions-league", t: "Rekor Liga Champions", d: () => "129 gol Liga Champions UEFA, 8 hat-trick, dan 4 gelar Eropa." },
+    { href: "/id/latest-goal", page: "latest-goal", t: "Video Gol Terbaru Messi", d: () => "Tonton gol terakhir Messi, cek apakah ia mencetak gol hari ini, dan klip terbaru." },
+    { href: "/id", page: "home", t: "Statistik Karier Messi", d: (d) => `Angka utama: ${n(d.totals.goals)} gol dalam ${n(d.totals.apps)} penampilan senior.` },
+    { href: "/id/dashboard", page: "dashboard", t: "Dasbor Statistik Messi", d: () => "Filter setiap grafik menurut Barcelona, PSG, Inter Miami, atau Argentina." },
+    { href: "/id/timeline", page: "timeline", t: "Messi dari Tahun ke Tahun", d: () => "Setiap tonggak karier, berurutan dari 2004 hingga sekarang." },
   ]
 };
 
@@ -3112,6 +3152,16 @@ function methodHTML(d, extra) {
       `<p>تُجمع الأهداف من تقارير المباريات الرسمية وسجلات الأندية والاتحادات بعد كل مباراة. ${extra || ""}</p>` +
       `<p class="colophon">أرشيف مستقل محدّث بدقة بعد كل مباراة رسمية وفق مصادر موثقة.</p></details>`);
   }
+  if (lang === "id") {
+    const teams = "Barcelona, Paris Saint-Germain, Inter Miami, dan Timnas Argentina";
+    return methodColophon(`<h2>Cara angka-angka ini dikompilasi</h2>` +
+      `<p>Kami menghitung satu hal: pertandingan resmi tim utama senior untuk ${teams} — ` +
+      `setiap laga liga, piala domestik, kompetisi kontinental, dan penampilan internasional. Tanpa sepak bola junior, tim cadangan, atau uji coba klub.</p>` +
+      `<details class="method-more"><summary>Cara angka-angka ini diverifikasi</summary>` +
+      `<p>Gol per musim dan tahun kalender dihimpun dari catatan pertandingan lengkap dan dicocokkan dengan data resmi klub ` +
+      `dan kompetisi setelah setiap laga. ${extra || ""}</p>` +
+      `<p class="colophon">Arsip karier independen yang diperbarui setelah setiap penampilan resmi dari sumber primer terverifikasi.</p></details>`);
+  }
   const teams = "Barcelona, Paris Saint-Germain, Inter Miami and Argentina";
   return methodColophon(`<h2>How these numbers are compiled</h2>` +
     `<p>We count one thing: official senior first-team matches for ${teams} — ` +
@@ -3171,7 +3221,7 @@ function sparkSVG(rows, opts) {
 
   const lang = getLang();
   const yrSuffix = {
-    es: " /año", pt: " /ano", fr: " /an", ro: " /an", uz: " /yil", ar: " /سنة"
+    es: " /año", pt: " /ano", fr: " /an", ro: " /an", uz: " /yil", ar: " /سنة", id: " /thn"
   }[lang] || " /yr";
   s += `<line class="baseline" x1="0" y1="${base}" x2="${W}" y2="${base}"></line>`;
   s += `<text class="axis" x="4" y="${(base - maxH + (compact ? 14 : 4)).toFixed(1)}">${max}${opts.cumulative ? yrSuffix : ""}</text><text class="axis" x="4" y="${(base - 4).toFixed(1)}">0</text>`;
@@ -3242,7 +3292,8 @@ function sparkSVG(rows, opts) {
       fr: { target: "Objectif 1 000 buts", now: `${n(tot)} actuel`, tip: `Total en carrière : ${n(tot)} buts` },
       ro: { target: "Ținta de 1.000 goluri", now: `${n(tot)} acum`, tip: `Total în carieră: ${n(tot)} goluri` },
       uz: { target: "1 000 gol maqsadi", now: `Hozir: ${n(tot)}`, tip: `Karyeradagi jami: ${n(tot)} ta gol` },
-      ar: { target: "هدف الـ 1000", now: `${n(tot)} الآن`, tip: `إجمالي المسيرة: ${n(tot)} هدفاً` }
+      ar: { target: "هدف الـ 1000", now: `${n(tot)} الآن`, tip: `إجمالي المسيرة: ${n(tot)} هدفاً` },
+      id: { target: "Target 1.000 gol", now: `${n(tot)} saat ini`, tip: `Total karier saat ini: ${n(tot)} gol` }
     };
     const cLabels = chartI18n[lang] || { target: "1,000 goal target", now: `${n(tot)} now`, tip: `Current career total: ${n(tot)} goals` };
 
@@ -3294,7 +3345,8 @@ function clubTableCaption() {
     fr: "Cliquez sur l'en-tête d'une colonne pour trier. Matchs officiels en équipe première uniquement.",
     ro: "Fă clic pe antetul unei coloane pentru a sorta. Doar meciuri oficiale de seniori.",
     uz: "Saralash uchun ustun sarlavhasini bosing. Faqat rasmiy asosiy jamoa o'yinlari.",
-    ar: "انقر على عنوان العمود للفرز. المباريات الرسمية للفريق الأول فقط."
+    ar: "انقر على عنوان العمود للفرز. المباريات الرسمية للفريق الأول فقط.",
+    id: "Klik judul kolom untuk mengurutkan. Hanya pertandingan resmi tim utama senior."
   };
   const hint = hints[lang] || "Click a column header to sort. Senior first-team matches only.";
   return `<p class="table-hint">${hint}</p>`;
@@ -3307,7 +3359,8 @@ function provisionalNote() {
     fr: `<p class="caveat">Penaltys, coups francs, triplés et passes décisives sont mis à jour après chaque match officiel à partir des feuilles de match.</p>`,
     ro: `<p class="caveat">Penalty-urile, loviturile libere, hat-trick-urile și pasele decisive sunt actualizate după fiecare meci oficial.</p>`,
     uz: `<p class="caveat">Penaltilar, jarima zarbalari, het-triklar va assistlar har bir rasmiy o'yindan so'ng yangilanadi.</p>`,
-    ar: `<p class="caveat">تُحدَّث ركلات الجزاء والركلات الحرة والهاتريك والتمريرات الحاسمة بعد كل مباراة رسمية وفق السجلات المعتمدة.</p>`
+    ar: `<p class="caveat">تُحدَّث ركلات الجزاء والركلات الحرة والهاتريك والتمريرات الحاسمة بعد كل مباراة رسمية وفق السجلات المعتمدة.</p>`,
+    id: `<p class="caveat">Penalti, tendangan bebas, hat-trick, dan assist resmi dihimpun serta diverifikasi setelah setiap pertandingan senior.</p>`
   };
   return notes[lang] || `<p class="caveat">Penalties, free kicks, hat-tricks and official assists are compiled and verified after every senior match.</p>`;
 }
@@ -3319,7 +3372,8 @@ function methodColophon(inner) {
     fr: "Comment nous compilons ces chiffres — vérifiés manuellement et recoupés avec les sources officielles.",
     ro: "Cum compilăm aceste cifre — verificate manual după surse oficiale.",
     uz: "Ushbu raqamlar qanday jamlanadi — rasmiy manbalar asosida tekshirilgan.",
-    ar: "كيف نُعدّ هذه الأرقام — مراجعة دقيقة وموثقة وفق المصادر الرسمية."
+    ar: "كيف نُعدّ هذه الأرقام — مراجعة دقيقة وموثقة وفق المصادر الرسمية.",
+    id: "Cara angka-angka ini dikompilasi — diverifikasi setelah setiap penampilan berdasarkan sumber resmi."
   };
   const intro = intros[lang] || "How these numbers are compiled — verified after every appearance against named official sources.";
   return `<div class="colophon"><p>${intro}</p>${inner}${provisionalNote()}</div>`;
@@ -3879,7 +3933,8 @@ function renderHome(d) {
         fr: { goals: "Bilan Officiel", kpis: "Cap des 1 000", clubs: "Explorer", faq: "FAQ" },
         ro: { goals: "Bilanț Oficial", kpis: "Drumul spre 1.000", clubs: "Secțiuni", faq: "Întrebări" },
         uz: { goals: "Rasmiy Jadval", kpis: "1 000 Gol Sari", clubs: "Bo'limlar", faq: "Savollar" },
-        ar: { goals: "السجل الرسمي", kpis: "الطريق إلى 1000", clubs: "استكشف", faq: "الأسئلة" }
+        ar: { goals: "السجل الرسمي", kpis: "الطريق إلى 1000", clubs: "استكشف", faq: "الأسئلة" },
+        id: { goals: "Catatan Resmi", kpis: "Menuju 1.000", clubs: "Jelajahi", faq: "FAQ" }
       };
       const qj = quickJumpI18n[lang] || quickJumpI18n.en;
       const qjBar = document.createElement("nav");
@@ -3899,7 +3954,7 @@ function renderHome(d) {
   if (kpis) {
     const existingNums = kpis.querySelectorAll(".kpi-num");
     if (existingNums.length === 6) {
-      const sep = (lang === "fr" || lang === "uz") ? " " : (lang === "es" || lang === "pt" || lang === "ro") ? "." : ",";
+      const sep = (lang === "fr" || lang === "uz") ? " " : (lang === "es" || lang === "pt" || lang === "ro" || lang === "id") ? "." : ",";
       const fmtGrp = (val) => String(val).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
       const want6 = [String(t.goals), `${LIVE.assists}*`, fmtGrp(LIVE.ga), fmtGrp(t.apps), String(LIVE.trophies), "8"];
       existingNums.forEach((sp, i) => { if (i < want6.length) sp.textContent = want6[i]; });
@@ -4138,7 +4193,7 @@ function initBentoEraExplorer(d) {
   if (cards.length < 6) return;
 
   const lang = getLang();
-  const sep = (lang === "fr" || lang === "uz") ? " " : (lang === "es" || lang === "pt" || lang === "ro") ? "." : ",";
+  const sep = (lang === "fr" || lang === "uz") ? " " : (lang === "es" || lang === "pt" || lang === "ro" || lang === "id") ? "." : ",";
   const fmtInt = (val) => String(Math.round(val)).replace(/\B(?=(\d{3})+(?!\d))/g, sep);
 
   // Snapshot exact original DOM text so returning to "all" restores 100% faithfully
@@ -4161,7 +4216,8 @@ function initBentoEraExplorer(d) {
         fr: ["2004–2021 · Record du Club", "303 Critère TM", "1,21 G+P / Match", "0,86 But / Match", "4× LDC · 10× La Liga", "Ère 2009–2019"],
         ro: ["2004–2021 · Record Club", "303 Criteriu TM", "1,21 G+A / Meci", "0,86 Goluri / Meci", "4× UCL · 10× La Liga", "Era 2009–2019"],
         uz: ["2004–2021 · Klub Rekordi", "303 TM Mezoni", "1,21 G+A / O'yin", "0,86 Gol / O'yin", "4× ECHL · 10× La Liga", "2009–2019 Davri"],
-        ar: ["2004–2021 · الهداف التاريخي", "303 بمعيار TM", "1.21 مساهمة / مباراة", "0.86 هدف / مباراة", "4 دوري أبطال · 10 ليغا", "فترة 2009–2019"]
+        ar: ["2004–2021 · الهداف التاريخي", "303 بمعيار TM", "1.21 مساهمة / مباراة", "0.86 هدف / مباراة", "4 دوري أبطال · 10 ليغا", "فترة 2009–2019"],
+        id: ["2004–2021 · Rekor Klub", "303 Kriteria TM", "1,21 G+A / Laga", "0,86 Gol / Laga", "4× UCL · 10× La Liga", "Era 2009–2019"]
       }
     },
     argentina: {
@@ -4173,7 +4229,8 @@ function initBentoEraExplorer(d) {
         fr: ["2005–2026 · N°1 Historique", "60 Critère TM", "0,88 G+P / Match", "0,61 But / Match", "Mondial · 2× Copa · Finalissima", "Ère 2021 & 2023"],
         ro: ["2005–2026 · Lider Istoric", "60 Criteriu TM", "0,88 G+A / Meci", "0,61 Goluri / Meci", "Mondial · 2× Copa · Finalissima", "Era 2021 & 2023"],
         uz: ["2005–2026 · Tarixiy #1", "60 TM Mezoni", "0,88 G+A / O'yin", "0,61 Gol / O'yin", "JCH · 2× Kopa · Finalissima", "2021 & 2023 Davri"],
-        ar: ["2005–2026 · الهداف التاريخي #1", "60 بمعيار TM", "0.88 مساهمة / مباراة", "0.61 هدف / مباراة", "كأس العالم · 2 كوبا · فيناليسيما", "فترة 2021 و2023"]
+        ar: ["2005–2026 · الهداف التاريخي #1", "60 بمعيار TM", "0.88 مساهمة / مباراة", "0.61 هدف / مباراة", "كأس العالم · 2 كوبا · فيناليسيما", "فترة 2021 و2023"],
+        id: ["2005–2026 · #1 Sepanjang Masa", "60 Kriteria TM", "0,88 G+A / Laga", "0,61 Gol / Laga", "Piala Dunia · 2× Copa · Finalissima", "Era 2021 & 2023"]
       }
     },
     "inter-miami": {
@@ -4185,7 +4242,8 @@ function initBentoEraExplorer(d) {
         fr: ["2023–2026 · N°1 du Club", "53 Critère TM", "1,25 G+P / Match", "0,86 But / Match", "Leagues Cup · Shield · MLS", "Vainqueur 2023"],
         ro: ["2023–2026 · Lider Club", "53 Criteriu TM", "1,25 G+A / Meci", "0,86 Goluri / Meci", "Leagues Cup · Shield · MLS", "Câștigător 2023"],
         uz: ["2023–2026 · Klub #1", "53 TM Mezoni", "1,25 G+A / O'yin", "0,86 Gol / O'yin", "Leagues Cup · Shield · MLS", "2023 G'olibi"],
-        ar: ["2023–2026 · الهداف #1", "53 بمعيار TM", "1.25 مساهمة / مباراة", "0.86 هدف / مباراة", "كأس الليغات · درع المشجعين · MLS", "فائز 2023"]
+        ar: ["2023–2026 · الهداف #1", "53 بمعيار TM", "1.25 مساهمة / مباراة", "0.86 هدف / مباراة", "كأس الليغات · درع المشجعين · MLS", "فائز 2023"],
+        id: ["2023–2026 · #1 Klub", "53 Kriteria TM", "1,25 G+A / Laga", "0,86 Gol / Laga", "Leagues Cup · Shield · MLS", "Pemenang 2023"]
       }
     },
     psg: {
@@ -4197,7 +4255,8 @@ function initBentoEraExplorer(d) {
         fr: ["2021–2023 · Ligue 1 & LDC", "35 Critère TM", "0,88 G+P / Match", "0,43 But / Match", "2× Ligue 1 · Trophée des Champions", "Cérémonie 2021"],
         ro: ["2021–2023 · Ligue 1 și UCL", "35 Criteriu TM", "0,88 G+A / Meci", "0,43 Goluri / Meci", "2× Ligue 1 · Supercupa", "Ceremonia 2021"],
         uz: ["2021–2023 · Liga 1 va ECHL", "35 TM Mezoni", "0,88 G+A / O'yin", "0,43 Gol / O'yin", "2× Liga 1 · Superkubok", "2021 Marosimi"],
-        ar: ["2021–2023 · الدوري الفرنسي والأبطال", "35 بمعيار TM", "0.88 مساهمة / مباراة", "0.43 هدف / مباراة", "2 الدوري الفرنسي · كأس الأبطال", "حفل 2021"]
+        ar: ["2021–2023 · الدوري الفرنسي والأبطال", "35 بمعيار TM", "0.88 مساهمة / مباراة", "0.43 هدف / مباراة", "2 الدوري الفرنسي · كأس الأبطال", "حفل 2021"],
+        id: ["2021–2023 · Ligue 1 & UCL", "35 Kriteria TM", "0,88 G+A / Laga", "0,43 Gol / Laga", "2× Ligue 1 · Trophée des Champions", "Seremoni 2021"]
       }
     }
   };
@@ -4209,7 +4268,8 @@ function initBentoEraExplorer(d) {
     fr: { aria: "Filtrer les statistiques par équipe", all: "Carrière (937)", barcelona: "Barcelone (672)", argentina: "Argentine (126)", "inter-miami": "Inter Miami (107)", psg: "PSG (32)" },
     ro: { aria: "Filtrează statisticile după echipă", all: "Carieră (937)", barcelona: "Barcelona (672)", argentina: "Argentina (126)", "inter-miami": "Inter Miami (107)", psg: "PSG (32)" },
     uz: { aria: "Statistikani jamoa bo'yicha filtrlash", all: "Karyera (937)", barcelona: "Barselona (672)", argentina: "Argentina (126)", "inter-miami": "Inter Mayami (107)", psg: "PSJ (32)" },
-    ar: { aria: "تصفية الإحصائيات حسب الفريق", all: "المسيرة (937)", barcelona: "برشلونة (672)", argentina: "الأرجنتين (126)", "inter-miami": "إنتر ميامي (107)", psg: "باريس (32)" }
+    ar: { aria: "تصفية الإحصائيات حسب الفريق", all: "المسيرة (937)", barcelona: "برشلونة (672)", argentina: "الأرجنتين (126)", "inter-miami": "إنتر ميامي (107)", psg: "باريس (32)" },
+    id: { aria: "Filter statistik karier berdasarkan era tim", all: "Semua Karier (937)", barcelona: "Barcelona (672)", argentina: "Argentina (126)", "inter-miami": "Inter Miami (107)", psg: "PSG (32)" }
   };
   const labels = ERA_LABELS[lang] || ERA_LABELS.en;
   const ERA_KEYS = ["all", "barcelona", "argentina", "inter-miami", "psg"];
@@ -4418,6 +4478,15 @@ function initRoad1000Simulator(d) {
         { id: "conservative", label: "متحفظ 0.60/م", rate: 0.60, window: "2028" }
       ],
       fmt: (rate, matches, win) => `الوتيرة: <b>${rate.toFixed(2)} هدف/مباراة</b> · المطلوب: <b>${matches} مباراة</b> · التوقع: <b>${win}</b>`
+    },
+    id: {
+      aria: "Skenario proyeksi laju gol menuju 1.000",
+      pills: [
+        { id: "career", label: "Karier 0,79/laga", rate: 0.79, window: "Akhir 2027" },
+        { id: "miami", label: "Miami 0,86/laga", rate: 0.86, window: "Pertengahan 2027" },
+        { id: "conservative", label: "Konservatif 0,60/laga", rate: 0.60, window: "2028" }
+      ],
+      fmt: (rate, matches, win) => `Laju: <b>${rate.toFixed(2).replace(".", ",")} gol/laga</b> · <b>${matches} laga</b> dibutuhkan · Est: <b>${win}</b>`
     }
   };
 
@@ -4631,6 +4700,25 @@ async function renderOnThisDay() {
       goalTab: (n, min) => `الهدف ${n}${min ? ` (${min}')` : ""}`,
       hatTrick: "هاتريك",
       goalsSuffix: " أهداف"
+    },
+    id: {
+      error: `Gagal memuat riwayat laga hari ini. <a href="/id/birthday">Cek penjelajah ulang tahun &rarr;</a>`,
+      empty: `Tidak ada data laga pada tanggal ini. <a href="/id/birthday">Jelajahi 366 hari &rarr;</a>`,
+      closestBadge: (d) => `HARI GOL TERDEKAT • ${d} (UTC)`,
+      liveBadge: (d) => `<span class="live-dot pulse"></span> <b>HARI INI DALAM SEJARAH • ${d} (UTC)</b>`,
+      headlineClosest: (d, g, nowD, nowM) => `Tidak ada laga senior hari ini (${nowD} ${nowM} UTC). Hari gol terdekat: <b>${g} gol</b> pada ${d}!`,
+      headlineLive: (g, m) => `Pada hari ini dalam sejarah, Lionel Messi mencetak <b>${g} gol</b> dalam <b>${m} laga</b>!`,
+      btnBday: "Apakah Messi mencetak gol di hari ulang tahunmu?",
+      btnExplore: "Jelajahi Semua 366 Hari &rarr;",
+      lblMinute: "Menit",
+      lblShotType: "Jenis Tembakan",
+      lblAssist: "Assist",
+      lblXg: "Expected Goal (xG)",
+      noVideo: "Klip video untuk gol ini sedang diverifikasi.",
+      searchYt: "Cari klip di YouTube &rarr;",
+      goalTab: (n, min) => `Gol ${n}${min ? ` (${min}')` : ""}`,
+      hatTrick: "Hat-trick",
+      goalsSuffix: "G"
     }
   };
 
@@ -4953,6 +5041,24 @@ const BY_YEAR_I18N = {
     inProgNote: "* موسم 2026 جارٍ — يُحدّث بعد كل مباراة.",
     filterPlaceholder: "تصفية السنوات — مثال 2012",
     bestYearHtml: (best) => `<p><b>${best.year} هو أعظم عام تهديفي في تاريخ كرة القدم: ${best.goals} هدفاً</b> — 79 مع برشلونة و12 مع الأرجنتين — محطماً الرقم القياسي لغيرد مولر (85 هدفاً). <a href="/ar/dashboard">تصفّح توزيعها حسب البطولات</a>.</p>`
+  },
+  id: {
+    head: (ys, best, t) => `Dari gol senior pertamanya di ${ys[0].year} hingga <b>${best.goals} gol di ${best.year}</b> — setiap tahun kalender dalam karier ${n(t.goals)} gol resmi, lengkap dengan total akumulasi dan usianya.`,
+    cap: (best, t) => `Batang: gol tahun itu (puncak ${best.goals}, ${best.year}). Garis: kenaikan akumulasi menuju ${n(t.goals)}.`,
+    chartLabel: (best) => `Gol Messi per tahun kalender dengan total karier kumulatif, puncak ${best.goals} di ${best.year}`,
+    kpiCareer: "Gol karier",
+    kpiBest: "Tahun terbaik",
+    kpiBestSub: "Rekor dunia dalam satu tahun kalender.",
+    kpiCurrSub: "Musim sedang berjalan.",
+    kpiYears: "Tahun mencetak gol",
+    kpiYearsSub: (ys, last) => `Setiap tahun dari ${ys[0].year} hingga ${last.year}.`,
+    decades: "Gol di era",
+    tableSub: "Terbaru lebih dulu. 2026 masih berlangsung. Klik kolom untuk mengurutkan atau ketik untuk memfilter.",
+    caption: "Gol, total akumulasi karier, dan usia per tahun kalender sejak debut 2004.",
+    thYear: "Tahun", thGoals: "Gol", thTotal: "Total karier", thAge: "Usia",
+    inProgNote: "* Musim 2026 sedang berlangsung — diperbarui setiap pertandingan.",
+    filterPlaceholder: "Filter tahun — mis. 2012",
+    bestYearHtml: (best) => `<p><b>${best.year} adalah tahun tersubur dalam sejarah sepak bola: ${best.goals} gol</b> — 79 untuk Barcelona dan 12 untuk Argentina — memecahkan rekor 40 tahun Gerd Müller (85 gol). <a href="/id/dashboard">Lihat rincian per kompetisi di dasbor</a>.</p>`
   }
 };
 
@@ -5129,6 +5235,19 @@ const BY_SEASON_I18N = {
     thYear: "السنة", thNote: "التفاصيل", totalArgLabel: "إجمالي الأرجنتين",
     filterCountryPlaceholder: "تصفية سنوات الأرجنتين — مثال 2022",
     bestSeasonHtml: (best) => `<p><b>${best.season} — ${best.goals} هدفاً في ${best.apps} مباراة مع برشلونة</b> — أعظم موسم نادٍ في تاريخ كرة القدم: 50 في لا ليغا (رقم قياسي)، 14 في دوري الأبطال، 3 في كأس الملك و6 في السوبر. <a href="/ar/goalsbyyear">عرض الأهداف بالسنوات التقويمية</a>.</p>`
+  },
+  id: {
+    head: (best) => `Setiap musim klub dari 2004/05 hingga 2026 — <b>rekor: ${best.goals} gol pada ${best.season}</b> — dengan rincian liga, piala domestik, dan kontinental, plus Argentina per tahun.`,
+    clubSub: "Penampilan / gol di setiap ajang. 2026 sedang berlangsung. Klik kolom untuk mengurutkan atau ketik untuk memfilter.",
+    caption: (len) => `Semua ${len} musim klub: Barcelona 2004/05–2020/21, PSG 2021/22–2022/23, Inter Miami 2023–2026.`,
+    thSeason: "Musim", thClub: "Klub", thApps: "Laga", thGoals: "Gol", thLeague: "Liga", thCup: "Piala", thCont: "Kontinental", thOther: "Lainnya",
+    totalLabel: "Total klub", bestBadge: "Musim klub terbaik",
+    filterClubPlaceholder: "Filter musim — mis. PSG, 2012",
+    countrySub: "Kualifikasi, turnamen resmi, dan uji coba, terbaru lebih dulu.",
+    countryCaption: "Gol bersama Timnas Argentina per tahun kalender, 2005 hingga 2026.",
+    thYear: "Tahun", thNote: "Catatan", totalArgLabel: "Total Argentina",
+    filterCountryPlaceholder: "Filter tahun Argentina — mis. 2022",
+    bestSeasonHtml: (best) => `<p><b>${best.season} — ${best.goals} gol dalam ${best.apps} laga untuk Barcelona</b> — adalah musim klub paling produktif dalam sejarah sepak bola: 50 di La Liga (rekor), 14 di Liga Champions, 3 di Copa del Rey, dan 6 di piala super. <a href="/id/goalsbyyear">Lihat gol yang sama per tahun kalender</a>.</p>`
   }
 };
 
@@ -5493,6 +5612,50 @@ const DASH_I18N = {
       [`${LIVE.trophies}`, `<b>الألقاب الجماعية</b> — الأكثر تتويجاً في تاريخ كرة القدم.`]
     ],
     method: "أهداف دوري الأبطال موزعة 120 لبرشلونة و9 لباريس وفق المصادر الرسمية للأندية."
+  },
+  id: {
+    teamNames: { all: "semua tim", barcelona: "Barcelona", psg: "PSG", miami: "Inter Miami", argentina: "Argentina" },
+    pills: [["all", "Semua tim"], ["barcelona", "Barcelona"], ["psg", "PSG"], ["miami", "Inter Miami"], ["argentina", "Argentina"]],
+    head: (name) => `Setiap gol Messi dianalisis dalam empat sisi — berdasarkan kompetisi, musim, cara penyelesaian, dan bagian tubuh — difilter untuk <b>${esc(name)}</b>. Pilih tim untuk memperbarui grafik.`,
+    filterNote: (name, goals, apps, T) => `Menampilkan ${name}: ${n(goals)} gol dalam ${n(apps)} laga` + (T === "barcelona" || T === "psg" ? " (Rincian Liga Champions: Barcelona 120, PSG 9 — bersumber dari data resmi klub)." : "."),
+    kpis: { goals: "Gol", apps: "Penampilan", gpg: "Gol per laga", forTeam: (name) => `Untuk ${name}.` },
+    chartEmpty: "Tidak ada data untuk filter tim ini.",
+    figCap: (T, name) => T === "all" ? "Tahun kalender, 2004 hingga 2026." : T === "argentina" ? "Tahun kalender Argentina." : "Musim klub untuk " + esc(name) + ".",
+    finishParts: { "Open play": "Permainan terbuka", "Penalties": "Penalti", "Free kicks": "Tendangan bebas" },
+    finishCenter: "gol karier",
+    finishCaveat: "Total karier gabungan semua tim — data terverifikasi.",
+    finishCaveatFiltered: (d) => `Rincian cara penyelesaian mencakup total karier keseluruhan: dari ${n(d.totals.goals)} gol Messi, ${d.byFinish.openPlay} dari permainan terbuka, ${d.byFinish.penalties} penalti, dan ${d.byFinish.freeKicks} tendangan bebas.`,
+    bodyParts: { "Left foot": "Kaki kiri", "Right foot": "Kaki kanan", "Head": "Sundulan", "Other": "Lainnya" },
+    bodyCenter: "gol kaki kiri",
+    bodyCaveat: "Total karier gabungan semua tim.",
+    ageName: (r) => `Usia ${r.age} · ${r.year}`,
+    ageCaveat: (apeak) => `Setiap gol senior berdasarkan usia saat mencetaknya — gabungan klub dan timnas. Puncak: ${apeak.goals} gol pada usia ${apeak.age} (${apeak.year}).`,
+    ageFilterNote: "Usia menggabungkan gol klub dan timnas — hapus filter tim untuk melihat keseluruhan karier.",
+    compCaption: (name) => `Gol per kompetisi — ${esc(name)}.`,
+    thComp: "Kompetisi", thGoals: "Gol", thShare: "Porsi",
+    recAllTime: "Rekor sepanjang masa kompetisi",
+    finishCaption: "Bagaimana gol dicetak dan dengan bagian tubuh mana — total karier.",
+    thFinish: "Penyelesaian",
+    finishCaveatTable: "Rincian penyelesaian dan bagian tubuh adalah hitungan kompilasi total karier.",
+    finishRows: (d) => [
+      ["Permainan terbuka", d.byFinish.openPlay],
+      ["Penalti", d.byFinish.penalties],
+      ["Tendangan bebas", d.byFinish.freeKicks],
+      ["Kaki kiri", d.byBodyPart.left],
+      ["Kaki kanan", d.byBodyPart.right],
+      ["Sundulan", d.byBodyPart.head],
+      ["Lainnya (dada dll.)", d.byBodyPart.other]
+    ],
+    teamCardSub: { goals: "gol", apps: "laga", gpg: "per laga", of: "dari" },
+    records: (comp, d) => [
+      ["91", `<b>Gol di 2012</b> — rekor dunia terbanyak dalam satu tahun kalender.`],
+      [n(comp("La Liga")), `<b>Gol La Liga</b> — rekor sepanjang masa kompetisi, semuanya untuk Barcelona.`],
+      [n(comp("UEFA Champions League")), `<b>Gol Liga Champions</b> — 120 untuk Barcelona, 9 untuk PSG.`],
+      ["8", `<b>Ballon d'Or</b> — terbanyak sepanjang sejarah (2009–12, 2015, 2019, 2021, 2023).`],
+      [n(d.hatTricks), `<b>Hat-trick atau lebih</b> bersama klub dan timnas.`],
+      [`${LIVE.trophies}`, `<b>Trofi tim</b> — karier tersukses dalam sejarah sepak bola.`]
+    ],
+    method: "Gol Liga Champions dibagi 120 untuk Barcelona dan 9 untuk PSG berdasarkan sumber resmi klub."
   }
 };
 
@@ -5699,6 +5862,27 @@ function renderDashboard(d, team) {
       openPlaySub: "81.2% من اللعب المفتوح",
       fkSub: "76 ركلة حرة مباشرة مسجلة",
       penSub: "110 مسجلة من 141 محاولة (78.0%)"
+    },
+    id: {
+      allTeams: "Semua Tim",
+      kpiTotalGoals: "Total Gol", kpiTotalAssists: "Total Assist", kpiGa: "Kontribusi Gol",
+      kpiNpg: "Gol Non-Penalti", kpiFk: "Tendangan Bebas", kpiHt: "Hat-trick",
+      subGpg: (g, a, m) => `${g} gol/laga · ${m} laga (${a})`,
+      subAst: (r) => `${r} assist/laga · Terbanyak sepanjang masa`,
+      subGa: (r) => `${r} kontribusi gol per laga`,
+      subNpg: (pct) => `${pct}% dari permainan terbuka & tendangan bebas`,
+      subFk: "Akurasi bola mati kelas dunia",
+      subHt: "62 hat-trick, 6× 4 gol, 2× 5 gol",
+      bodyTitle: "Rincian Bagian Tubuh",
+      finishTitle: "Rincian Cara Penyelesaian",
+      compTitle: (nm) => `Kompetisi Utama (${nm})`,
+      msTitle: "Kecepatan Tonggak Karier",
+      msHeaders: ["Tonggak", "Lawan", "Tanggal", "Usia", "Laga"],
+      msGoal: (g) => `Gol #${g}`,
+      msFoot: "Mencakup semua pertandingan resmi klub dan timnas senior.",
+      openPlaySub: "81,2% gol permainan terbuka",
+      fkSub: "76 tendangan bebas langsung tercipta",
+      penSub: "110 sukses dari 141 eksekusi (78,0%)"
     }
   };
   const dui = DASH_UI_I18N[lang] || DASH_UI_I18N.en;
@@ -5876,6 +6060,19 @@ function renderDashboard(d, team) {
           fkSub: "الثاني في تاريخ كرة القدم العالمية",
           pen: "نقطة ركلة الجزاء",
           penSub: "110 / 141 تحويلاً (78.0%)"
+        },
+        id: {
+          tag: "PROFIL TAKTIKAL SPASIAL",
+          title: "Peta Zona Asal Tembakan & Gol",
+          sub: "Distribusi spasial dari 937 gol senior — klik atau arahkan kursor ke zona mana saja untuk menyorot.",
+          inBox: "Di Dalam Kotak 16 Meter",
+          inBoxSub: "Cut-back, 1v1 & kotak 6 meter",
+          outBox: "Luar Kotak (Zona 14)",
+          outBoxSub: "Tembakan melengkung & jarak jauh",
+          fk: "Tendangan Bebas Langsung",
+          fkSub: "Peringkat #2 sepanjang masa di sepak bola",
+          pen: "Titik Penalti",
+          penSub: "110 / 141 dikonversi (78,0%)"
         }
       };
       const pt = PITCH_I18N[lang] || PITCH_I18N.en;
@@ -6256,6 +6453,13 @@ function renderDashboard(d, team) {
       cap: "الأهداف والإجمالي التراكمي والعمر لكل سنة ميلادية منذ الظهور الأول عام 2004.",
       cols: ["السنة", "الأهداف", "إجمالي المسيرة", "العمر"],
       wr: "رقم قياسي عالمي 91 هدفاً"
+    },
+    id: {
+      fig: (best, tot) => `Batang: gol per tahun (puncak ${best.goals}, ${best.year}). Garis: total kumulatif menuju ${tot}.`,
+      lbl: (best) => `Gol per tahun dengan puncak ${best.goals} di ${best.year}`,
+      cap: "Gol, total karier kumulatif, dan usia untuk setiap tahun kalender sejak debut 2004.",
+      cols: ["Tahun", "Gol", "Total Karier", "Usia"],
+      wr: "Rekor dunia 91G"
     }
   };
   const yt = yrTblI18n[lang] || yrTblI18n.en;
@@ -6368,7 +6572,8 @@ function eraOf(y) {
       fr: "2023–présent",
       ro: "2023–prezent",
       uz: "2023–hozir",
-      ar: "2023–الآن"
+      ar: "2023–الآن",
+      id: "2023–sekarang"
     }[lang] || "2023–present"
   };
   const eraNames = {
@@ -6425,6 +6630,15 @@ function eraOf(y) {
       farewell: "وداع برشلونة",
       paris: "باريس وكأس العالم",
       miami: "ميامي والطريق نحو 1000 هدف"
+    },
+    id: {
+      rosario: "Bocah dari Rosario",
+      peak: "Puncak terhebat dalam sejarah sepak bola",
+      msn: "MSN dan treble kedua",
+      carry: "Memikul Barcelona",
+      farewell: "Perpisahan dengan Barcelona",
+      paris: "Paris dan Piala Dunia",
+      miami: "Miami dan jalan menuju 1.000"
     },
     en: {
       rosario: "The boy from Rosario",
@@ -6517,6 +6731,15 @@ const ERA_INTROS = {
     farewell: `Un sixième Ballon d'Or, une ultime Coupe du Roi en 2021 et un adieu bouleversant au Camp Nou après 21 années légendaires au FC Barcelone.`,
     paris: `Deux titres de champion avec le PSG, un septième Ballon d'Or et la consécration suprême au Qatar le 18 décembre 2022 : champion du monde avec un doublé en finale. La carrière est complète.`,
     miami: `Trophée de Leagues Cup dès son premier mois, un huitième Ballon d'Or, une nouvelle Copa América et la marche vers les 1 000 buts en direct.`
+  },
+  id: {
+    rosario: `Remaja 17 tahun asal Rosario melakoni debut melawan Espanyol pada Oktober 2004, dan dalam hitungan bulan Camp Nou meneriakkan namanya. Gol perdananya hadir melawan Albacete pada Mei berikutnya lewat umpan lob Ronaldinho, menjadikannya pencetak gol termuda Barcelona. Pada 2008, medali emas Olimpiade sudah melingkar di lehernya.`,
+    peak: `Enam trofi pada 2009. Empat Ballon d'Or beruntun. Lalu 2012: 91 gol dalam satu tahun kalender, memecahkan rekor 40 tahun Gerd Müller — termasuk lima gol dalam satu malam Liga Champions kontra Leverkusen. Puncak sepak bola terhebat dalam sejarah.`,
+    msn: `Messi, Suárez, dan Neymar: trio paling mematikan di sepak bola modern yang mengunci treble kedua di Berlin pada 2015. Gol solonya di final Copa del Rey musim semi itu melewati separuh lini belakang Athletic Club adalah mahakarya abadi.`,
+    carry: `Comeback legendaris 6–1 melawan PSG pada 2017, selebrasi ikonik mengangkat kaus #10 di Bernabéu, serta gelar ganda La Liga dan Copa pada 2018 saat ia memikul Barcelona di setiap pekan.`,
+    farewell: `Ballon d'Or keenam, satu trofi Copa del Rey terakhir pada 2021, dan konferensi pers penuh air mata pada Agustus setelah 21 tahun — pergi sebagai pencetak gol dan pemilik penampilan terbanyak sepanjang masa klub.`,
+    paris: `Dua gelar Ligue 1 di Paris, Ballon d'Or ketujuh, dan puncak kejayaan di Qatar pada 18 Desember 2022: dua gol di final Piala Dunia dan trofi emas di tangannya. Karier yang paripurna.`,
+    miami: `Kedatangan penuh kemenangan di Amerika Serikat dengan trofi Leagues Cup di bulan pertama, Ballon d'Or kedelapan, juara Copa América lagi bersama Argentina, dan laju bersejarah menuju 1.000 gol resmi.`
   }
 };
 
@@ -6705,6 +6928,31 @@ const TIMELINE_I18N = {
       ["متى انضم ميسي إلى إنتر ميامي؟", "في <b>يوليو 2023</b> وتُوّج بكأس الليغات بعد أسابيع قليلة من وصوله."]
     ],
     method: "الخط الزمني موثق بالتواريخ الدقيقة وفق السجلات الرسمية للمباريات والبطولات."
+  },
+  id: {
+    head: (t) => `Dari debutnya bersama Barcelona pada 2004 hingga <b>${n(t.goals)} gol karier</b> — malam-malam penentu, rekor, dan trofi, tersusun rapi berdasarkan tanggal.`,
+    keydates: (t, lastUpdated) => [
+      ["16 Okt 2004", "Debut senior untuk <b>Barcelona</b> melawan Espanyol pada usia 17 tahun."],
+      ["1 Mei 2005", "Gol senior pertama, melawan Albacete — pencetak gol termuda Barcelona saat itu."],
+      ["17 Agu 2005", "Debut <b>Argentina</b> melawan Hungaria."],
+      ["2012", "<b>91 gol</b> dalam satu tahun kalender — rekor sepanjang masa sepak bola."],
+      ["18 Des 2022", "Juara <b>Piala Dunia</b> bersama Argentina di Qatar dengan dua gol di final."],
+      [esc(lastUpdated), `<b>${n(t.goals)} gol karier</b> untuk klub dan timnas — pembaruan terakhir.`]
+    ],
+    inProg: "sedang berjalan",
+    goals: "gol",
+    goalsInEra: (goals, share, total) => `<b>${n(goals)} gol</b> · ${share}% dari ${n(total)}`,
+    peakYear: (pk, tr) => `<p class="ch-callout">Tahun puncak <b>${pk.year} · ${pk.goals} gol</b>` + (tr ? ` · <b>${tr}</b> trofi tim diraih di era ini` : "") + `</p>`,
+    empty: (val, total) => `Tidak ada hasil untuk “${val}” — hapus pencarian untuk melihat semua ${total} tonggak sejarah.`,
+    tagRecord: "Rekor", tagWc: "Piala Dunia", tagFirst: "Pertama",
+    faq: [
+      ["Kapan Messi melakoni debutnya?", "Untuk Barcelona pada <b>16 Oktober 2004</b> melawan Espanyol, usia 17 tahun 114 hari; untuk Argentina pada 17 Agustus 2005."],
+      ["Kapan Messi mencetak gol pertamanya?", "Pada <b>1 Mei 2005</b> melawan Albacete — menjadikannya pencetak gol termuda dalam sejarah Barcelona saat itu."],
+      ["Kapan Messi menjuarai Piala Dunia?", "Pada <b>18 Desember 2022</b>, mengalahkan Prancis lewat adu penalti di final Lusail setelah skor 3–3."],
+      ["Kapan Messi meninggalkan Barcelona?", "Pada <b>Agustus 2021</b>, bergabung dengan Paris Saint-Germain setelah 21 tahun di klub."],
+      ["Kapan Messi bergabung dengan Inter Miami?", "Pada <b>Juli 2023</b>, langsung menjuarai Leagues Cup hanya beberapa pekan setelah tiba."]
+    ],
+    method: "Entri linimasa diurutkan berdasarkan tahun dan tanggal spesifik dari catatan resmi pertandingan dan turnamen."
   }
 };
 
@@ -6955,7 +7203,8 @@ function renderTimeline(d) {
     fr: ["Saisons (2004–2026)", "Buts Officiels", "Passes Décisives", "Trophées Majeurs", "Ballons d'Or", "Souliers d'Or"],
     ro: ["Sezoane (2004–2026)", "Goluri Seniori", "Pase de Gol", "Trofee Majore", "Baloane de Aur", "Ghete de Aur"],
     uz: ["Mavsumlar (2004–2026)", "Rasmiy Gollar", "Golli Uzatmalar", "Yirik Sovrinlar", "Oltin To'plar", "Oltin Butsalar"],
-    ar: ["المواسم (2004–2026)", "الأهداف الرسمية", "التمريرات الحاسمة", "الألقاب الكبرى", "الكرة الذهبية", "الحذاء الذهبي"]
+    ar: ["المواسم (2004–2026)", "الأهداف الرسمية", "التمريرات الحاسمة", "الألقاب الكبرى", "الكرة الذهبية", "الحذاء الذهبي"],
+    id: ["Musim (2004–2026)", "Gol Senior", "Assist Karier", "Trofi Utama", "Ballon d'Or", "Sepatu Emas"]
   };
   const sl = summaryLabels[lang] || summaryLabels.en;
   const summaryEl = el("tl-summary");
@@ -7021,7 +7270,8 @@ function renderTimeline(d) {
     fr: { all: "Tous", trophy: "Trophées", award: "Ballons d'Or", goal: "Buts Marquants", record: "Records Mondiaux", barcelona: "Barcelone", argentina: "Argentine", miami: "Inter Miami", psg: "PSG" },
     ro: { all: "Toate", trophy: "Trofee", award: "Baloane de Aur", goal: "Goluri Repere", record: "Recorduri Mondiale", barcelona: "Barcelona", argentina: "Argentina", miami: "Inter Miami", psg: "PSG" },
     uz: { all: "Barchasi", trophy: "Sovrinlar", award: "Oltin To'plar", goal: "Muhim Gollar", record: "Jahon Rekordlari", barcelona: "Barselona", argentina: "Argentina", miami: "Inter Mayami", psg: "PSJ" },
-    ar: { all: "الكل", trophy: "الألقاب", award: "الكرة الذهبية", goal: "أهداف تاريخية", record: "أرقام قياسية", barcelona: "برشلونة", argentina: "الأرجنتين", miami: "إنتر ميامي", psg: "باريس" }
+    ar: { all: "الكل", trophy: "الألقاب", award: "الكرة الذهبية", goal: "أهداف تاريخية", record: "أرقام قياسية", barcelona: "برشلونة", argentina: "الأرجنتين", miami: "إنتر ميامي", psg: "باريس" },
+    id: { all: "Semua", trophy: "Trofi", award: "Ballon d'Or", goal: "Gol Bersejarah", record: "Rekor Dunia", barcelona: "Barcelona", argentina: "Argentina", miami: "Inter Miami", psg: "PSG" }
   };
   const fl = filterLabels[lang] || filterLabels.en;
 
@@ -7107,7 +7357,8 @@ function renderTimeline(d) {
       fr: `${matched} sur ${totalEvents} jalons`,
       ro: `${matched} din ${totalEvents} repere`,
       uz: `${totalEvents} tadan ${matched} tasi`,
-      ar: `عرض ${matched} من ${totalEvents} محطة`
+      ar: `عرض ${matched} من ${totalEvents} محطة`,
+      id: `Menampilkan ${matched} dari ${totalEvents} tonggak`
     };
     countEl.textContent = fmt[lang] || `Showing ${matched} of ${totalEvents} milestones`;
   };
@@ -7238,6 +7489,13 @@ const CABINET_I18N = {
     { title: "دوري أبطال أوروبا — 4", sub: "2006، 2009، 2011، 2015 — كلها مع برشلونة.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يحتفل بكأس دوري أبطال أوروبا", cap: "بطل أوروبا 4 مرات مع برشلونة" },
     { title: "كوبا أميركا — 2", sub: "بطل القارة مرتين متتاليتين، 2021 و2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي يقبّل كأس كوبا أميركا في ماراكانا", cap: "أبطال كوبا أميركا، ماراكانا 2021" },
     { title: "الدوري الإسباني — 10", sub: "هيمنة محلية مع برشلونة 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "ميسي مع درع الدوري الإسباني", cap: "بطل إسبانيا 10 مرات مع برشلونة" }
+  ],
+  id: [
+    { title: "Piala Dunia FIFA — 2022", sub: "Puncak kejayaan, Lusail 18 Desember 2022.", src: "/img/cab-wc.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi diangkat di atas bahu merayakan Piala Dunia 2022", cap: "Juara Dunia, Lusail 2022" },
+    { title: "Ballon d'Or — 8", sub: "Rekor sepanjang masa: 2009–12, 2015, 2019, 2021, 2023.", src: "/img/cab-ballon.webp", w: 800, h: 600, pos: "50% 30%", alt: "Messi memegang trofi Ballon d'Or kedelapan", cap: "Rekor Ballon d'Or kedelapan" },
+    { title: "Liga Champions — 4", sub: "2006, 2009, 2011, 2015 — semuanya bersama Barcelona.", src: "/img/cab-ucl.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi merayakan trofi Liga Champions", cap: "Juara Eropa 4 kali bersama Barcelona" },
+    { title: "Copa América — 2", sub: "Juara kontinental beruntun, 2021 & 2024.", src: "/img/cab-copa.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi mencium trofi Copa América di Maracanã", cap: "Juara Copa América, Maracanã 2021" },
+    { title: "Gelar La Liga — 10", sub: "Dominasi domestik bersama FC Barcelona 2004–2019.", src: "/img/cab-liga.webp", w: 800, h: 600, pos: "50% 25%", alt: "Messi bersama trofi La Liga", cap: "Juara Spanyol 10 kali bersama Barcelona" }
   ]
 };
 
@@ -7391,6 +7649,29 @@ const ACH_I18N = {
       ["كم جائزة فردية حقق ميسي؟", "ثماني كرات ذهبية، ستة أحذية ذهبية أوروبية، وكرتان ذهبيتان لكأس العالم — وكلها أرقام قياسية."],
       ["هل ميسي الأكثر تتويجاً في التاريخ؟", "بجمع البطولات الجماعية والأرقام الفردية — <b>نعم بكل المقاييس</b>."]
     ]
+  },
+  id: {
+    head: (teamTotal) => `<b>${teamTotal} trofi tim</b> — karier tersukses dalam sejarah sepak bola — ditambah rekor <b>8 Ballon d'Or</b>. Setiap gelar, klub demi klub, beserta tahun kemenangannya.`,
+    kpis: (per) => [
+      ["Trofi tim", LIVE.trophies, `Barcelona ${per["Barcelona"] || 0} · Argentina ${per["Argentina"] || 0} · PSG ${per["Paris Saint-Germain"] || 0} · Miami ${per["Inter Miami"] || 0}.`],
+      ["Ballon d'Or", "8", "Rekor — 2009–12, 2015, 2019, 2021, 2023."],
+      ["Liga Champions", "4", "2006, 2009, 2011, 2015 — semuanya bersama Barcelona."],
+      ["Turnamen besar timnas", "3", "Piala Dunia 2022, Copa América 2021 & 2024."]
+    ],
+    qa: (teamTotal, per) => [
+      ["Berapa banyak trofi yang dimenangkan Messi?", `<b>${teamTotal} gelar tim senior</b>: ${per["Barcelona"] || 0} Barcelona, ${per["Paris Saint-Germain"] || 0} PSG, ${per["Inter Miami"] || 0} Inter Miami, dan ${per["Argentina"] || 0} Argentina.`],
+      ["Berapa Ballon d'Or yang diraih Messi?", "<b>Delapan</b> — terbanyak dari pemain mana pun sepanjang sejarah (2009–12, 2015, 2019, 2021, 2023)."],
+      ["Apakah Messi pernah menjuarai Piala Dunia?", "<b>Ya — 2022</b>, mencetak dua gol di final melawan Prancis, ditambah Copa América 2021 dan 2024."],
+      ["Berapa Liga Champions yang dimenangkan Messi?", "<b>Empat</b>, semuanya bersama Barcelona: 2006, 2009, 2011, dan 2015."]
+    ],
+    teamHeader: (team, sub) => `${esc(team)} — ${sub} trofi`,
+    indHeader: (indTotal) => `Penghargaan individu — ${indTotal} gelar`,
+    faq: [
+      ["Apa trofi terpenting Messi?", "<b>Piala Dunia 2022</b> — gelar puncak yang melengkapi seluruh kariernya, diraih sebagai pemain terbaik turnamen."],
+      ["Berapa gelar liga yang dimenangkan Messi?", "<b>Dua belas</b> — 10 La Liga, 2 Ligue 1 — ditambah MLS Cup (2025) dan Leagues Cup (2023) bersama Miami."],
+      ["Berapa penghargaan individu yang diraih Messi?", "Delapan Ballon d'Or, enam Sepatu Emas Eropa, dan dua Bola Emas Piala Dunia — masing-masing adalah rekor."],
+      ["Apakah Messi pemain tersukses sepanjang masa?", "Berdasarkan gabungan gelar tim dan rekor individu — <b>ya, dengan hitungan apa pun</b>."]
+    ]
   }
 };
 
@@ -7529,7 +7810,8 @@ async function copyToClipboard(text, msgEl, successMsg) {
     fr: "Copié dans le presse-papier !",
     ro: "Copiat în clipboard!",
     uz: "Buferga nusxalandi!",
-    ar: "تم النسخ إلى الحافظة!"
+    ar: "تم النسخ إلى الحافظة!",
+    id: "Disalin ke papan klip!"
   };
   const finalMsg = successMsg || defaultMsgs[lang] || "Copied to clipboard!";
   let ok = false;
@@ -7616,6 +7898,14 @@ function updateBirthdaySocialShare(dayData, key) {
       shareText = `أشارك ليونيل ميسي يوم ميلاده (24 يونيو)! هل سجّل في يوم ميلادك؟`;
     } else {
       shareText = `هل سجّل ليونيل ميسي في يوم ميلادك؟ تفقّد جميع أيام السنة الـ 366:`;
+    }
+  } else if (lang === "id") {
+    if (dayData.goalsCount > 0) {
+      shareText = `Lionel Messi mencetak ${dayData.goalsCount} gol di hari ulang tahunku (${dayData.formatted})! Apakah ia mencetak gol di harimu?`;
+    } else if (isMessiBday) {
+      shareText = `Ulang tahunku sama dengan Lionel Messi (24 Juni)! Apakah ia mencetak gol di ulang tahunmu?`;
+    } else {
+      shareText = `Apakah Lionel Messi mencetak gol di hari ulang tahunmu? Cek semua 366 hari dari 937 gol kariernya:`;
     }
   } else {
     if (dayData.goalsCount > 0) {
@@ -7923,6 +8213,31 @@ const BDAY_I18N = {
     shareSuccess: (d, g, m) => `سجّل ليونيل ميسي ${g} أهداف في ${m} مباريات في يوم ميلادي (${d})! تفقّد تاريخك:`,
     shareEmpty: (d) => `هل سجّل ميسي في يوم ميلادك؟ لقد سجّل في 292 يوماً من أصل 366! تفقّد تاريخك:`,
     allDays: "الكل (366 يوماً)"
+  },
+  id: {
+    months: ["", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"],
+    badgeSuccess: "YA! MESSI MENCETAK GOL DI HARI ULANG TAHUNMU!",
+    badgeMessi: "ITU HARI ULANG TAHUN LIONEL MESSI SENDIRI!",
+    badgeEmpty: "TIDAK ADA GOL PADA TANGGAL INI",
+    headlineSuccess: (g, m, d) => `Lionel Messi mencetak <b>${g} gol</b> dalam <b>${m} pertandingan</b> pada ${d} sepanjang karier profesionalnya!`,
+    headlineMessi: `Kamu berbagi hari ulang tahun dengan <b>Lionel Andrés Messi</b> (lahir 24 Juni 1987 di Rosario)!`,
+    headlineEmpty: (d) => `Lionel Messi tidak mencetak gol pada <b>${d}</b> dalam laga resmi senior.`,
+    whyZeroTitle: "Mengapa 0 Gol?",
+    whyZeroMessi: "Lionel Messi tidak pernah bermain di laga resmi pada 24 Juni karena akhir Juni bertepatan dengan jeda musim panas klub Eropa atau hari istirahat turnamen internasional.",
+    whyZeroMessiSub: "Kamu berbagi hari spesial ini dengan pesepak bola terhebat sepanjang masa!",
+    emptyExpl: "Messi tidak bertanding atau tidak mencetak gol pada hari ini — namun ia mencetak gol pada <b>292 dari 366 hari (79,8%)</b> sepanjang tahun!",
+    closestDay: (d, g) => `Tanggal terdekat Messi mencetak gol adalah <b>${d}</b> (${g} gol).`,
+    closestBtn: (d, g) => `Lihat ${d} (${g} gol) &rarr;`,
+    watchClip: (cnt) => `Tonton ${cnt > 1 ? cnt + " Klip Gol" : "Klip Gol"}`,
+    searchYt: "Cari di YouTube",
+    playInline: "Putar di sini",
+    closeInline: "Tutup video",
+    ytHighlights: "Cuplikan YouTube",
+    goalSummary: (g) => `Gol yang dicetak (${g}):`,
+    goalTab: (idx, min) => `Gol ${idx}${min ? ` (${min}')` : ""}`,
+    shareSuccess: (d, g, m) => `Lionel Messi mencetak ${g} gol dalam ${m} laga di hari ulang tahunku (${d})! Cek milikmu:`,
+    shareEmpty: (d) => `Apakah Messi mencetak gol di hari ulang tahunmu? Ia mencetak gol di 292 dari 366 hari! Cek punyamu:`,
+    allDays: "Semua (366 hari)"
   }
 };
 
@@ -8282,7 +8597,8 @@ async function renderBirthday(d) {
                 fr: "Copié !",
                 ro: "Copiat!",
                 uz: "Nusxalandi!",
-                ar: "تم النسخ!"
+                ar: "تم النسخ!",
+                id: "Disalin!"
               };
               shareMsg.textContent = copiedMsgs[lang] || "Copied!";
               setTimeout(() => { shareMsg.textContent = ""; }, 3000);
@@ -8304,7 +8620,8 @@ async function renderBirthday(d) {
               fr: "Lien copié !",
               ro: "Link copiat!",
               uz: "Havola nusxalandi!",
-              ar: "تم نسخ الرابط!"
+              ar: "تم نسخ الرابط!",
+              id: "Tautan disalin!"
             };
             shareMsg.textContent = urlCopiedMsgs[lang] || "URL Copied!";
             setTimeout(() => { shareMsg.textContent = ""; }, 3000);
@@ -8881,6 +9198,24 @@ const LATEST_GOAL_I18N = {
     tagRightFoot: "القدم اليمنى",
     tagOpenPlay: "لعب مفتوح",
     assist: "تمريرة حاسمة"
+  },
+  id: {
+    goalPrefix: "Gol #",
+    scoreline: "Skor Akhir",
+    matchHighlights: "Cuplikan Pertandingan",
+    didScoreTodayYes: "YA! Lionel Messi mencetak gol HARI INI: Gol #{goalNum} pada menit {minute} vs {opp} ({score})!",
+    didScoreTodayNo: "Apakah Messi mencetak gol hari ini? Pertandingan resmi terakhir Lionel Messi berlangsung pada {date} di {comp}, di mana ia mencetak Gol #{goalNum} pada menit {minute} ({score}). Tonton tayangan ulang gol di bawah ini.",
+    matchResult: "Hasil Laga Terakhir: {title}",
+    goalBadge: "Gol #{goalNum} Dicetak ({minute})",
+    playHighlight: "Pilih salah satu gol terbaru Lionel Messi di bawah untuk langsung memutar video cuplikan:",
+    viewDateGoals: "Lihat gol tanggal {formattedDate} →",
+    tagHeader: "Sundulan",
+    tagFreekick: "Tendangan Bebas Langsung",
+    tagPenalty: "Penalti",
+    tagLeftFoot: "Tembakan Kaki Kiri",
+    tagRightFoot: "Kaki Kanan",
+    tagOpenPlay: "Permainan Terbuka",
+    assist: "Assist"
   }
 };
 
@@ -9262,6 +9597,13 @@ function ensureCommandPalette() {
       empty: "لم يتم العثور على إحصائيات أو صفحات مطابقة.",
       live: "مباشر",
       cats: { hub: "المركز", live: "مباشر", interactive: "تفاعلي", rivalry: "منافسة", tournament: "بطولة", analytics: "تحليلات", archive: "أرشيف", history: "التاريخ", honours: "الألقاب", date: "تاريخ بارز", team: "الفريق", year: "سنة" }
+    },
+    id: {
+      ph: "Lompat ke tahun (2012), rival (Ronaldo, Real Madrid), tanggal, atau halaman…",
+      esc: "ESC",
+      empty: "Tidak ada statistik atau halaman yang cocok.",
+      live: "LIVE",
+      cats: { hub: "Pusat", live: "Live", interactive: "Interaktif", rivalry: "Rivalitas", tournament: "Turnamen", analytics: "Analitik", archive: "Arsip", history: "Sejarah", honours: "Trofi", date: "Tanggal Bersejarah", team: "Tim", year: "Tahun" }
     }
   };
   const tx = CMD_I18N[lang] || CMD_I18N.en;
@@ -9637,16 +9979,38 @@ function initRivalryModeTabs(d) {
         trophies: "إجمالي البطولات الجماعية",
         h2h: "الانتصارات في المواجهات المباشرة"
       }
+    },
+    id: {
+      aria: "Mode perbandingan",
+      tabs: { all: "Karier Penuh", ratios: "Rasio & Efisiensi", finals: "Piala Dunia & Final" },
+      rows: {
+        gpm: "Gol per pertandingan",
+        gapm: "Gol + Assist per laga",
+        npgpm: "Gol non-penalti per laga",
+        npg: "Gol non-penalti",
+        opg: "Gol permainan terbuka",
+        fk: "Gol tendangan bebas langsung",
+        out: "Gol dari luar kotak penalti",
+        bcc: "Peluang besar diciptakan",
+        wcG: "Gol Piala Dunia",
+        wcA: "Assist Piala Dunia",
+        wcKoG: "Gol fase gugur Piala Dunia",
+        wcKoA: "Assist fase gugur Piala Dunia",
+        wcGb: "Bola Emas Piala Dunia",
+        finalsG: "Gol di partai final",
+        trophies: "Total trofi tim",
+        h2h: "Kemenangan head-to-head"
+      }
     }
   };
   const tx = RIVALRY_I18N[lang] || RIVALRY_I18N.en;
   const r = tx.rows;
 
   const initialRowsHtml = rowsWrap.innerHTML;
-  const mGoals = (d && d.totals && d.totals.goals) || LIVE.goals;
-  const mApps = (d && d.totals && d.totals.appearances) || LIVE.apps;
-  const mAssists = (d && d.totals && d.totals.assists) || LIVE.assists;
-  const mTrophies = (d && d.totals && d.totals.trophies) || LIVE.trophies;
+  const mGoals = parseInt((d && d.totals && d.totals.goals), 10) || LIVE.goals;
+  const mApps = parseInt((d && d.totals && (d.totals.apps || d.totals.appearances)), 10) || LIVE.apps;
+  const mAssists = parseInt((d && d.totals && d.totals.assists), 10) || LIVE.assists;
+  const mTrophies = parseInt((d && d.totals && d.totals.trophies), 10) || LIVE.trophies;
   const mRatio = mApps ? (mGoals / mApps).toFixed(2) : "0.79";
   const mGaRatio = mApps ? ((mGoals + mAssists) / mApps).toFixed(2) : "1.14";
 
@@ -9760,7 +10124,8 @@ load().then((d) => {
     fr: "Échec du chargement des statistiques. Vérifiez votre connexion et actualisez la page.",
     ro: "Eroare la încărcarea statisticilor. Verifică conexiunea și reîncarcă pagina.",
     uz: "Statistikani yuklab bo'lmadi. Internet aloqasini tekshirib, sahifani yangilang.",
-    ar: "تعذر تحميل الإحصائيات. تحقق من اتصالك بالإنترنت وأعد تحميل الصفحة."
+    ar: "تعذر تحميل الإحصائيات. تحقق من اتصالك بالإنترنت وأعد تحميل الصفحة.",
+    id: "Gagal memuat statistik. Periksa koneksi internet Anda lalu muat ulang."
   };
   const msgText = errorMsgs[lang] || "Stats failed to load. Check your connection and refresh.";
   document.querySelectorAll("main.wrap").forEach((m) => {
@@ -9798,7 +10163,8 @@ load().then((d) => {
       fr: { t: "Garder MessiStat en ligne ?", b: "L'hébergement et le streaming vidéo sortent de notre poche — un café garde le site gratuit.", c: "Soutenir sur Ko-fi", l: "Peut-être plus tard", x: "Fermer" },
       ro: { t: "Susții MessiStat online?", b: "Găzduirea și streamingul video sunt plătite din buzunarul nostru — o cafea menține toate clipurile gratuite.", c: "Susține pe Ko-fi", l: "Poate mai târziu", x: "Închide" },
       uz: { t: "MessiStat ishlashini qo'llab-quvvatlaysizmi?", b: "Hosting va video striming o'z hisobimizdan qoplanadi — bir chashka qahva barcha gollarni bepul saqlaydi.", c: "Ko-fi orqali qo'llab-quvvatlash", l: "Keyinroq", x: "Yopish" },
-      ar: { t: "هل تدعم استمرار MessiStat؟", b: "نفقات الاستضافة وبث الفيديو من جيبنا الخاص — دعم بسيط يبقي جميع مقاطع الأهداف مجانية.", c: "ادعمنا عبر Ko-fi", l: "ربما لاحقاً", x: "إغلاق" }
+      ar: { t: "هل تدعم استمرار MessiStat؟", b: "نفقات الاستضافة وبث الفيديو من جيبنا الخاص — دعم بسيط يبقي جميع مقاطع الأهداف مجانية.", c: "ادعمنا عبر Ko-fi", l: "ربما لاحقاً", x: "إغلاق" },
+      id: { t: "Dukung MessiStat tetap berjalan?", b: "Biaya hosting dan streaming video kami tanggung sendiri — segelas kopi menjaga semua klip gol tetap gratis.", c: "Dukung di Ko-fi", l: "Nanti saja", x: "Tutup" }
     };
 
     const lang = (typeof getLang === "function" ? getLang() : "en");

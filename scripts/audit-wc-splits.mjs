@@ -87,7 +87,7 @@ const row = (labelRe) => {
 }
 
 // 4. shared cells across all four locales (come from shared template code)
-for (const rel of ["messi-vs-ronaldo.html", "es/messi-vs-ronaldo.html", "pt/messi-vs-ronaldo.html", "fr/messi-vs-ronaldo.html", "ro/messi-vs-ronaldo.html", "uz/messi-vs-ronaldo.html", "ar/messi-vs-ronaldo.html"]) {
+for (const rel of ["messi-vs-ronaldo.html", "es/messi-vs-ronaldo.html", "pt/messi-vs-ronaldo.html", "fr/messi-vs-ronaldo.html", "ro/messi-vs-ronaldo.html", "uz/messi-vs-ronaldo.html", "ar/messi-vs-ronaldo.html", "id/messi-vs-ronaldo.html"]) {
   const h = fs.readFileSync(path.join(root, rel), "utf8");
   const need = [`>${S.worldCup.messi.goals}</b>`, `>${S.worldCup.ronaldo.goals}</td>`, `>${S.worldCup.messi.assists}</b>`, `>${S.trophies.messi}</b>`, `>${S.trophies.ronaldo}</td>`, "leader-badge-tie"];
   for (const nd of need) {
@@ -129,4 +129,4 @@ if (fail.length) {
   console.error(`[audit-wc-splits] FAIL (${fail.length}):\n- ${fail.join("\n- ")}`);
   process.exit(1);
 }
-console.log(`[audit-wc-splits] OK - 7 locales match splits (WC ${S.worldCup.messi.goals}/${S.worldCup.ronaldo.goals}, KO ${S.worldCup.messi.koGoals}/${S.worldCup.ronaldo.koGoals}, finals ${S.finals.messi.goals}/${S.finals.messi.apps}, trophies ${S.trophies.messi}/${S.trophies.ronaldo}).`);
+console.log(`[audit-wc-splits] OK - 8 locales match splits (WC ${S.worldCup.messi.goals}/${S.worldCup.ronaldo.goals}, KO ${S.worldCup.messi.koGoals}/${S.worldCup.ronaldo.koGoals}, finals ${S.finals.messi.goals}/${S.finals.messi.apps}, trophies ${S.trophies.messi}/${S.trophies.ronaldo}).`);

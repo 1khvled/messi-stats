@@ -28,6 +28,7 @@ const VERDICT_LABEL = {
   ro: "Ultimul Rezultat: ",
   uz: "So'nggi Natija: ",
   ar: "آخر نتيجة: ",
+  id: "Hasil Terbaru: ",
 };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -447,7 +448,8 @@ const MONTHS_FULL = {
   fr: ["janvier","février","mars","avril","mai","juin","juillet","août","septembre","octobre","novembre","décembre"],
   ro: ["ianuarie","februarie","martie","aprilie","mai","iunie","iulie","august","septembrie","octombrie","noiembrie","decembrie"],
   uz: ["yanvar","fevral","mart","aprel","may","iyun","iyul","avgust","sentabr","oktabr","noyabr","dekabr"],
-  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+  id: ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"]
 };
 const MONTHS_SHORT = {
   es: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
@@ -455,7 +457,8 @@ const MONTHS_SHORT = {
   fr: ["jan","fév","mar","avr","mai","juin","juil","août","sep","oct","nov","déc"],
   ro: ["ian","feb","mar","apr","mai","iun","iul","aug","sep","oct","noi","dec"],
   uz: ["yan","fev","mar","apr","may","iyn","iyl","avg","sen","okt","noy","dek"],
-  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]
+  ar: ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"],
+  id: ["Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agt","Sep","Okt","Nov","Des"]
 };
 const EN_MONTHS_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 const EN_MONTHS_SHORT = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
@@ -465,7 +468,8 @@ const TECH_WORDS = {
   fr: { fk: "Coup franc direct", header: "Tête", assist: "passe décisive", left: "Frappe du gauche", right: "Frappe du droit", penalty: "Penalty", play: "Voir la Vidéo ▶", goalTag: "But" },
   ro: { fk: "Lovitură liberă directă", header: "Cu capul", assist: "Pasă decisivă", left: "Piciorul stâng", right: "Piciorul drept", penalty: "Penalty", play: "Vezi Video ▶", goalTag: "Gol" },
   uz: { fk: "Toʻgʻridan-toʻgʻri jarima zarbasi", header: "Bosh bilan", assist: "Golli uzatma", left: "Chap oyoq", right: "Oʻng oyoq", penalty: "Penalti", play: "Videoni koʻrish ▶", goalTag: "Gol" },
-  ar: { fk: "ركلة حرة مباشرة", header: "رأسية", assist: "تمريرة حاسمة", left: "القدم اليسرى", right: "القدم اليمنى", penalty: "ركلة جزاء", play: "شاهد الفيديو ▶", goalTag: "هدف" }
+  ar: { fk: "ركلة حرة مباشرة", header: "رأسية", assist: "تمريرة حاسمة", left: "القدم اليسرى", right: "القدم اليمنى", penalty: "ركلة جزاء", play: "شاهد الفيديو ▶", goalTag: "هدف" },
+  id: { fk: "Tendangan bebas langsung", header: "Sundulan", assist: "Assist", left: "Kaki kiri", right: "Kaki kanan", penalty: "Penalti", play: "Tonton Video ▶", goalTag: "Gol" }
 };
 function locDateStr(s, lang, short = false) {
   if (!s || lang === "en" || (!MONTHS_FULL[lang] && !MONTHS_SHORT[lang])) return s;
@@ -537,6 +541,7 @@ export function syncLatestGoalHtml() {
     { lang: "ro", file: path.join(root, "ro", "latest-goal.html") },
     { lang: "uz", file: path.join(root, "uz", "latest-goal.html") },
     { lang: "ar", file: path.join(root, "ar", "latest-goal.html") },
+    { lang: "id", file: path.join(root, "id", "latest-goal.html") },
   ];
 
   let updatedCount = 0;
@@ -561,6 +566,7 @@ export function syncLatestGoalHtml() {
       ro: `Urmărește Golul #${seniorGoals} Rezumat HD ▶`,
       uz: `#${seniorGoals}-gol taqdimotini tomosha qiling HD ▶`,
       ar: `شاهد ملخص هدف #${seniorGoals} بجودة HD ▶`,
+      id: `Tonton Highlight Gol #${seniorGoals} HD ▶`,
     };
     const overlayLabel = overlayTexts[lang] || overlayTexts.en;
     html = html.replace(
@@ -596,7 +602,7 @@ export function syncLatestGoalHtml() {
     html = html.replace(/href="[^"]*"([^>]*id="link-bday-goal")/i, `href="${bdayHref}"$1`);
 
     // 6. Update Recent Goals 5-Card Switcher
-    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre ", ro: "vs ", uz: "vs ", ar: "ضد " };
+    const MATCH_PREP = { es: "en ", pt: "em ", fr: "contre ", ro: "vs ", uz: "vs ", ar: "ضد ", id: "vs " };
     const cardsHtml = recent.slice(0, 5).map((rg, idx) => {
       const isActive = idx === 0 ? " active" : "";
       const goalLabel = locGoalLabel(rg.goalNumber, lang);
