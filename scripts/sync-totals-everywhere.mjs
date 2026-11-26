@@ -84,7 +84,7 @@ const escRe = (s) => String(s).replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 
 // Guard for bare numerals: not part of a longer number, not an id/version/href,
 // not inside a path fragment. Keeps Goal932 / #932 / id="932" / ?v=932 / .931 intact.
-const bare = (n) => new RegExp(`(?<![\\dA-Za-z"#=.-])${escRe(n)}(?!\\d)`, "g");
+const bare = (n) => new RegExp(`(?<!font-weight:\\s*)(?<![\\dA-Za-z"#=.-])${escRe(n)}(?!\\d|\\s*[;}pxrem%])`, "g");
 // Guarded + requires a locale word for "goals" (so "47 trophies" is untouched).
 const gapNum = (n) =>
   new RegExp(

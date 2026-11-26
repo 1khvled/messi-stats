@@ -28,43 +28,43 @@ function getLocalFallback() {
     return {
       syncedAt: new Date().toISOString(),
       latestGoal: {
-        goalNumber: 932,
-        team: "Argentina",
-        opponent: "Benin",
-        competition: "International Friendly",
-        competitionSlug: "friendly",
-        date: "2026-10-06",
-        formattedDate: "6 October 2026",
-        bdayKey: "10-06",
-        minute: "71'",
-        clock: "71'",
-        type: "Penalty",
-        finish: "Penalty",
-        assist: "",
-        score: "3-0",
-        venue: "Estadio Más Monumental (Buenos Aires)",
-        title: "Argentina 3-0 Benin",
-        videoUrl: "https://cdn.messiallgoals.com/Goal932.mp4",
-        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+Benin+Argentina+2026",
-        bdayUrl: "/en/birthday/10-06"
+        goalNumber: 937,
+        team: "Inter Miami CF",
+        opponent: "New England Revolution",
+        competition: "MLS",
+        competitionSlug: "mls",
+        date: "2026-11-02",
+        formattedDate: "2 November 2026",
+        bdayKey: "11-02",
+        minute: "83'",
+        clock: "83'",
+        type: "Left Foot (Assist: Telasco Segovia)",
+        finish: "Left Foot",
+        assist: "Telasco Segovia",
+        score: "2-1",
+        venue: "Gillette Stadium (Foxborough, Massachusetts)",
+        title: "Inter Miami 2-1 New England Revolution",
+        videoUrl: "https://cdn.messiallgoals.com/Goal937.mp4",
+        youtubeUrl: "https://www.youtube.com/results?search_query=Messi+goal+vs+New%20England%20Revolution+MLS",
+        bdayUrl: "/en/birthday/11-02"
       },
       todayStatus: {
         didScoreToday: false,
         hasMatchToday: false,
-        lastMatchDate: "2026-10-06",
-        lastMatchOpponent: "Benin",
-        lastMatchResult: "Argentina 3-0 Benin",
-        lastGoalNumber: 932,
-        lastGoalMinute: "71'"
+        lastMatchDate: "2026-11-02",
+        lastMatchOpponent: "New England Revolution",
+        lastMatchResult: "Inter Miami 2-1 New England Revolution",
+        lastGoalNumber: 937,
+        lastGoalMinute: "83'"
       },
       recentGoals: [
-        { goalNumber: 932, match: "vs Benin (3-0)", date: "6 October 2026 • 71'", type: "Penalty", videoUrl: "https://cdn.messiallgoals.com/Goal932.mp4" },
-        { goalNumber: 931, match: "at Columbus Crew (1-2)", date: "27 September 2026 • 33'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal931.mp4" },
-        { goalNumber: 930, match: "vs San Diego FC (2-2)", date: "20 September 2026 • 24'", type: "Direct Free Kick", videoUrl: "https://cdn.messiallgoals.com/Goal930.mp4" },
-        { goalNumber: 929, match: "vs Cruz Azul (2-0)", date: "17 September 2026 • 12'", type: "Header", videoUrl: "https://cdn.messiallgoals.com/Goal929.mp4" },
-        { goalNumber: 928, match: "vs Nashville SC (2-2)", date: "12 September 2026 • 67'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal928.mp4" }
+        { goalNumber: 937, match: "vs New England Revolution (2-1)", date: "2 November 2026 • 83'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal937.mp4" },
+        { goalNumber: 936, match: "vs Atlanta United FC (3-1)", date: "18 October 2026 • 60'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal936.mp4" },
+        { goalNumber: 935, match: "vs Atlanta United FC (3-1)", date: "18 October 2026 • 56'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal935.mp4" },
+        { goalNumber: 934, match: "vs D.C. United (4-0)", date: "10 October 2026 • 60'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal934.mp4" },
+        { goalNumber: 933, match: "vs D.C. United (4-0)", date: "10 October 2026 • 47'", type: "Left Foot", videoUrl: "https://cdn.messiallgoals.com/Goal933.mp4" }
       ],
-      totals: { seniorGoals: 932, appearances: 1178, miamiGoals: 102, season2026Goals: 26, freeKicks: 76 }
+      totals: { seniorGoals: 937, appearances: 1186, miamiGoals: 107, season2026Goals: 31, freeKicks: 76 }
     };
   }
 }
