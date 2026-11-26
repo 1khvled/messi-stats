@@ -21,6 +21,7 @@ const htmlPages = [
   "champions-league.html",
   "latest-goal.html",
   "gear.html",
+  "advertise.html",
 ];
 
 for (const p of htmlPages) {

@@ -74,7 +74,8 @@ const rollupInput = {
   messi_vs_ronaldo: resolve(root, 'messi-vs-ronaldo.html'),
   champions_league: resolve(root, 'champions-league.html'),
   latest_goal: resolve(root, 'latest-goal.html'),
-  gear: resolve(root, 'gear.html')
+  gear: resolve(root, 'gear.html'),
+  advertise: resolve(root, 'advertise.html')
 };
 
 for (const l of langs) {
