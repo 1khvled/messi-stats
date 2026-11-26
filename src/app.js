@@ -1286,6 +1286,7 @@ function mountLatestGoalCpaDeck() {
 /* ===== Rec #1: In-Page Social Bar Notification Unit ===== */
 function initInPageSocialBar() {
   if (typeof window === "undefined" || typeof document === "undefined") return;
+  if (document.body?.dataset?.page === "advertise") return;
 
   // Skip for owner self-traffic or Playwright automation or once dismissed
   try {
