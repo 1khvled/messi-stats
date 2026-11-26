@@ -1510,8 +1510,8 @@ const I18N = {
   },
   id: {
     dir: "ltr",
-    title: `Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} Gol, Assist, Trofi & H2H`,
-    desc: `Perbandingan lengkap Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} gol, ${S.assists}+ vs ${S.rAssists} assist, ${S.npg} vs ${S.npgR} gol non-penalti, ${S.byFinish.freeKicks} vs ${FK_RONALDO} tendangan bebas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trofi & 36 laga H2H.`,
+    title: `Messi ${S.goals} vs Ronaldo ${S.rGoals} (Update Nov 2026) — Selisih, Rasio & Assist`,
+    desc: `Jumlah gol Messi (${S.goals}) vs Ronaldo (${S.rGoals}) hari ini: selisih ${S.gap} gol, ${S.fewer} laga lebih sedikit, ${S.npg} vs ${S.npgR} gol non-penalti, ${S.assists}+ vs ${S.rAssists} assist, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trofi & 36 H2H.`,
     keywords: "messi vs ronaldo, statistik messi vs ronaldo, gol messi vs ronaldo, tendangan bebas messi vs ronaldo, trofi messi vs ronaldo, ballon d'or messi ronaldo, siapa goat messi atau ronaldo, head to head messi ronaldo",
     brand: "MessiStat",
     homeName: "Beranda",
