@@ -2684,12 +2684,12 @@ const gpg = (g, a) => (a ? (g / a).toFixed(2) : "—");
  * JSON) intentionally stays literal — see CONTEXT.md.
  */
 const LIVE = {
-  goals: 937, apps: 1185, clubGoals: 811, argGoals: 126, argCaps: 208,
+  goals: 937, apps: 1186, clubGoals: 811, argGoals: 126, argCaps: 208,
   assists: 409, tmAssists: 451, ga: 1346, tmGa: 1388,
   trophies: 47, rTrophies: 37, tBarca: 35, tArg: 5, tPsg: 3, tMiami: 4,
-  gap: 48, fewer: 158, road: 63,
-  rGoals: 985, rApps: 1343, rAssists: 263, rGpg: "0.73", rGa: 1248, astLead: 146,
-  npg: 827, npgR: 800, npgLead: 27,
+  gap: 50, fewer: 159, road: 63,
+  rGoals: 987, rApps: 1345, rAssists: 261, rGpg: "0.73", rGa: 1248, astLead: 148,
+  npg: 827, npgR: 802, npgLead: 25,
   miamiGoals: 107, miamiApps: 124,
   abtBarca: 269, abtArg: 58, abtMiami: 48, abtPsg: 34,
   compMLS: 76, compCCC: 8, compLC: 23, compQual: 91, compWC: 21, compCopa: 14,
@@ -2835,8 +2835,8 @@ function normalize(d) {
       if (x.team === "Individual") return;
       tByTeam[x.team] = (tByTeam[x.team] || 0) + (x.years ? x.years.length : 0);
     });
-    const rGoals = R.goals ?? 980;
-    const rApps = R.appearances ?? 1339;
+    const rGoals = R.goals ?? 987;
+    const rApps = R.appearances ?? 1345;
     const goals = t.goals, apps = t.apps;
     const assists = t.assists.official, tmAssists = t.assists.transfermarkt;
     const prevGoals = LIVE.goals;
@@ -2858,8 +2858,8 @@ function normalize(d) {
       rGa: rGoals + (R.assists ?? 261),
       astLead: assists - (R.assists ?? 261),
       npg: goals - d.byFinish.penalties,
-      npgR: rGoals - (R.penalties ?? 184),
-      npgLead: (goals - d.byFinish.penalties) - (rGoals - (R.penalties ?? 184)),
+      npgR: rGoals - (R.penalties ?? 185),
+      npgLead: (goals - d.byFinish.penalties) - (rGoals - (R.penalties ?? 185)),
       miamiGoals: LGT.miamiGoals ?? LIVE.miamiGoals,
       miamiApps: t.assists.byTeam?.inter_miami?.appearances ?? LIVE.miamiApps,
       abtBarca: t.assists.byTeam?.barcelona?.official ?? 269,
@@ -3445,7 +3445,7 @@ const HOME_I18N = {
       ["How many total career goals has Lionel Messi scored?", `<b>${n(t.goals)} official career goals</b> in ${n(t.apps)} senior appearances for club and country as of ${esc(d.lastUpdated)}, a rate of ${t.goalsPerGame} goals per game. Explore his full <a href="/${lang}/goalsbyyear">year-by-year scoring breakdown</a>.`],
       ["How many career assists does Lionel Messi have?", `Lionel Messi has recorded <b>407 official career assists</b> under Opta/FIFA standards (and <b>449 assists</b> under Transfermarkt's broader criteria) in ${n(t.apps)} appearances, making him the all-time assist leader in modern football history. His official breakdown includes ${LIVE.abtBarca} assists for FC Barcelona, ${LIVE.abtArg} for Argentina, ${LIVE.abtMiami} for Inter Miami CF, and ${LIVE.abtPsg} for Paris Saint-Germain.`],
       ["What are Lionel Messi's total goals and assists?", `Across his senior career, Lionel Messi has accumulated <b>${n(LIVE.ga)} official goal contributions</b> (<b>${n(t.goals)} goals</b> and <b>${n(LIVE.assists)} official assists</b>) in ${n(t.apps)} appearances — an extraordinary rate of <b>1.14 direct goal involvements per match</b>. Under Transfermarkt's criteria, his total stands at <b>${n(LIVE.tmGa)} goal involvements</b> (${n(t.goals)} goals + ${n(LIVE.tmAssists)} assists).`],
-      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with 980 goals and 261 assists in 1,339 matches (0.73 goals/game), while Messi has <b>${n(t.goals)} goals and 407 official assists in ${n(t.apps)} matches</b> (0.79 goals/game, 1.14 G+A/game). Messi reached ${n(t.goals)} goals in ${n(LIVE.fewer)} fewer matches, holds ${LIVE.trophies} team trophies to ${LIVE.rTrophies}, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
+      ["Who has better all-time stats, Messi or Ronaldo?", `Across official senior matches, Cristiano Ronaldo holds the all-time goalscoring record with ${n(LIVE.rGoals)} goals and ${n(LIVE.rAssists)} assists in ${n(LIVE.rApps)} matches (${LIVE.rGpg} goals/game), while Messi has <b>${n(t.goals)} goals and ${n(t.assists.official)} official assists in ${n(t.apps)} matches</b> (0.79 goals/game, ${LIVE.apps ? ((LIVE.goals + LIVE.assists) / LIVE.apps).toFixed(2) : "1.13"} G+A/game). Messi reached ${n(t.goals)} goals in ${n(LIVE.fewer)} fewer matches, holds ${LIVE.trophies} team trophies to ${LIVE.rTrophies}, and 8 Ballons d'Or to 5. Compare their complete head-to-head records on our <a href="/${lang}/messi-vs-ronaldo">Messi vs Ronaldo stats page</a>.`],
       ["What is Messi's career goal breakdown by team?", `<b>${n(agg.barcelona.goals)} goals</b> in ${n(agg.barcelona.apps)} games for FC Barcelona, <b>${agg.psg.goals} goals</b> in ${n(agg.psg?.apps || 75)} games for PSG, <b>${n(agg.miami.goals)} goals</b> in ${n(agg.miami?.apps || 118)} games for Inter Miami, and <b>${n(t.country.goals)} goals</b> in ${n(t.country.apps)} caps for Argentina. See <a href="/${lang}/goalsbyseason">season-by-season club stats</a>.`],
       ["How many direct free kick goals has Messi scored?", `Lionel Messi has scored <b>${m?.freeKicks || 76} direct free-kick goals</b> in senior football (50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG), ranking 2nd all-time behind Marcelinho Carioca's record of 78.`],
       ["How many hat-tricks has Lionel Messi scored?", `Messi has scored <b>${d.hatTricks || 62} career hat-tricks</b> (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). 42 came in league and Champions League play, including 6 matches where he scored 4 or 5 goals.`],
@@ -10012,15 +10012,15 @@ function initRivalryModeTabs(d) {
   const mAssists = parseInt((d && d.totals && d.totals.assists), 10) || LIVE.assists;
   const mTrophies = parseInt((d && d.totals && d.totals.trophies), 10) || LIVE.trophies;
   const mRatio = mApps ? (mGoals / mApps).toFixed(2) : "0.79";
-  const mGaRatio = mApps ? ((mGoals + mAssists) / mApps).toFixed(2) : "1.14";
+  const mGaRatio = mApps ? ((mGoals + mAssists) / mApps).toFixed(2) : "1.13";
 
   const ratioRows = [
     { lbl: r.gpm, mNum: parseFloat(mRatio), rNum: 0.73, mDisp: mRatio, rDisp: "0.73" },
     { lbl: r.gapm, mNum: parseFloat(mGaRatio), rNum: 0.93, mDisp: mGaRatio, rDisp: "0.93" },
     { lbl: r.npgpm, mNum: 0.70, rNum: 0.59, mDisp: "0.70", rDisp: "0.59" },
-    { lbl: r.npg, mNum: 827, rNum: 801, mDisp: "827", rDisp: "801" },
+    { lbl: r.npg, mNum: LIVE.npg, rNum: LIVE.npgR, mDisp: String(LIVE.npg), rDisp: String(LIVE.npgR) },
     { lbl: r.opg, mNum: 754, rNum: 730, mDisp: "754", rDisp: "730" },
-    { lbl: r.fk, mNum: 76, rNum: 64, mDisp: "76", rDisp: "64" },
+    { lbl: r.fk, mNum: 76, rNum: 65, mDisp: "76", rDisp: "65" },
     { lbl: r.out, mNum: 155, rNum: 126, mDisp: "155+", rDisp: "126+" },
     { lbl: r.bcc, mNum: 430, rNum: 210, mDisp: "430+", rDisp: "210+" }
   ];

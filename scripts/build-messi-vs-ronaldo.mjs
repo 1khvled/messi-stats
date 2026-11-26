@@ -17,12 +17,24 @@ try {
 } catch (e) { void e; }
 SPLITS = SPLITS || { worldCup: { messi: { goals: 21, assists: 12 }, ronaldo: { goals: 11, assists: 2 } }, trophies: { messi: 47, ronaldo: 37 } };
 
+let RONALDO_DATA = null;
+try {
+  RONALDO_DATA = JSON.parse(fs.readFileSync(path.join(rootDir, "public", "data", "ronaldo.json"), "utf8"));
+} catch (e) { void e; }
+RONALDO_DATA = RONALDO_DATA || { penalties: 185, penaltyAttempts: 223, freeKicks: 65 };
+
   // The penalty line and the big-chances line: one source each.
   //
   // The conversion rate and both leads are computed from the cells beside
   // them, so a daily stats update can never leave a stale figure behind, and
   // a number that means one thing here can never be mistaken for another.
-  const PEN = { messiGoals: 110, messiAttempts: 141, ronaldoGoals: 184, ronaldoAttempts: 222 };
+  const PEN = {
+    messiGoals: S.byFinish ? (S.goals - S.npg) : 110,
+    messiAttempts: 141,
+    ronaldoGoals: RONALDO_DATA.penalties ?? S.rPenalties ?? 185,
+    ronaldoAttempts: RONALDO_DATA.penaltyAttempts ?? S.rPenaltyAttempts ?? 223,
+  };
+  const FK_RONALDO = RONALDO_DATA.freeKicks ?? S.rFreeKicks ?? 65;
   const BIG_CHANCES = { messi: 430, ronaldo: 210 };
   const PEN_PCT = (goals, attempts) => (goals / attempts) * 100;
   // the rate as it is shown: rounded once, so the cell, the sentence and
@@ -151,7 +163,7 @@ const I18N = {
   en: {
     dir: "ltr",
     title: `Messi vs Ronaldo Stats (2026 Live): ${S.goals} vs ${S.rGoals} Goals, Assists & H2H`,
-    desc: `Live 2026 Messi vs Ronaldo stats: ${S.goals} vs ${S.rGoals} goals, ${S.assists}+ vs ${S.rAssists} assists, ${S.npg} vs ${S.npgR} non-penalty, 76 vs 64 free kicks, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophies & 36 H2H.`,
+    desc: `Live 2026 Messi vs Ronaldo stats: ${S.goals} vs ${S.rGoals} goals, ${S.assists}+ vs ${S.rAssists} assists, ${S.npg} vs ${S.npgR} non-penalty, ${S.byFinish.freeKicks} vs ${FK_RONALDO} free kicks, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophies & 36 H2H.`,
     keywords: "messi vs ronaldo, messi vs ronaldo stats, messi vs ronaldo free kicks, messi vs ronaldo penalties, messi vs ronaldo non penalty goals, messi vs ronaldo assists, messi vs ronaldo hat tricks, messi vs ronaldo all time goals, who is the goat messi or ronaldo, who has more goals messi or ronaldo, messi vs ronaldo head to head, messi vs ronaldo world cup, messi ronaldo trophies, messi ronaldo ballons d or",
     brand: "MessiStat",
     homeName: "Home",
@@ -171,7 +183,7 @@ const I18N = {
     lead: "The definitive statistical comparison between the two greatest icons of modern football. All-time goals, non-penalty goals, free kicks, penalties, assists, trophies, individual accolades, and all 36 direct matches.",
     verdictBadge: "THE GOAT VERDICT • COMPLETE OFFICIAL TOTALS",
     verdictTitle: "Who has better all-time career statistics: Messi or Ronaldo?",
-    verdictText: `Across all official senior matches, <b>Lionel Messi has scored ${S.goals} goals and provided ${S.assists}+ assists in ${S.apps.toLocaleString('en-US')} appearances</b> (1.14 goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with ${S.rGoals} goals and provided 261 assists in ${S.rApps.toLocaleString('en-US')} appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>${S.rGoals} vs ${S.goals}</b>), Messi reached ${S.goals} goals in <b>161 fewer matches</b> with a higher scoring ratio (<b>0.79 vs 0.73</b>), leads in <b>non-penalty goals (${S.npg} vs ${S.npgR})</b> and assists (<b>${S.assists}+ vs 261</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (47 vs 37)</b>.`,
+    verdictText: `Across all official senior matches, <b>Lionel Messi has scored ${S.goals} goals and provided ${S.assists}+ assists in ${S.apps.toLocaleString('en-US')} appearances</b> (${S.gaPerGame.toFixed(2)} goal contributions per match), while <b>Cristiano Ronaldo holds the all-time goalscoring record with ${S.rGoals} goals and provided ${S.rAssists} assists in ${S.rApps.toLocaleString('en-US')} appearances</b> (0.93 contributions per match). While Ronaldo leads the all-time goal tally (<b>${S.rGoals} vs ${S.goals}</b>), Messi reached ${S.goals} goals in <b>${S.fewer} fewer matches</b> with a higher scoring ratio (<b>${S.gpg.toFixed(2)} vs ${S.rGpg.toFixed(2)}</b>), leads in <b>non-penalty goals (${S.npg} vs ${S.npgR})</b> and assists (<b>${S.assists}+ vs ${S.rAssists}</b>), won the <b>FIFA World Cup (2022)</b> with two Golden Balls, and leads in <b>Ballons d'Or (8 vs 5)</b> and <b>team trophies (${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Statistic",
     tableLeader: "Leader",
     coreHeader: "All-Time Senior Career Totals",
@@ -256,8 +268,8 @@ const I18N = {
     crestNote: "Club crests are trademarks of their respective clubs, shown for identification purposes.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goals, All-Time Record)`,
     badgeMessiNPG: `Messi (+${S.npgLead} NPG)`,
-    badgeMessiFK: "Messi (+12 free kicks)",
-    badgeRonaldoPen: "Ronaldo (+74 penalties)",
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} free kicks)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} penalties)`,
     badgeMessiAssists: `Messi (+${S.astLead} assists)`,
     badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Champion, 2x Golden Ball)",
@@ -300,19 +312,19 @@ const I18N = {
     faqs: [
       {
         q: "Who has more total career goals: Messi or Ronaldo?",
-        a: `Cristiano Ronaldo holds the all-time world record with ${S.rGoals} official senior career goals in ${S.rApps.toLocaleString('en-US')} appearances (0.73 goals per match), while Lionel Messi has scored ${S.goals} goals in ${S.apps.toLocaleString('en-US')} appearances (0.79 goals per match). Ronaldo leads by 49 goals, though Messi has played 161 fewer matches and maintains a higher scoring ratio.`
+        a: `Cristiano Ronaldo holds the all-time world record with ${S.rGoals} official senior career goals in ${S.rApps.toLocaleString('en-US')} appearances (0.73 goals per match), while Lionel Messi has scored ${S.goals} goals in ${S.apps.toLocaleString('en-US')} appearances (0.79 goals per match). Ronaldo leads by ${S.gap} goals, though Messi has played ${S.fewer} fewer matches and maintains a higher scoring ratio.`
       },
       {
         q: "Who has more non-penalty goals: Messi or Ronaldo?",
-        a: `Lionel Messi has scored ${S.npg} non-penalty goals in ${S.apps.toLocaleString('en-US')} matches (0.70 non-penalty goals per game). Cristiano Ronaldo has scored ${S.npgR} non-penalty goals in ${S.rApps.toLocaleString('en-US')} matches (0.59 per game). Messi leads Ronaldo by 26 non-penalty goals despite playing 161 fewer career games.`
+        a: `Lionel Messi has scored ${S.npg} non-penalty goals in ${S.apps.toLocaleString('en-US')} matches (0.70 non-penalty goals per game). Cristiano Ronaldo has scored ${S.npgR} non-penalty goals in ${S.rApps.toLocaleString('en-US')} matches (0.59 per game). Messi leads Ronaldo by ${S.npgLead} non-penalty goals despite playing ${S.fewer} fewer career games.`
       },
       {
         q: "Who has scored more free kicks: Messi or Ronaldo?",
-        a: "Lionel Messi leads Cristiano Ronaldo with 76 direct free-kick goals to Ronaldo's 64. Messi has scored 50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG. Ronaldo has scored 33 for Real Madrid, 14 for Manchester United, 11 for Portugal, 5 for Al-Nassr, and 1 for Juventus."
+        a: `Lionel Messi leads Cristiano Ronaldo with 76 direct free-kick goals to Ronaldo's ${FK_RONALDO}. Messi has scored 50 for Barcelona, 12 for Argentina, 12 for Inter Miami, and 2 for PSG. Ronaldo has scored 33 for Real Madrid, 14 for Manchester United, 11 for Portugal, 5 for Al-Nassr, and 1 for Juventus.`
       },
       {
         q: "Who has more career assists: Messi or Ronaldo?",
-        a: `Lionel Messi leads Cristiano Ronaldo by ${S.astLead} assists. Messi has recorded over ${S.assists} official senior assists (349 in club football and 58 for Argentina), making him the all-time assist leader in modern football history. Ronaldo has recorded 261 career assists.`
+        a: `Lionel Messi leads Cristiano Ronaldo by ${S.astLead} assists. Messi has recorded over ${S.assists} official senior assists (349 in club football and 58 for Argentina), making him the all-time assist leader in modern football history. Ronaldo has recorded ${S.rAssists} career assists.`
       },
       {
         q: "Who has scored more penalties and what are their conversion rates?",
@@ -320,7 +332,7 @@ const I18N = {
       },
       {
         q: "Who has more career hat-tricks: Messi or Ronaldo?",
-        a: "Cristiano Ronaldo has scored 67 career hat-tricks (56 in club football, 10 for Portugal). Lionel Messi has scored 62 career hat-tricks (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). Ronaldo leads by 4 hat-tricks."
+        a: `Cristiano Ronaldo has scored ${S.rHatTricks} career hat-tricks (56 in club football, 10 for Portugal). Lionel Messi has scored 62 career hat-tricks (48 for Barcelona, 11 for Argentina, 3 for Inter Miami). Ronaldo leads by ${S.htLead} hat-tricks.`
       },
       {
         q: "Who performed better in the FIFA World Cup: Messi or Ronaldo?",
@@ -336,14 +348,14 @@ const I18N = {
       },
       {
         q: "Why do most statistical analysts consider Messi the GOAT over Ronaldo?",
-        a: `Statistical models favor Messi because of his dual dominance as both the world's elite goalscorer and its premier playmaker. Messi has a superior goal ratio (0.79 vs 0.73), more non-penalty goals (${S.npg} vs ${S.npgR} in 161 fewer games), ${S.astLead} more assists, superior minutes-per-goal involvement (72 min vs 88 min), and unparalleled international success crowned by the 2022 World Cup.`
+        a: `Statistical models favor Messi because of his dual dominance as both the world's elite goalscorer and its premier playmaker. Messi has a superior goal ratio (${S.gpg.toFixed(2)} vs ${S.rGpg.toFixed(2)}), more non-penalty goals (${S.npg} vs ${S.npgR} in ${S.fewer} fewer games), ${S.astLead} more assists, superior minutes-per-goal involvement (72 min vs 88 min), and unparalleled international success crowned by the 2022 World Cup.`
       }
     ]
   },
   es: {
     dir: "ltr",
     title: `Messi vs Ronaldo Estadísticas (2026): ${S.goals} vs ${S.rGoals} Goles, Asistencias y H2H`,
-    desc: `Estadísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} goles, ${S.assists}+ vs ${S.rAssists} asistencias, ${S.npg} vs ${S.npgR} sin penalti, 76 vs 64 faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
+    desc: `Estadísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} goles, ${S.assists}+ vs ${S.rAssists} asistencias, ${S.npg} vs ${S.npgR} sin penalti, ${S.byFinish.freeKicks} vs ${FK_RONALDO} faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
     keywords: "messi vs ronaldo, messi vs ronaldo estadisticas, messi vs ronaldo tiros libres, messi vs ronaldo penales, messi vs ronaldo goles sin penal, messi vs ronaldo asistencias, messi vs ronaldo hat tricks, quien es mejor messi o ronaldo, quien tiene mas goles messi o ronaldo, messi vs ronaldo cara a cara, messi vs ronaldo mundiales, messi ronaldo titulos, balones de oro",
     brand: "MessiStats",
     homeName: "Inicio",
@@ -363,7 +375,7 @@ const I18N = {
     lead: "La comparativa estadística definitiva entre los dos máximos iconos del fútbol moderno. Goles totales, goles sin penalti, tiros libres, penaltis, asistencias, títulos, galardones individuales y los 36 enfrentamientos directos.",
     verdictBadge: "EL VEREDICTO GOAT • CIFRAS OFICIALES COMPLETAS",
     verdictTitle: "¿Quién tiene mejores estadísticas históricas: Messi o Ronaldo?",
-    verdictText: `En todos los partidos oficiales senior, <b>Lionel Messi ha marcado ${S.goals} goles y ha dado más de ${S.assists} asistencias en ${S.apps.toLocaleString('de-DE')} partidos</b> (1,12 contribuciones de gol por partido), mientras que <b>Cristiano Ronaldo es el máximo goleador histórico con ${S.rGoals} goles y 261 asistencias en ${S.rApps.toLocaleString('de-DE')} partidos</b> (0,93 contribuciones por partido). Aunque Ronaldo lidera el total histórico de goles (<b>${S.rGoals} vs ${S.goals}</b>), Messi llegó a ${S.goals} en <b>161 partidos menos</b> con mejor promedio (<b>0,79 vs 0,73</b>), lidera en <b>goles sin penalti (${S.npg} vs ${S.npgR})</b> y asistencias (<b>${S.assists}+ vs 261</b>), ganó la <b>Copa del Mundo FIFA (2022)</b> con dos Balones de Oro, y supera a Ronaldo en <b>Balones de Oro (8 vs 5)</b> y <b>títulos oficiales (47 vs 37)</b>.`,
+    verdictText: `En todos los partidos oficiales senior, <b>Lionel Messi ha marcado ${S.goals} goles y ha dado más de ${S.assists} asistencias en ${S.apps.toLocaleString('de-DE')} partidos</b> (${S.gaPerGame.toFixed(2).replace('.', ',')} contribuciones de gol por partido), mientras que <b>Cristiano Ronaldo es el máximo goleador histórico con ${S.rGoals} goles y ${S.rAssists} asistencias en ${S.rApps.toLocaleString('de-DE')} partidos</b> (0,93 contribuciones por partido). Aunque Ronaldo lidera el total histórico de goles (<b>${S.rGoals} vs ${S.goals}</b>), Messi llegó a ${S.goals} en <b>${S.fewer} partidos menos</b> con mejor promedio (<b>${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}</b>), lidera en <b>goles sin penalti (${S.npg} vs ${S.npgR})</b> y asistencias (<b>${S.assists}+ vs ${S.rAssists}</b>), ganó la <b>Copa del Mundo FIFA (2022)</b> con dos Balones de Oro, y supera a Ronaldo en <b>Balones de Oro (8 vs 5)</b> y <b>títulos oficiales (${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Estadística",
     tableLeader: "Líder",
     coreHeader: "Totales de Carrera Senior Oficial",
@@ -448,8 +460,8 @@ const I18N = {
     crestNote: "Los escudos de clubes son marcas registradas de sus respectivos clubes, mostrados con fines de identificación.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} goles, récord histórico)`,
     badgeMessiNPG: `Messi (+${S.npgLead} goles sin penalti)`,
-    badgeMessiFK: "Messi (+12 tiros libres)",
-    badgeRonaldoPen: "Ronaldo (+74 penaltis)",
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} tiros libres)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} penaltis)`,
     badgeMessiAssists: `Messi (+${S.astLead} asistencias)`,
     badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Campeón, 2 Balones de Oro)",
@@ -492,19 +504,19 @@ const I18N = {
     faqs: [
       {
         q: "¿Quién tiene más goles en total: Messi o Cristiano Ronaldo?",
-        a: `Cristiano Ronaldo tiene el récord mundial histórico absoluto con ${S.rGoals} goles oficiales en ${S.rApps.toLocaleString('de-DE')} partidos (0,73 goles por partido). Lionel Messi suma ${S.goals} goles en ${S.apps.toLocaleString('de-DE')} partidos (0,79 goles por partido). Ronaldo aventaja a Messi por 48 goles, aunque Messi ha jugado 161 partidos menos y ostenta un mejor promedio goleador.`
+        a: `Cristiano Ronaldo tiene el récord mundial histórico absoluto con ${S.rGoals} goles oficiales en ${S.rApps.toLocaleString('de-DE')} partidos (0,73 goles por partido). Lionel Messi suma ${S.goals} goles en ${S.apps.toLocaleString('de-DE')} partidos (0,79 goles por partido). Ronaldo aventaja a Messi por ${S.gap} goles, aunque Messi ha jugado ${S.fewer} partidos menos y ostenta un mejor promedio goleador.`
       },
       {
         q: "¿Quién tiene más goles sin contar penaltis?",
-        a: `Lionel Messi suma ${S.npg} goles sin contar penaltis en ${S.apps.toLocaleString('de-DE')} partidos (0,70 por partido). Cristiano Ronaldo registra ${S.npgR} goles sin penalti en ${S.rApps.toLocaleString('de-DE')} encuentros (0,59 por partido). Messi aventaja a Ronaldo en 26 goles de jugada habiendo jugado 161 partidos menos.`
+        a: `Lionel Messi suma ${S.npg} goles sin contar penaltis en ${S.apps.toLocaleString('de-DE')} partidos (0,70 por partido). Cristiano Ronaldo registra ${S.npgR} goles sin penalti en ${S.rApps.toLocaleString('de-DE')} encuentros (0,59 por partido). Messi aventaja a Ronaldo en ${S.npgLead} goles de jugada habiendo jugado ${S.fewer} partidos menos.`
       },
       {
         q: "¿Quién ha marcado más goles de tiro libre directo?",
-        a: "Actualmente supera a Cristiano Ronaldo con 76 goles de tiro libre directo frente a los 64 de Ronaldo en el fútbol profesional senior. Messi anotó 50 con el Barcelona, 12 con Argentina, 12 con el Inter Miami y 2 con el PSG. Ronaldo marcó 33 con el Real Madrid, 15 con el Manchester United, 11 con Portugal, 5 con Al-Nassr y 1 con la Juventus."
+        a: `Actualmente supera a Cristiano Ronaldo con 76 goles de tiro libre directo frente a los ${FK_RONALDO} de Ronaldo en el fútbol profesional senior. Messi anotó 50 con el Barcelona, 12 con Argentina, 12 con el Inter Miami y 2 con el PSG. Ronaldo marcó 33 con el Real Madrid, 15 con el Manchester United, 11 con Portugal, 5 con Al-Nassr y 1 con la Juventus.`
       },
       {
         q: "¿Quién tiene más asistencias en su carrera: Messi o Ronaldo?",
-        a: `Lionel Messi supera a Cristiano Ronaldo por ${S.astLead} asistencias. Messi suma más de ${S.assists} asistencias oficiales (349 en clubes y 58 con Argentina), siendo el máximo asistente de la historia del fútbol. Ronaldo registra 261 asistencias.`
+        a: `Lionel Messi supera a Cristiano Ronaldo por ${S.astLead} asistencias. Messi suma más de ${S.assists} asistencias oficiales (349 en clubes y 58 con Argentina), siendo el máximo asistente de la historia del fútbol. Ronaldo registra ${S.rAssists} asistencias.`
       },
       {
         q: "¿Quién ha marcado más penaltis y cuál es su efectividad?",
@@ -512,7 +524,7 @@ const I18N = {
       },
       {
         q: "¿Quién tiene más hat-tricks: Messi o Ronaldo?",
-        a: "Cristiano Ronaldo tiene 67 hat-tricks oficiales (56 en clubes y 10 con Portugal). Lionel Messi tiene 62 hat-tricks (48 con el Barcelona, 11 con Argentina y 3 con el Inter Miami). Ronaldo lidera por 4 hat-tricks."
+        a: `Cristiano Ronaldo tiene ${S.rHatTricks} hat-tricks oficiales (56 en clubes y 10 con Portugal). Lionel Messi tiene 62 hat-tricks (48 con el Barcelona, 11 con Argentina y 3 con el Inter Miami). Ronaldo lidera por 4 hat-tricks.`
       },
       {
         q: "¿Quién rindió mejor en las Copas del Mundo de la FIFA?",
@@ -528,14 +540,14 @@ const I18N = {
       },
       {
         q: "¿Por qué los análisis estadísticos consideran a Messi el GOAT?",
-        a: `Los modelos analíticos favorecen a Messi por dominar simultáneamente el gol y la creación: mejor promedio goleador (0,79 vs 0,72), 26 goles más sin penalti en 161 partidos menos, más de ${S.astLead} asistencias de ventaja, mejor promedio de minutos por gol/asistencia (72 min vs 88 min) y su coronación en el Mundial 2022.`
+        a: `Los modelos analíticos favorecen a Messi por dominar simultáneamente el gol y la creación: mejor promedio goleador (${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}), ${S.npgLead} goles más sin penalti en ${S.fewer} partidos menos, más de ${S.astLead} asistencias de ventaja, mejor promedio de minutos por gol/asistencia (72 min vs 88 min) y su coronación en el Mundial 2022.`
       }
     ]
   },
   pt: {
     dir: "ltr",
     title: `Messi vs Ronaldo Estatísticas (2026): ${S.goals} vs ${S.rGoals} Gols, Assistências e H2H`,
-    desc: `Estatísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} gols, ${S.assists}+ vs ${S.rAssists} assistências, ${S.npg} vs ${S.npgR} sem pênalti, 76 vs 64 faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
+    desc: `Estatísticas Messi vs Ronaldo (2026): ${S.goals} vs ${S.rGoals} gols, ${S.assists}+ vs ${S.rAssists} assistências, ${S.npg} vs ${S.npgR} sem pênalti, ${S.byFinish.freeKicks} vs ${FK_RONALDO} faltas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} títulos.`,
     keywords: "messi vs ronaldo, messi vs ronaldo estatisticas, messi vs ronaldo faltas, messi vs ronaldo penaltis, messi vs ronaldo gols sem penalti, messi vs ronaldo assistencias, messi vs ronaldo hat tricks, quem e melhor messi ou ronaldo, quem tem mais gols messi ou ronaldo, messi vs ronaldo confronto direto, messi vs ronaldo copa do mundo, titulos, bolas de ouro",
     brand: "MessiStats",
     homeName: "Início",
@@ -555,7 +567,7 @@ const I18N = {
     lead: "O comparativo estatístico definitivo entre os dois maiores ícones do futebol moderno. Gols totais, gols sem pênalti, faltas, pênaltis, assistências, títulos, prêmios individuais e os 36 confrontos diretos.",
     verdictBadge: "O VEREDITO DO GOAT • DADOS OFICIAIS COMPLETOS",
     verdictTitle: "Quem tem as melhores estatísticas de carreira: Messi ou Ronaldo?",
-    verdictText: `Em todos os jogos oficiais seniores, <b>Lionel Messi marcou ${S.goals} gols e distribuiu mais de ${S.assists} assistências em ${S.apps.toLocaleString('de-DE')} jogos</b> (1,12 participações em gol por partida), enquanto <b>Cristiano Ronaldo é o maior artilheiro de todos os tempos com ${S.rGoals} gols e 261 assistências em ${S.rApps.toLocaleString('de-DE')} jogos</b> (0,93 participações por partida). Embora Ronaldo lidere em gols totais (<b>${S.rGoals} contra ${S.goals}</b>), Messi alcançou seus gols em <b>161 jogos a menos</b> com melhor média (<b>0,79 contra 0,73</b>), tem mais <b>gols sem pênalti (${S.npg} contra ${S.npgR})</b> e assistências (<b>${S.assists}+ contra 261</b>), conquistou a <b>Copa do Mundo FIFA (2022)</b> com duas Bolas de Ouro, e lidera em <b>Bolas de Ouro (8 a 5)</b> e <b>títulos oficiais (47 a 37)</b>.`,
+    verdictText: `Em todos os jogos oficiais seniores, <b>Lionel Messi marcou ${S.goals} gols e distribuiu mais de ${S.assists} assistências em ${S.apps.toLocaleString('de-DE')} jogos</b> (${S.gaPerGame.toFixed(2).replace('.', ',')} participações em gol por partida), enquanto <b>Cristiano Ronaldo é o maior artilheiro de todos os tempos com ${S.rGoals} gols e ${S.rAssists} assistências em ${S.rApps.toLocaleString('de-DE')} jogos</b> (0,93 participações por partida). Embora Ronaldo lidere em gols totais (<b>${S.rGoals} contra ${S.goals}</b>), Messi alcançou seus gols em <b>${S.fewer} jogos a menos</b> com melhor média (<b>0,79 contra 0,73</b>), tem mais <b>gols sem pênalti (${S.npg} contra ${S.npgR})</b> e assistências (<b>${S.assists}+ contra ${S.rAssists}</b>), conquistou a <b>Copa do Mundo FIFA (2022)</b> com duas Bolas de Ouro, e lidera em <b>Bolas de Ouro (8 a 5)</b> e <b>títulos oficiais (${SPLITS.trophies.messi} a ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Estatística",
     tableLeader: "Líder",
     coreHeader: "Totais da Carreira Sênior Oficial",
@@ -640,8 +652,8 @@ const I18N = {
     crestNote: "Os escudos dos clubes são marcas registradas de seus respectivos times, exibidos para fins de identificação.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} gols, recorde histórico)`,
     badgeMessiNPG: `Messi (+${S.npgLead} gols sem pênalti)`,
-    badgeMessiFK: "Messi (+12 faltas diretas)",
-    badgeRonaldoPen: "Ronaldo (+74 pênaltis)",
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} faltas diretas)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} pênaltis)`,
     badgeMessiAssists: `Messi (+${S.astLead} assistências)`,
     badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-tricks)`,
     badgeMessiWC: "Messi (Campeão, 2 Bolas de Ouro)",
@@ -684,19 +696,19 @@ const I18N = {
     faqs: [
       {
         q: "Quem tem mais gols na carreira: Messi ou Cristiano Ronaldo?",
-        a: `Cristiano Ronaldo detém o recorde mundial absoluto com ${S.rGoals} gols oficiais em ${S.rApps.toLocaleString('de-DE')} jogos (0,73 gols por jogo). Lionel Messi marcou ${S.goals} gols em ${S.apps.toLocaleString('de-DE')} jogos (0,79 gols por jogo). Ronaldo lidera por 48 gols, mas Messi disputou 161 jogos a menos e possui média superior.`
+        a: `Cristiano Ronaldo detém o recorde mundial absoluto com ${S.rGoals} gols oficiais em ${S.rApps.toLocaleString('de-DE')} jogos (0,73 gols por jogo). Lionel Messi marcou ${S.goals} gols em ${S.apps.toLocaleString('de-DE')} jogos (0,79 gols por jogo). Ronaldo lidera por ${S.gap} gols, mas Messi disputou ${S.fewer} jogos a menos e possui média superior.`
       },
       {
         q: "Quem tem mais gols sem contar cobranças de pênalti?",
-        a: `Lionel Messi tem ${S.npg} gols sem pênalti em ${S.apps.toLocaleString('de-DE')} jogos (0,70 por jogo). Cristiano Ronaldo soma ${S.npgR} gols sem pênalti em ${S.rApps.toLocaleString('de-DE')} jogos (0,59 por jogo). Messi tem 26 gols sem pênalti a mais jogando 161 partidas a menos.`
+        a: `Lionel Messi tem ${S.npg} gols sem pênalti em ${S.apps.toLocaleString('de-DE')} jogos (0,70 por jogo). Cristiano Ronaldo soma ${S.npgR} gols sem pênalti em ${S.rApps.toLocaleString('de-DE')} jogos (0,59 por jogo). Messi tem ${S.npgLead} gols sem pênalti a mais jogando ${S.fewer} partidas a menos.`
       },
       {
         q: "Quem marcou mais gols de falta direta na carreira?",
-        a: "Atualmente eles supera Cristiano Ronaldo com 76 gols de falta direta contra 64 de Ronaldo. Messi marcou 50 pelo Barcelona, 12 pela Argentina, 12 pelo Inter Miami e 2 pelo PSG. Ronaldo marcou 33 pelo Real Madrid, 15 pelo Manchester United, 11 por Portugal, 5 pelo Al-Nassr e 1 pela Juventus."
+        a: `Atualmente eles supera Cristiano Ronaldo com 76 gols de falta direta contra ${FK_RONALDO} de Ronaldo. Messi marcou 50 pelo Barcelona, 12 pela Argentina, 12 pelo Inter Miami e 2 pelo PSG. Ronaldo marcou 33 pelo Real Madrid, 15 pelo Manchester United, 11 por Portugal, 5 pelo Al-Nassr e 1 pela Juventus.`
       },
       {
         q: "Quem tem mais assistências oficiais: Messi ou Ronaldo?",
-        a: `Lionel Messi lidera com ${S.astLead} assistências a mais que Cristiano Ronaldo. Messi soma mais de ${S.assists} assistências oficiais (349 por clubes e 58 pela Argentina), sendo o maior garçom da história do futebol moderno. Ronaldo tem 261 assistências.`
+        a: `Lionel Messi lidera com ${S.astLead} assistências a mais que Cristiano Ronaldo. Messi soma mais de ${S.assists} assistências oficiais (349 por clubes e 58 pela Argentina), sendo o maior garçom da história do futebol moderno. Ronaldo tem ${S.rAssists} assistências.`
       },
       {
         q: "Quem marcou mais gols de pênalti e qual é a taxa de conversão?",
@@ -704,7 +716,7 @@ const I18N = {
       },
       {
         q: "Quem tem mais hat-tricks na carreira: Messi ou Ronaldo?",
-        a: "Cristiano Ronaldo marcou 67 hat-tricks (56 por clubes e 10 por Portugal). Lionel Messi marcou 62 hat-tricks (48 pelo Barcelona, 11 pela Argentina e 3 pelo Inter Miami). Ronaldo lidera por 4 hat-tricks."
+        a: `Cristiano Ronaldo marcou ${S.rHatTricks} hat-tricks (56 por clubes e 10 por Portugal). Lionel Messi marcou 62 hat-tricks (48 pelo Barcelona, 11 pela Argentina e 3 pelo Inter Miami). Ronaldo lidera por 4 hat-tricks.`
       },
       {
         q: "Quem teve melhor desempenho em Copas do Mundo da FIFA?",
@@ -720,14 +732,14 @@ const I18N = {
       },
       {
         q: "Por que analistas estatísticos consideram Messi o GOAT?",
-        a: `Modelos analíticos apontam Messi no topo por dominar tanto a finalização quanto a armação: melhor média de gols (0,79 vs 0,73), 26 gols sem pênalti a mais em 161 jogos a menos, ${S.astLead} assistências de vantagem, melhor ritmo de minutos por participação em gol (72 min vs 88 min) e o título da Copa do Mundo de 2022.`
+        a: `Modelos analíticos apontam Messi no topo por dominar tanto a finalização quanto a armação: melhor média de gols (${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}), ${S.npgLead} gols sem pênalti a mais em ${S.fewer} jogos a menos, ${S.astLead} assistências de vantagem, melhor ritmo de minutos por participação em gol (72 min vs 88 min) e o título da Copa do Mundo de 2022.`
       }
     ]
   },
   fr: {
     dir: "ltr",
     title: `Messi vs Ronaldo Stats (2026) : ${S.goals} vs ${S.rGoals} Buts, Passes & Face-à-Face`,
-    desc: `Stats Messi vs Ronaldo (2026) : ${S.goals} vs ${S.rGoals} buts, ${S.assists}+ vs ${S.rAssists} passes, ${S.npg} vs ${S.npgR} hors penalty, 76 vs 64 coups francs, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophées.`,
+    desc: `Stats Messi vs Ronaldo (2026) : ${S.goals} vs ${S.rGoals} buts, ${S.assists}+ vs ${S.rAssists} passes, ${S.npg} vs ${S.npgR} hors penalty, ${S.byFinish.freeKicks} vs ${FK_RONALDO} coups francs, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trophées.`,
     keywords: "messi vs ronaldo, messi vs ronaldo statistiques, messi vs ronaldo coups francs, messi vs ronaldo penaltys, messi vs ronaldo buts hors penalty, messi vs ronaldo passes decisives, messi vs ronaldo triples, qui est le meilleur messi ou ronaldo, qui a le plus de buts messi ou ronaldo, face a face messi ronaldo, coupe du monde, ballons d or, trophees",
     brand: "MessiStat",
     homeName: "Accueil",
@@ -747,7 +759,7 @@ const I18N = {
     lead: "Le comparatif statistique absolu entre les deux plus grandes légendes du football contemporain. Buts officiels, buts hors penalty, coups francs, penaltys, passes décisives, trophées collectifs, distinctions individuelles et l'intégralité des 36 duels directs.",
     verdictBadge: "LE VERDICT GOAT • CHIFFRES OFFICIELS COMPLETS",
     verdictTitle: "Qui a les meilleures statistiques en carrière : Messi ou Ronaldo ?",
-    verdictText: `En matchs officiels de haut niveau, <b>Lionel Messi a marqué ${S.goals} buts et délivré plus de ${S.assists} passes décisives en ${S.apps.toLocaleString('fr-FR')} apparitions</b> (1,12 action de but par match), tandis que <b>Cristiano Ronaldo détient le record absolu avec ${S.rGoals} buts et 261 passes en ${S.rApps.toLocaleString('fr-FR')} matchs</b> (0,93 action par match). Si Ronaldo domine le total de buts (<b>${S.rGoals} contre ${S.goals}</b>), Messi a atteint ses ${S.goals} buts avec <b>161 matchs de moins</b> et un meilleur ratio (<b>0,79 contre 0,73</b>), compte plus de <b>buts hors penalty (${S.npg} contre ${S.npgR})</b> et de passes (<b>${S.assists}+ contre 261</b>), a remporté la <b>Coupe du Monde FIFA (2022)</b> avec deux Ballons d'Or du tournoi, et domine au <b>Ballon d'Or (8 contre 5)</b> et en <b>titres officiels (47 contre 37)</b>.`,
+    verdictText: `En matchs officiels de haut niveau, <b>Lionel Messi a marqué ${S.goals} buts et délivré plus de ${S.assists} passes décisives en ${S.apps.toLocaleString('fr-FR')} apparitions</b> (1,12 action de but par match), tandis que <b>Cristiano Ronaldo détient le record absolu avec ${S.rGoals} buts et ${S.rAssists} passes en ${S.rApps.toLocaleString('fr-FR')} matchs</b> (0,93 action par match). Si Ronaldo domine le total de buts (<b>${S.rGoals} contre ${S.goals}</b>), Messi a atteint ses ${S.goals} buts avec <b>${S.fewer} matchs de moins</b> et un meilleur ratio (<b>0,79 contre 0,73</b>), compte plus de <b>buts hors penalty (${S.npg} contre ${S.npgR})</b> et de passes (<b>${S.assists}+ contre ${S.rAssists}</b>), a remporté la <b>Coupe du Monde FIFA (2022)</b> avec deux Ballons d'Or du tournoi, et domine au <b>Ballon d'Or (8 contre 5)</b> et en <b>titres officiels (${SPLITS.trophies.messi} contre ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Statistique",
     tableLeader: "Avantage",
     coreHeader: "Totaux de Carrière Senior Officiels",
@@ -832,8 +844,8 @@ const I18N = {
     crestNote: "Les logos de clubs sont des marques déposées de leurs propriétaires respectifs, utilisés à des fins d'identification.",
     badgeRonaldoGoals: `Ronaldo (+${S.gap} buts, record historique)`,
     badgeMessiNPG: `Messi (+${S.npgLead} buts hors penalty)`,
-    badgeMessiFK: "Messi (+12 coups francs)",
-    badgeRonaldoPen: "Ronaldo (+74 penaltys)",
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} coups francs)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} penaltys)`,
     badgeMessiAssists: `Messi (+${S.astLead} passes décisives)`,
     badgeRonaldoHT: `Ronaldo (+${S.htLead} triplés)`,
     badgeMessiWC: "Messi (Champion, 2 Ballons d'Or)",
@@ -876,11 +888,11 @@ const I18N = {
     faqs: [
       {
         q: "Qui a marqué le plus de buts officiels : Messi ou Ronaldo ?",
-        a: `Cristiano Ronaldo détient le record mondial de l'histoire du football avec ${S.rGoals} buts officiels en ${S.rApps.toLocaleString('fr-FR')} apparitions (0,73 but par match). Lionel Messi compte ${S.goals} buts en ${S.apps.toLocaleString('fr-FR')} apparitions (0,79 but par match). Ronaldo mène de 48 buts, mais Messi compte 161 matchs de moins et affiche une meilleure moyenne.`
+        a: `Cristiano Ronaldo détient le record mondial de l'histoire du football avec ${S.rGoals} buts officiels en ${S.rApps.toLocaleString('fr-FR')} apparitions (0,73 but par match). Lionel Messi compte ${S.goals} buts en ${S.apps.toLocaleString('fr-FR')} apparitions (0,79 but par match). Ronaldo mène de ${S.gap} buts, mais Messi compte ${S.fewer} matchs de moins et affiche une meilleure moyenne.`
       },
       {
         q: "Qui a inscrit le plus de buts hors penalty ?",
-        a: `Lionel Messi compte ${S.npg} buts hors penalty en ${S.apps.toLocaleString('fr-FR')} matchs (0,70 par match). Cristiano Ronaldo totalise ${S.npgR} buts hors penalty en ${S.rApps.toLocaleString('fr-FR')} matchs (0,59 par match). Messi devance Ronaldo de 26 buts hors penalty en ayant disputé 161 matchs de moins.`
+        a: `Lionel Messi compte ${S.npg} buts hors penalty en ${S.apps.toLocaleString('fr-FR')} matchs (0,70 par match). Cristiano Ronaldo totalise ${S.npgR} buts hors penalty en ${S.rApps.toLocaleString('fr-FR')} matchs (0,59 par match). Messi devance Ronaldo de ${S.npgLead} buts hors penalty en ayant disputé ${S.fewer} matchs de moins.`
       },
       {
         q: "Qui a marqué le plus de coups francs directs ?",
@@ -888,7 +900,7 @@ const I18N = {
       },
       {
         q: "Qui a délivré le plus de passes décisives : Messi ou Ronaldo ?",
-        a: `Lionel Messi possède ${S.astLead} passes décisives d'avance sur Cristiano Ronaldo. Messi cumule plus de ${S.assists} passes décisives officielles (349 en clubs et 58 pour l'Argentine), constituant le record absolu de l'histoire du football. Ronaldo en compte 261.`
+        a: `Lionel Messi possède ${S.astLead} passes décisives d'avance sur Cristiano Ronaldo. Messi cumule plus de ${S.assists} passes décisives officielles (349 en clubs et 58 pour l'Argentine), constituant le record absolu de l'histoire du football. Ronaldo en compte ${S.rAssists}.`
       },
       {
         q: "Qui a marqué le plus de penaltys et quel est leur taux de réussite ?",
@@ -896,7 +908,7 @@ const I18N = {
       },
       {
         q: "Qui compte le plus de triplés (hat-tricks) en carrière ?",
-        a: "Cristiano Ronaldo a inscrit 67 triplés (56 en club, 10 en sélection). Lionel Messi en a signé 62 (48 avec Barcelone, 11 avec l'Argentine et 3 avec l'Inter Miami). Ronaldo mène de 4 triplés."
+        a: `Cristiano Ronaldo a inscrit ${S.rHatTricks} triplés (56 en club, 10 en sélection). Lionel Messi en a signé 62 (48 avec Barcelone, 11 avec l'Argentine et 3 avec l'Inter Miami). Ronaldo mène de 4 triplés.`
       },
       {
         q: "Qui a été le plus performant en Coupe du Monde de la FIFA ?",
@@ -912,7 +924,7 @@ const I18N = {
       },
       {
         q: "Pourquoi les analystes statistiques placent-ils Messi comme le GOAT ?",
-        a: `Les modèles statistiques consacrent Messi car il associe une finition hors normes à une créativité unique : meilleur ratio de buts (0,79 vs 0,72), 26 buts hors penalty de plus en 161 matchs de moins, plus de ${S.astLead} passes d'avance, un temps de participation par but plus rapide (72 min vs 88 min) et son sacre mondial en 2022.`
+        a: `Les modèles statistiques consacrent Messi car il associe une finition hors normes à une créativité unique : meilleur ratio de buts (${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}), ${S.npgLead} buts hors penalty de plus en ${S.fewer} matchs de moins, plus de ${S.astLead} passes d'avance, un temps de participation par but plus rapide (72 min vs 88 min) et son sacre mondial en 2022.`
       }
     ]
   }
@@ -921,7 +933,7 @@ const I18N = {
   ro: {
     dir: "ltr",
     title: "Messi vs Ronaldo: Statistici, Lovituri Libere, Penalty-uri și Meciuri Directe | MessiStat",
-    desc: `Lionel Messi vs Cristiano Ronaldo: ${S.goals} goluri vs ${S.rGoals}, ${S.assists}+ pase de gol vs 261, ${S.npg} goluri fără penalty vs ${S.npgR}, 76 lovituri libere vs 64, 47 trofee vs 37, 8 Baloane de Aur vs 5. Comparația definitivă.`,
+    desc: `Lionel Messi vs Cristiano Ronaldo: ${S.goals} goluri vs ${S.rGoals}, ${S.assists}+ pase de gol vs ${S.rAssists}, ${S.npg} goluri fără penalty vs ${S.npgR}, ${S.byFinish.freeKicks} lovituri libere vs ${FK_RONALDO}, 47 trofee vs 37, 8 Baloane de Aur vs 5. Comparația definitivă.`,
     keywords: "messi vs ronaldo, statistici messi vs ronaldo, lovituri libere messi vs ronaldo, penalty uri messi vs ronaldo, goluri fara penalty, pase de gol messi vs ronaldo, hat trick uri, cine e mai bun messi sau ronaldo, cine are mai multe goluri messi sau ronaldo, meciuri directe, cupa mondiala, baloane de aur, trofee",
     brand: "MessiStat",
     homeName: "Acasă",
@@ -941,7 +953,7 @@ const I18N = {
     lead: "Comparația statistică definitivă între cei doi uriași ai fotbalului modern. Goluri totale, goluri fără penalty, lovituri libere, penalty-uri, pase de gol, trofee, premii individuale și cele 36 de meciuri directe.",
     verdictBadge: "VERDICTUL GOAT • DATE OFICIALE COMPLETE",
     verdictTitle: "Cine are statistici superioare în carieră: Messi sau Ronaldo?",
-    verdictText: `În toate meciurile oficiale de seniori, <b>Lionel Messi a marcat ${S.goals} de goluri și a oferit peste ${S.assists} de pase de gol în ${S.apps.toLocaleString('de-DE')} de partide</b> (1,12 contribuții la gol pe meci), în timp ce <b>Cristiano Ronaldo este cel mai bun marcator din istorie cu ${S.rGoals} de goluri și 261 de pase în ${S.rApps.toLocaleString('de-DE')} de meciuri</b> (0,93 contribuții pe meci). Deși Ronaldo conduce la numărul total de goluri (<b>${S.rGoals} vs ${S.goals}</b>), Messi a atins borna de ${S.goals} în <b>160 de meciuri mai puține</b> cu o medie superioară (<b>0,79 vs 0,73</b>), are mai multe <b>goluri fără penalty (${S.npg} vs ${S.npgR})</b> și pase decisive (<b>${S.assists}+ vs 261</b>), a cucerit <b>Cupa Mondială FIFA (2022)</b> cu două Baloane de Aur și îl depășește pe Ronaldo la <b>Baloane de Aur (8 la 5)</b> și <b>trofee oficiale (47 la 37)</b>.`,
+    verdictText: `În toate meciurile oficiale de seniori, <b>Lionel Messi a marcat ${S.goals} de goluri și a oferit peste ${S.assists} de pase de gol în ${S.apps.toLocaleString('de-DE')} de partide</b> (${S.gaPerGame.toFixed(2).replace('.', ',')} contribuții la gol pe meci), în timp ce <b>Cristiano Ronaldo este cel mai bun marcator din istorie cu ${S.rGoals} de goluri și ${S.rAssists} de pase în ${S.rApps.toLocaleString('de-DE')} de meciuri</b> (0,93 contribuții pe meci). Deși Ronaldo conduce la numărul total de goluri (<b>${S.rGoals} vs ${S.goals}</b>), Messi a atins borna de ${S.goals} în <b>${S.fewer} de meciuri mai puține</b> cu o medie superioară (<b>${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}</b>), are mai multe <b>goluri fără penalty (${S.npg} vs ${S.npgR})</b> și pase decisive (<b>${S.assists}+ vs ${S.rAssists}</b>), a cucerit <b>Cupa Mondială FIFA (2022)</b> cu două Baloane de Aur și îl depășește pe Ronaldo la <b>Baloane de Aur (8 la 5)</b> și <b>trofee oficiale (${SPLITS.trophies.messi} la ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Statistică",
     tableLeader: "Lider",
     coreHeader: "Totalurile Carierei Oficiale de Seniori",
@@ -1024,12 +1036,12 @@ const I18N = {
     sisterSub: "Goluri, trofee și recorduri CR7 — actualizate zilnic.",
     sisterCta: "Vezi RonaldoStats →",
     crestNote: "Siglele cluburilor sunt mărci înregistrate ale respectivelor echipe, afișate strict în scop de identificare.",
-    badgeRonaldoGoals: "Ronaldo (+48 goluri, record all-time)",
-    badgeMessiNPG: "Messi (+26 goluri fără penalty)",
-    badgeMessiFK: "Messi (+12 lovituri libere)",
-    badgeRonaldoPen: "Ronaldo (+74 penalty-uri)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} goluri, record all-time)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} goluri fără penalty)`,
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} lovituri libere)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} penalty-uri)`,
     badgeMessiAssists: `Messi (+${S.astLead} pase de gol)`,
-    badgeRonaldoHT: "Ronaldo (+4 hat-trick-uri)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-trick-uri)`,
     badgeMessiWC: "Messi (Campion, 2 Baloane de Aur)",
     badgeMessiTrophies: "Messi (+10 trofee, record mondial)",
     badgeMessiBallon: "Messi (+3 Baloane de Aur, record)",
@@ -1070,19 +1082,19 @@ const I18N = {
     faqs: [
       {
         q: "Cine are mai multe goluri oficiale: Messi sau Ronaldo?",
-        a: `Cristiano Ronaldo este cel mai bun marcator din istoria fotbalului cu ${S.rGoals} de goluri oficiale în ${S.rApps.toLocaleString('de-DE')} de meciuri (0,73 goluri pe meci). Lionel Messi are ${S.goals} de goluri în ${S.apps.toLocaleString('de-DE')} de meciuri (0,79 goluri pe meci). Ronaldo conduce cu 48 de goluri, dar Messi are 160 de meciuri mai puține și un procentaj superior.`
+        a: `Cristiano Ronaldo este cel mai bun marcator din istoria fotbalului cu ${S.rGoals} de goluri oficiale în ${S.rApps.toLocaleString('de-DE')} de meciuri (0,73 goluri pe meci). Lionel Messi are ${S.goals} de goluri în ${S.apps.toLocaleString('de-DE')} de meciuri (0,79 goluri pe meci). Ronaldo conduce cu ${S.gap} de goluri, dar Messi are ${S.fewer} de meciuri mai puține și un procentaj superior.`
       },
       {
         q: "Cine are mai multe goluri fără penalty?",
-        a: `Lionel Messi are ${S.npg} de goluri fără penalty în ${S.apps.toLocaleString('de-DE')} de partide (0,70 pe meci). Cristiano Ronaldo are ${S.npgR} de goluri fără penalty în ${S.rApps.toLocaleString('de-DE')} de partide (0,59 pe meci). Messi are cu 26 de goluri mai mult din acțiune deși a jucat cu 160 de meciuri mai puțin.`
+        a: `Lionel Messi are ${S.npg} de goluri fără penalty în ${S.apps.toLocaleString('de-DE')} de partide (0,70 pe meci). Cristiano Ronaldo are ${S.npgR} de goluri fără penalty în ${S.rApps.toLocaleString('de-DE')} de partide (0,59 pe meci). Messi are cu ${S.npgLead} de goluri mai mult din acțiune deși a jucat cu ${S.fewer} de meciuri mai puțin.`
       },
       {
         q: "Cine a marcat mai multe goluri din lovitură liberă directă?",
-        a: "În prezent, cei doi îl devansează pe Ronaldo cu 76 de goluri din lovitură liberă directă față de 64 în fotbalul de seniori. Messi a marcat 50 pentru Barcelona, 12 pentru Argentina, 12 pentru Inter Miami și 2 pentru PSG. Ronaldo a înscris 33 pentru Real Madrid, 15 pentru Manchester United, 11 pentru Portugalia, 5 pentru Al-Nassr și 1 pentru Juventus."
+        a: `În prezent, cei doi îl devansează pe Ronaldo cu 76 de goluri din lovitură liberă directă față de ${FK_RONALDO} în fotbalul de seniori. Messi a marcat 50 pentru Barcelona, 12 pentru Argentina, 12 pentru Inter Miami și 2 pentru PSG. Ronaldo a înscris 33 pentru Real Madrid, 15 pentru Manchester United, 11 pentru Portugalia, 5 pentru Al-Nassr și 1 pentru Juventus.`
       },
       {
         q: "Cine are mai multe pase de gol: Messi sau Ronaldo?",
-        a: `Lionel Messi are un avans de ${S.astLead} de pase de gol în fața lui Cristiano Ronaldo. Messi cumulează peste ${S.assists} de pase decisive oficiale (349 la cluburi și 56 la Argentina), fiind liderul all-time în istoria fotbalului modern. Ronaldo are 261 assist-uri.`
+        a: `Lionel Messi are un avans de ${S.astLead} de pase de gol în fața lui Cristiano Ronaldo. Messi cumulează peste ${S.assists} de pase decisive oficiale (349 la cluburi și 56 la Argentina), fiind liderul all-time în istoria fotbalului modern. Ronaldo are ${S.rAssists} assist-uri.`
       },
       {
         q: "Cine a marcat mai multe penalty-uri și care este rata de conversie?",
@@ -1090,7 +1102,7 @@ const I18N = {
       },
       {
         q: "Cine are mai multe hat-trick-uri în carieră?",
-        a: "Cristiano Ronaldo are 66 de hat-trick-uri în carieră (56 la echipe de club, 10 la naționala Portugaliei). Lionel Messi are 62 de hat-trick-uri (48 la Barcelona, 11 la Argentina, 3 la Inter Miami). Ronaldo are un avans de 4 hat-trick-uri."
+        a: `Cristiano Ronaldo are ${S.rHatTricks} de hat-trick-uri în carieră (56 la echipe de club, 10 la naționala Portugaliei). Lionel Messi are 62 de hat-trick-uri (48 la Barcelona, 11 la Argentina, 3 la Inter Miami). Ronaldo are un avans de 4 hat-trick-uri.`
       },
       {
         q: "Cine a avut performanțe mai bune la Cupa Mondială FIFA?",
@@ -1106,7 +1118,7 @@ const I18N = {
       },
       {
         q: "De ce modelele analitice îl desemnează pe Messi drept cel mai mare fotbalist (GOAT)?",
-        a: `Statisticile îl favorizează pe Messi deoarece combină golgheterul absolut cu cel mai bun pasator din istorie: medie superioară de goluri (0,79 vs 0,72), 26 de goluri în plus fără penalty în 161 meciuri mai puține, peste ${S.astLead} de assist-uri în plus, o implicare directă la gol la fiecare 72 de minute (față de 88 min Ronaldo) și triumful la Cupa Mondială 2022.`
+        a: `Statisticile îl favorizează pe Messi deoarece combină golgheterul absolut cu cel mai bun pasator din istorie: medie superioară de goluri (${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}), 26 de goluri în plus fără penalty în 161 meciuri mai puține, peste ${S.astLead} de assist-uri în plus, o implicare directă la gol la fiecare 72 de minute (față de 88 min Ronaldo) și triumful la Cupa Mondială 2022.`
       }
     ]
   },
@@ -1114,7 +1126,7 @@ const I18N = {
   uz: {
     dir: "ltr",
     title: "Messi vs Ronaldu: Statistikalar, Jarima zarbalari, Penaltilar va O'zaro o'yinlar | MessiStats",
-    desc: `Lionel Messi vs Krishtianu Ronaldu: ${S.goals} ga ${S.rGoals} ta gol, ${S.assists}+ ga 261 ta assist, ${S.npg} ta penaltisiz gol vs ${S.npgR}, 76 ga 64 ta jarima zarbasi, 47 ga 37 ta titul, 8 ga 5 ta “Oltin to'p”. Yakuniy taqqoslash.`,
+    desc: `Lionel Messi vs Krishtianu Ronaldu: ${S.goals} ga ${S.rGoals} ta gol, ${S.assists}+ ga ${S.rAssists} ta assist, ${S.npg} ta penaltisiz gol vs ${S.npgR}, ${S.byFinish.freeKicks} ga ${FK_RONALDO} ta jarima zarbasi, 47 ga 37 ta titul, 8 ga 5 ta “Oltin to'p”. Yakuniy taqqoslash.`,
     keywords: "messi ronaldu solishtirma, messi vs ronaldu statistikasi, jarima zarbalari messi ronaldu, penaltilar messi ronaldu, penaltisiz gollar, assistlar messi ronaldu, het triklar, kim yaxshiroq messi yoki ronaldu, kimning goli ko'proq, o'zaro o'yinlar, jahon chempionati, oltin to'p, sovrinlar",
     brand: "MessiStats",
     homeName: "Bosh sahifa",
@@ -1134,7 +1146,7 @@ const I18N = {
     lead: "Zamonaviy futbolning ikki buyuk afsonasi oʻrtasidagi rasmiy statistik taqqoslash. Jami gollar, penaltisiz gollar, jarima zarbalari, penaltilar, golli uzatmalar, sovrinlar, individual yutuqlar va oʻzaro 36 ta toʻqnashuv.",
     verdictBadge: "GOAT HUKMI • TOʻLIQ RASMIY MAʼLUMOTLAR",
     verdictTitle: "Karyera statistikasida kim ustun: Messi yoki Ronaldu?",
-    verdictText: `Kattalar safidagi barcha rasmiy oʻyinlarda <b>Lionel Messi ${S.apps.toLocaleString('fr-FR')} ta oʻyinda ${S.goals} ta gol urib, ${S.assists} dan ortiq assist muallifi boʻlgan</b> (har bir oʻyinda oʻrtacha 1,12 ta golda ishtirok), <b>Krishtianu Ronaldu esa ${S.rApps.toLocaleString('fr-FR')} ta oʻyinda ${S.rGoals} ta gol va 261 ta assist bilan tarixdagi mutlaq toʻpurar hisoblanadi</b> (har bir oʻyinda 0,93 ta ishtirok). Ronaldu umumiy gollar boʻyicha oldinda boʻlsa-da (<b>${S.rGoals} ga ${S.goals}</b>), Messi <b>161 ta kam oʻyin oʻtkazib</b> va yuqori samaradorlik bilan (<b>0,79 ga 0,73</b>) ${S.goals} ta golga yetdi, penaltilarsiz gollar (<b>${S.npg} ga ${S.npgR}</b>) va assistlar soni boʻyicha (<b>${S.assists}+ ga 261</b>) yetakchi, ikkita “Oltin toʻp” bilan <b>FIFA Jahon chempionligini (2022)</b> qoʻlga kiritdi, <b>“Oltin toʻp”lar soni (8 ga 5)</b> va <b>jamoaviy sovrinlar soni boʻyicha (47 ga 37)</b> yaqqol oldinda.`,
+    verdictText: `Kattalar safidagi barcha rasmiy oʻyinlarda <b>Lionel Messi ${S.apps.toLocaleString('fr-FR')} ta oʻyinda ${S.goals} ta gol urib, ${S.assists} dan ortiq assist muallifi boʻlgan</b> (har bir oʻyinda oʻrtacha ${S.gaPerGame.toFixed(2).replace('.', ',')} ta golda ishtirok), <b>Krishtianu Ronaldu esa ${S.rApps.toLocaleString('fr-FR')} ta oʻyinda ${S.rGoals} ta gol va ${S.rAssists} ta assist bilan tarixdagi mutlaq toʻpurar hisoblanadi</b> (har bir oʻyinda 0,93 ta ishtirok). Ronaldu umumiy gollar boʻyicha oldinda boʻlsa-da (<b>${S.rGoals} ga ${S.goals}</b>), Messi <b>${S.fewer} ta kam oʻyin oʻtkazib</b> va yuqori samaradorlik bilan (<b>0,79 ga 0,73</b>) ${S.goals} ta golga yetdi, penaltilarsiz gollar (<b>${S.npg} ga ${S.npgR}</b>) va assistlar soni boʻyicha (<b>${S.assists}+ ga ${S.rAssists}</b>) yetakchi, ikkita “Oltin toʻp” bilan <b>FIFA Jahon chempionligini (2022)</b> qoʻlga kiritdi, <b>“Oltin toʻp”lar soni (8 ga 5)</b> va <b>jamoaviy sovrinlar soni boʻyicha (${SPLITS.trophies.messi} ga ${SPLITS.trophies.ronaldo})</b> yaqqol oldinda.`,
     tableStat: "Statistika",
     tableLeader: "Yetakchi",
     coreHeader: "Kattalar safidagi rasmiy gollar",
@@ -1217,12 +1229,12 @@ const I18N = {
     sisterSub: "CR7 gollari, kuboklari va rekordlari — har kuni yangilanadi.",
     sisterCta: "RonaldoStats ga o'tish →",
     crestNote: "Klub logotiplari tegishli klublarning savdo belgilari hisoblanadi va faqat maʼlumot berish uchun koʻrsatilgan.",
-    badgeRonaldoGoals: "Ronaldu (+48 ta gol, tarixdagi mutlaq rekord)",
-    badgeMessiNPG: "Messi (+26 ta penaltisiz gol)",
-    badgeMessiFK: "Messi (+12 ta jarima zarbasi)",
-    badgeRonaldoPen: "Ronaldu (+74 ta penalti)",
+    badgeRonaldoGoals: `Ronaldu (+${S.gap} ta gol, tarixdagi mutlaq rekord)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} ta penaltisiz gol)`,
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} ta jarima zarbasi)`,
+    badgeRonaldoPen: `Ronaldu (+${PEN.ronaldoGoals - PEN.messiGoals} ta penalti)`,
     badgeMessiAssists: `Messi (+${S.astLead} ta assist)`,
-    badgeRonaldoHT: "Ronaldu (+4 ta het-trik)",
+    badgeRonaldoHT: `Ronaldu (+${S.htLead} ta het-trik)`,
     badgeMessiWC: "Messi (Chempion, 2 ta Oltin toʻp)",
     badgeMessiTrophies: "Messi (+10 ta sovrin, jahon rekordi)",
     badgeMessiBallon: "Messi (+3 ta Oltin toʻp, rekord)",
@@ -1263,11 +1275,11 @@ const I18N = {
     faqs: [
       {
         q: "Karyerada kim koʻproq gol urgan: Messi yoki Krishtianu Ronaldu?",
-        a: `Krishtianu Ronaldu ${S.rApps.toLocaleString('fr-FR')} ta rasmiy oʻyinda ${S.rGoals} ta gol urib (har bir oʻyinda 0,73 ta gol), futbol tarixidagi mutlaq toʻpurar hisoblanadi. Lionel Messi ${S.apps.toLocaleString('fr-FR')} ta oʻyinda ${S.goals} ta gol urgan (0,79 ta gol). Ronaldu 48 ta gol bilan oldinda, ammo Messi 161 ta kam oʻyin oʻtkazgan va uning oʻrtacha samaradorligi yuqoriroq.`
+        a: `Krishtianu Ronaldu ${S.rApps.toLocaleString('fr-FR')} ta rasmiy oʻyinda ${S.rGoals} ta gol urib (har bir oʻyinda 0,73 ta gol), futbol tarixidagi mutlaq toʻpurar hisoblanadi. Lionel Messi ${S.apps.toLocaleString('fr-FR')} ta oʻyinda ${S.goals} ta gol urgan (0,79 ta gol). Ronaldu ${S.gap} ta gol bilan oldinda, ammo Messi ${S.fewer} ta kam oʻyin oʻtkazgan va uning oʻrtacha samaradorligi yuqoriroq.`
       },
       {
         q: "Penaltilarni hisobga olmaganda kim koʻp gol urgan?",
-        a: `Lionel Messi penaltisiz ${S.npg} ta gol urgan (har bir oʻyinda 0,70 ta gol). Krishtianu Ronaldu penaltisiz ${S.npgR} ta gol urgan (0,59 ta gol). Messi 161 ta kam oʻyin oʻtkazgan boʻlsa-da, penaltisiz gollar boʻyicha 26 ta gol oldinda.`
+        a: `Lionel Messi penaltisiz ${S.npg} ta gol urgan (har bir oʻyinda 0,70 ta gol). Krishtianu Ronaldu penaltisiz ${S.npgR} ta gol urgan (0,59 ta gol). Messi ${S.fewer} ta kam oʻyin oʻtkazgan boʻlsa-da, penaltisiz gollar boʻyicha ${S.npgLead} ta gol oldinda.`
       },
       {
         q: "Jarima zarbasidan kim koʻproq gol urgan?",
@@ -1275,7 +1287,7 @@ const I18N = {
       },
       {
         q: "Golli uzatmalar (assistlar) boʻyicha kim yetakchi: Messi yoki Ronaldu?",
-        a: `Lionel Messi Krishtianu Ronaldudan ${S.astLead} ta assist oldinda. Messi ${S.assists} dan ortiq rasmiy assist muallifi boʻlgan (klublarda 349 va Argentina safida 58), bu zamonaviy futbol tarixidagi mutlaq jahon rekordidir. Ronalduda 261 ta assist mavjud.`
+        a: `Lionel Messi Krishtianu Ronaldudan ${S.astLead} ta assist oldinda. Messi ${S.assists} dan ortiq rasmiy assist muallifi boʻlgan (klublarda 349 va Argentina safida 58), bu zamonaviy futbol tarixidagi mutlaq jahon rekordidir. Ronalduda ${S.rAssists} ta assist mavjud.`
       },
       {
         q: "Kim koʻproq penalti tepgan va ularning aniqligi qanday?",
@@ -1283,7 +1295,7 @@ const I18N = {
       },
       {
         q: "Karyerada kim koʻproq het-trik qayd etgan?",
-        a: "Krishtianu Ronaldu 66 ta het-trik qayd etgan (klublarda 56 ta, Portugaliya safida 10 ta). Lionel Messi 62 ta het-trik qayd etgan (Barselonada 48 ta, Argentina safida 11 ta, Inter Mayamida 3 ta). Ronaldu 4 ta het-trik oldinda."
+        a: `Krishtianu Ronaldu ${S.rHatTricks} ta het-trik qayd etgan (klublarda 56 ta, Portugaliya safida 10 ta). Lionel Messi 62 ta het-trik qayd etgan (Barselonada 48 ta, Argentina safida 11 ta, Inter Mayamida 3 ta). Ronaldu 4 ta het-trik oldinda.`
       },
       {
         q: "FIFA Jahon chempionatida kim yaxshiroq natija koʻrsatgan?",
@@ -1299,7 +1311,7 @@ const I18N = {
       },
       {
         q: "Nima uchun statistik tahlilchilar Messini tarixdagi eng yaxshi oʻyinchi (GOAT) deb hisoblashadi?",
-        a: `Tahliliy modellar Messini eng yuqori oʻringa qoʻyadi, chunki u bir vaqtning oʻzida ham eng kuchli toʻpurar, ham eng zoʻr assistent: yuqori gol koeffitsiyenti (0,79 ga 0,72), 161 ta kam oʻyinda 26 ta koʻproq penaltisiz gol, ${S.astLead} dan ortiq assist ustunligi, har 72 daqiqada goldagi ishtirok va 2022-yilgi Jahon chempionligi.`
+        a: `Tahliliy modellar Messini eng yuqori oʻringa qoʻyadi, chunki u bir vaqtning oʻzida ham eng kuchli toʻpurar, ham eng zoʻr assistent: yuqori gol koeffitsiyenti (0,79 ga 0,72), ${S.fewer} ta kam oʻyinda ${S.npgLead} ta koʻproq penaltisiz gol, ${S.astLead} dan ortiq assist ustunligi, har 72 daqiqada goldagi ishtirok va 2022-yilgi Jahon chempionligi.`
       }
     ]
   },
@@ -1327,7 +1339,7 @@ const I18N = {
     lead: "المقارنة الإحصائية الشاملة والنهائية بين أسطورتي كرة القدم عبر التاريخ. إجمالي الأهداف، الأهداف بدون ركلات جزاء، الركلات الحرة، ضربات الجزاء، التمريرات الحاسمة، الألقاب الجماعية، الجوائز الفردية وكافة المواجهات المباشرة الـ 36.",
     verdictBadge: "حكم الأفضل في التاريخ • الأرقام الرسمية الكاملة",
     verdictTitle: "من يمتلك أرقاماً تاريخية أفضل: ميسي أم كريستيانو رونالدو؟",
-    verdictText: `عبر كافة المباريات الرسمية، <b>سجل ليونيل ميسي ${S.goals} هدفاً وقدم أكثر من ${S.assists} تمريرة حاسمة في ${S.apps.toLocaleString('en-US')} مباراة</b> (بمعدل 1.14 مساهمة تهديفية في المباراة)، بينما <b>يحمل كريستيانو رونالدو الرقم القياسي التاريخي بتسجيله ${S.rGoals} هدفاً و261 تمريرة حاسمة في ${S.rApps.toLocaleString('en-US')} مباراة</b> (0.93 مساهمة في المباراة). ورغم تصدر رونالدو قائمة الهدافين التاريخيين (<b>${S.rGoals} مقابل ${S.goals}</b>)، فإن ميسي حقق أهدافه في <b>161 مباراة أقل</b> وبمعدل تهديفي أعلى (<b>0.79 مقابل 0.73</b>)، ويتفوق في <b>الأهداف بدون ركلات جزاء (${S.npg} مقابل ${S.npgR})</b> والتمريرات الحاسمة (<b>${S.assists}+ مقابل 261</b>)، وتوج بلقب <b>كأس العالم FIFA (2022)</b> مع كرتين ذهبيتين للبطولة، ويتفوق في <b>الكرات الذهبية (8 مقابل 5)</b> والبطولات الرسمية (<b>46 مقابل 35</b>).`,
+    verdictText: `عبر كافة المباريات الرسمية، <b>سجل ليونيل ميسي ${S.goals} هدفاً وقدم أكثر من ${S.assists} تمريرة حاسمة في ${S.apps.toLocaleString('en-US')} مباراة</b> (بمعدل ${S.gaPerGame.toFixed(2)} مساهمة تهديفية في المباراة)، بينما <b>يحمل كريستيانو رونالدو الرقم القياسي التاريخي بتسجيله ${S.rGoals} هدفاً و${S.rAssists} تمريرة حاسمة في ${S.rApps.toLocaleString('en-US')} مباراة</b> (0.93 مساهمة في المباراة). ورغم تصدر رونالدو قائمة الهدافين التاريخيين (<b>${S.rGoals} مقابل ${S.goals}</b>)، فإن ميسي حقق أهدافه في <b>${S.fewer} مباراة أقل</b> وبمعدل تهديفي أعلى (<b>0.79 مقابل 0.73</b>)، ويتفوق في <b>الأهداف بدون ركلات جزاء (${S.npg} مقابل ${S.npgR})</b> والتمريرات الحاسمة (<b>${S.assists}+ مقابل ${S.rAssists}</b>)، وتوج بلقب <b>كأس العالم FIFA (2022)</b> مع كرتين ذهبيتين للبطولة، ويتفوق في <b>الكرات الذهبية (8 مقابل 5)</b> والبطولات الرسمية (<b>${SPLITS.trophies.messi} مقابل ${SPLITS.trophies.ronaldo}</b>).`,
     tableStat: "الإحصائية",
     tableLeader: "الأفضلية",
     coreHeader: "إجمالي المسيرة الاحترافية الكبرى",
@@ -1410,12 +1422,12 @@ const I18N = {
     sisterSub: "أهداف كريستيانو رونالدو وإنجازاته — تُحَدَّث يومياً.",
     sisterCta: "زيارة رونالدوستاتس ←",
     crestNote: "شعارات الأندية علامات تجارية لأنديتها وتُعرض لغايات التعريف بالفرق فقط.",
-    badgeRonaldoGoals: "رونالدو (+48 هدفاً، الرقم القياسي التاريخي)",
-    badgeMessiNPG: "ميسي (+26 هدفاً بدون جزاء)",
-    badgeMessiFK: "ميسي (+12 ضربة حرة)",
-    badgeRonaldoPen: "رونالدو (+74 ركلة جزاء)",
+    badgeRonaldoGoals: `رونالدو (+${S.gap} هدفاً، الرقم القياسي التاريخي)`,
+    badgeMessiNPG: `ميسي (+${S.npgLead} هدفاً بدون جزاء)`,
+    badgeMessiFK: `ميسي (+${S.byFinish.freeKicks - FK_RONALDO} ضربة حرة)`,
+    badgeRonaldoPen: `رونالدو (+${PEN.ronaldoGoals - PEN.messiGoals} ركلة جزاء)`,
     badgeMessiAssists: `ميسي (+${S.astLead} تمريرة حاسمة)`,
-    badgeRonaldoHT: "رونالدو (+4 هاتريك)",
+    badgeRonaldoHT: `رونالدو (+${S.htLead} هاتريك)`,
     badgeMessiWC: "ميسي (بطل العالم، كرتان ذهبيتان)",
     badgeMessiTrophies: "ميسي (+10 ألقاب، رقم قياسي عالمي)",
     badgeMessiBallon: "ميسي (+3 كرات ذهبية، رقم قياسي)",
@@ -1456,19 +1468,19 @@ const I18N = {
     faqs: [
       {
         q: "من سجل أهدافاً أكثر في مسيرته: ميسي أم كريستيانو رونالدو؟",
-        a: `يحمل كريستيانو رونالدو الرقم القياسي العالمي التاريخي برصيد ${S.rGoals} هدفاً رسمياً في ${S.rApps.toLocaleString('en-US')} مباراة (0.73 هدف في المباراة). وسجل ليونيل ميسي ${S.goals} هدفاً في ${S.apps.toLocaleString('en-US')} مباراة (0.79 هدف في المباراة). يتقدم رونالدو بفارق 48 هدفاً، لكن ميسي لعب 161 مباراة أقل ويمتلك معدلاً تهديفياً أعلى.`
+        a: `يحمل كريستيانو رونالدو الرقم القياسي العالمي التاريخي برصيد ${S.rGoals} هدفاً رسمياً في ${S.rApps.toLocaleString('en-US')} مباراة (0.73 هدف في المباراة). وسجل ليونيل ميسي ${S.goals} هدفاً في ${S.apps.toLocaleString('en-US')} مباراة (0.79 هدف في المباراة). يتقدم رونالدو بفارق ${S.gap} هدفاً، لكن ميسي لعب ${S.fewer} مباراة أقل ويمتلك معدلاً تهديفياً أعلى.`
       },
       {
         q: "من سجل أهدافاً أكثر بدون احتساب ركلات الجزاء؟",
-        a: `سجل ليونيل ميسي ${S.npg} هدفاً بدون ركلات جزاء في ${S.apps.toLocaleString('en-US')} مباراة (0.70 في المباراة)، بينما سجل كريستيانو رونالدو ${S.npgR} هدفاً بدون ركلات جزاء في ${S.rApps.toLocaleString('en-US')} مباراة (0.59 في المباراة). يتفوق ميسي بفارق 26 هدفاً بدون ركلات جزاء رغم لعبه 161 مباراة أقل.`
+        a: `سجل ليونيل ميسي ${S.npg} هدفاً بدون ركلات جزاء في ${S.apps.toLocaleString('en-US')} مباراة (0.70 في المباراة)، بينما سجل كريستيانو رونالدو ${S.npgR} هدفاً بدون ركلات جزاء في ${S.rApps.toLocaleString('en-US')} مباراة (0.59 في المباراة). يتفوق ميسي بفارق ${S.npgLead} هدفاً بدون ركلات جزاء رغم لعبه ${S.fewer} مباراة أقل.`
       },
       {
         q: "من سجل أهدافاً أكثر من ركلات حرة مباشرة؟",
-        a: "يتفوق ميسي على رونالدو بـ 76 هدفاً من ركلة حرة مباشرة مقابل 64 لرونالدو في كرة القدم الاحترافية. سجل ميسي 50 مع برشلونة، 12 مع الأرجنتين، 12 مع إنتر ميامي وهدفين مع باريس. وسجل رونالدو 33 مع ريال مدريد، 15 مع مانشستر يونايتد، 11 مع البرتغال، 5 مع النصر وهدفاً مع يوفنتوس."
+        a: `يتفوق ميسي على رونالدو بـ 76 هدفاً من ركلة حرة مباشرة مقابل ${FK_RONALDO} لرونالدو في كرة القدم الاحترافية. سجل ميسي 50 مع برشلونة، 12 مع الأرجنتين، 12 مع إنتر ميامي وهدفين مع باريس. وسجل رونالدو 33 مع ريال مدريد، 15 مع مانشستر يونايتد، 11 مع البرتغال، 5 مع النصر وهدفاً مع يوفنتوس.`
       },
       {
         q: "من صنع أهدافاً أكثر (تمريرات حاسمة): ميسي أم رونالدو؟",
-        a: `يتفوق ليونيل ميسي على كريستيانو رونالدو بـ ${S.astLead} تمريرة حاسمة. يمتلك ميسي أكثر من ${S.assists} تمريرة حاسمة رسمية (349 مع الأندية و58 مع الأرجنتين)، وهو صاحب الرقم القياسي التاريخي في صناعة الأهداف. بينما يمتلك رونالدو 261 أسيست.`
+        a: `يتفوق ليونيل ميسي على كريستيانو رونالدو بـ ${S.astLead} تمريرة حاسمة. يمتلك ميسي أكثر من ${S.assists} تمريرة حاسمة رسمية (349 مع الأندية و58 مع الأرجنتين)، وهو صاحب الرقم القياسي التاريخي في صناعة الأهداف. بينما يمتلك رونالدو ${S.rAssists} أسيست.`
       },
       {
         q: "من سجل ركلات جزاء أكثر وما هي نسبة نجاح كل منهما؟",
@@ -1476,7 +1488,7 @@ const I18N = {
       },
       {
         q: "من سجل هاتريك أكثر في مسيرته: ميسي أم رونالدو؟",
-        a: "سجل كريستيانو رونالدو 66 هاتريك (56 مع الأندية و10 مع البرتغال). بينما سجل ليونيل ميسي 62 هاتريك (48 مع برشلونة و11 مع الأرجنتين و3 مع إنتر ميامي). يتفوق رونالدو بفارق 4 هاتريك."
+        a: `سجل كريستيانو رونالدو ${S.rHatTricks} هاتريك (56 مع الأندية و10 مع البرتغال). بينما سجل ليونيل ميسي 62 هاتريك (48 مع برشلونة و11 مع الأرجنتين و3 مع إنتر ميامي). يتفوق رونالدو بفارق ${S.htLead} هاتريك.`
       },
       {
         q: "من كان الأفضل في بطولات كأس العالم FIFA؟",
@@ -1492,14 +1504,14 @@ const I18N = {
       },
       {
         q: "لماذا تصنف التحليلات الإحصائية ميسي كأفضل لاعب في التاريخ (GOAT)؟",
-        a: `تضع النماذج الإحصائية ميسي في الصدارة لجمعه الفريد بين صدارة التهديف وصدارة صناعة اللعب: معدل تهديف أعلى (0.79 مقابل 0.72)، 26 هدفاً أكثر بدون ركلات جزاء في 161 مباريات أقل، فارق هائل يفوق ${S.astLead} تمريرة حاسمة، معدل دقائق مذهل لكل مساهمة في هدف (72 دقيقة مقابل 88 دقيقة)، وتتويجه بكأس العالم 2022.`
+        a: `تضع النماذج الإحصائية ميسي في الصدارة لجمعه الفريد بين صدارة التهديف وصدارة صناعة اللعب: معدل تهديف أعلى (${S.gpg.toFixed(2)} مقابل ${S.rGpg.toFixed(2)})، ${S.npgLead} هدفاً أكثر بدون ركلات جزاء في ${S.fewer} مباريات أقل، فارق هائل يفوق ${S.astLead} تمريرة حاسمة، معدل دقائق مذهل لكل مساهمة في هدف (72 دقيقة مقابل 88 دقيقة)، وتتويجه بكأس العالم 2022.`
       }
     ]
   },
   id: {
     dir: "ltr",
     title: `Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} Gol, Assist, Trofi & H2H`,
-    desc: `Perbandingan lengkap Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} gol, ${S.assists}+ vs ${S.rAssists} assist, ${S.npg} vs ${S.npgR} gol non-penalti, 76 vs 64 tendangan bebas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trofi & 36 laga H2H.`,
+    desc: `Perbandingan lengkap Messi vs Ronaldo 2026: ${S.goals} vs ${S.rGoals} gol, ${S.assists}+ vs ${S.rAssists} assist, ${S.npg} vs ${S.npgR} gol non-penalti, ${S.byFinish.freeKicks} vs ${FK_RONALDO} tendangan bebas, ${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo} trofi & 36 laga H2H.`,
     keywords: "messi vs ronaldo, statistik messi vs ronaldo, gol messi vs ronaldo, tendangan bebas messi vs ronaldo, trofi messi vs ronaldo, ballon d'or messi ronaldo, siapa goat messi atau ronaldo, head to head messi ronaldo",
     brand: "MessiStat",
     homeName: "Beranda",
@@ -1519,7 +1531,7 @@ const I18N = {
     lead: "Perbandingan statistik terlengkap antara dua ikon terbesar sepak bola modern. Gol sepanjang masa, gol non-penalti, tendangan bebas, penalti, assist, trofi, penghargaan individu, dan semua 36 pertemuan langsung.",
     verdictBadge: "VERDIK GOAT • TOTAL RESMI LENGKAP",
     verdictTitle: "Siapa yang memiliki statistik karier lebih baik: Messi atau Ronaldo?",
-    verdictText: `Sepanjang laga resmi senior, <b>Lionel Messi mencetak ${S.goals} gol dan ${S.assists}+ assist dalam ${S.apps.toLocaleString('en-US')} pertandingan</b> (1,14 kontribusi gol per laga), sementara <b>Cristiano Ronaldo memegang rekor gol terbanyak dengan ${S.rGoals} gol dan 261 assist dalam ${S.rApps.toLocaleString('en-US')} pertandingan</b> (0,93 kontribusi per laga). Meski Ronaldo unggul dalam jumlah gol (<b>${S.rGoals} vs ${S.goals}</b>), Messi mencapai ${S.goals} gol dalam <b>161 laga lebih sedikit</b> dengan rasio gol lebih tinggi (<b>0,79 vs 0,73</b>), unggul dalam <b>gol non-penalti (${S.npg} vs ${S.npgR})</b> dan assist (<b>${S.assists}+ vs 261</b>), menjuarai <b>Piala Dunia FIFA (2022)</b> dengan dua Bola Emas, serta unggul dalam <b>Ballon d'Or (8 vs 5)</b> dan <b>trofi tim (${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo})</b>.`,
+    verdictText: `Sepanjang laga resmi senior, <b>Lionel Messi mencetak ${S.goals} gol dan ${S.assists}+ assist dalam ${S.apps.toLocaleString('en-US')} pertandingan</b> (${S.gaPerGame.toFixed(2).replace('.', ',')} kontribusi gol per laga), sementara <b>Cristiano Ronaldo memegang rekor gol terbanyak dengan ${S.rGoals} gol dan ${S.rAssists} assist dalam ${S.rApps.toLocaleString('en-US')} pertandingan</b> (0,93 kontribusi per laga). Meski Ronaldo unggul dalam jumlah gol (<b>${S.rGoals} vs ${S.goals}</b>), Messi mencapai ${S.goals} gol dalam <b>${S.fewer} laga lebih sedikit</b> dengan rasio gol lebih tinggi (<b>${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}</b>), unggul dalam <b>gol non-penalti (${S.npg} vs ${S.npgR})</b> dan assist (<b>${S.assists}+ vs ${S.rAssists}</b>), menjuarai <b>Piala Dunia FIFA (2022)</b> dengan dua Bola Emas, serta unggul dalam <b>Ballon d'Or (8 vs 5)</b> dan <b>trofi tim (${SPLITS.trophies.messi} vs ${SPLITS.trophies.ronaldo})</b>.`,
     tableStat: "Statistik",
     tableLeader: "Keunggulan",
     coreHeader: "Total Karier Senior Sepanjang Masa",
@@ -1602,12 +1614,12 @@ const I18N = {
     sisterSub: "Gol dan pencapaian CR7 — diperbarui setiap hari.",
     sisterCta: "Kunjungi RonaldoStats →",
     crestNote: "Logo klub adalah merek dagang pemiliknya masing-masing dan ditampilkan hanya untuk identifikasi.",
-    badgeRonaldoGoals: "Ronaldo (+48 gol, Rekor Dunia)",
-    badgeMessiNPG: "Messi (+26 NPG)",
-    badgeMessiFK: "Messi (+12 tendangan bebas)",
-    badgeRonaldoPen: "Ronaldo (+74 penalti)",
+    badgeRonaldoGoals: `Ronaldo (+${S.gap} gol, Rekor Dunia)`,
+    badgeMessiNPG: `Messi (+${S.npgLead} NPG)`,
+    badgeMessiFK: `Messi (+${S.byFinish.freeKicks - FK_RONALDO} tendangan bebas)`,
+    badgeRonaldoPen: `Ronaldo (+${PEN.ronaldoGoals - PEN.messiGoals} penalti)`,
     badgeMessiAssists: `Messi (+${S.astLead} assist)`,
-    badgeRonaldoHT: "Ronaldo (+4 hat-trick)",
+    badgeRonaldoHT: `Ronaldo (+${S.htLead} hat-trick)`,
     badgeMessiWC: "Messi (Juara Dunia, 2 Bola Emas)",
     badgeMessiTrophies: "Messi (+10 trofi, Rekor Dunia)",
     badgeMessiBallon: "Messi (+3 Ballon d'Or, Rekor)",
@@ -1648,19 +1660,19 @@ const I18N = {
     faqs: [
       {
         q: "Siapa yang mencetak gol lebih banyak: Messi atau Cristiano Ronaldo?",
-        a: `Cristiano Ronaldo memegang rekor gol resmi terbanyak dengan ${S.rGoals} gol dalam ${S.rApps.toLocaleString('en-US')} laga (0,73 gol/laga), sementara Lionel Messi mencetak ${S.goals} gol dalam ${S.apps.toLocaleString('en-US')} laga (0,79 gol/laga) dengan 161 pertandingan lebih sedikit.`
+        a: `Cristiano Ronaldo memegang rekor gol resmi terbanyak dengan ${S.rGoals} gol dalam ${S.rApps.toLocaleString('en-US')} laga (0,73 gol/laga), sementara Lionel Messi mencetak ${S.goals} gol dalam ${S.apps.toLocaleString('en-US')} laga (0,79 gol/laga) dengan ${S.fewer} pertandingan lebih sedikit.`
       },
       {
         q: "Siapa yang mencetak lebih banyak gol non-penalti?",
-        a: `Lionel Messi mencetak ${S.npg} gol non-penalti dalam ${S.apps.toLocaleString('en-US')} laga (0,70/laga), unggul 26 gol atas Cristiano Ronaldo (${S.npgR} gol non-penalti dalam ${S.rApps.toLocaleString('en-US')} laga).`
+        a: `Lionel Messi mencetak ${S.npg} gol non-penalti dalam ${S.apps.toLocaleString('en-US')} laga (0,70/laga), unggul ${S.npgLead} gol atas Cristiano Ronaldo (${S.npgR} gol non-penalti dalam ${S.rApps.toLocaleString('en-US')} laga).`
       },
       {
         q: "Siapa yang lebih banyak mencetak gol tendangan bebas langsung?",
-        a: "Lionel Messi unggul dengan 76 gol tendangan bebas langsung (50 Barcelona, 12 Argentina, 12 Inter Miami, 2 PSG) dibandingkan 64 milik Ronaldo."
+        a: `Lionel Messi unggul dengan 76 gol tendangan bebas langsung (50 Barcelona, 12 Argentina, 12 Inter Miami, 2 PSG) dibandingkan ${FK_RONALDO} milik Ronaldo.`
       },
       {
         q: "Siapa yang memiliki lebih banyak assist: Messi atau Ronaldo?",
-        a: `Lionel Messi unggul jauh dengan ${S.assists}+ assist resmi dibandingkan 261 milik Ronaldo (selisih +${S.astLead} assist).`
+        a: `Lionel Messi unggul jauh dengan ${S.assists}+ assist resmi dibandingkan ${S.rAssists} milik Ronaldo (selisih +${S.astLead} assist).`
       },
       {
         q: "Siapa yang lebih banyak mencetak penalti dan bagaimana rasio konversinya?",
@@ -1668,7 +1680,7 @@ const I18N = {
       },
       {
         q: "Siapa yang lebih banyak mencetak hat-trick: Messi atau Ronaldo?",
-        a: "Cristiano Ronaldo mengoleksi 66 hat-trick karier, sedangkan Lionel Messi mencatat 62 hat-trick (48 Barcelona, 11 Argentina, 3 Inter Miami)."
+        a: `Cristiano Ronaldo mengoleksi ${S.rHatTricks} hat-trick karier, sedangkan Lionel Messi mencatat 62 hat-trick (48 Barcelona, 11 Argentina, 3 Inter Miami).`
       },
       {
         q: "Siapa yang lebih baik di Piala Dunia FIFA?",
@@ -1684,7 +1696,7 @@ const I18N = {
       },
       {
         q: "Mengapa model analitik menilai Messi sebagai GOAT?",
-        a: `Model statistik menempatkan Messi di puncak karena menggabungkan efisiensi gol (0,79 vs 0,73), keunggulan 26 gol non-penalti dalam 161 laga lebih sedikit, dominasi +${S.astLead} assist, serta gelar juara Piala Dunia 2022.`
+        a: `Model statistik menempatkan Messi di puncak karena menggabungkan efisiensi gol (${S.gpg.toFixed(2).replace('.', ',')} vs ${S.rGpg.toFixed(2).replace('.', ',')}), keunggulan ${S.npgLead} gol non-penalti dalam ${S.fewer} laga lebih sedikit, dominasi +${S.astLead} assist, serta gelar juara Piala Dunia 2022.`
       }
     ]
   }
@@ -1986,7 +1998,7 @@ ${JSON.stringify(jsonLd, null, 2)}
           { lbl: t.statGoalContrib, m: S.ga, r: S.rGa, mDisp: `${S.ga.toLocaleString('en-US')}+`, rDisp: S.rGa.toLocaleString('en-US'), win: "m" },
           { lbl: t.statAssists, m: S.assists, r: S.rAssists, mDisp: `${S.assists}+`, rDisp: String(S.rAssists), win: "m" },
           { lbl: t.statNPG, m: S.npg, r: S.npgR, mDisp: String(S.npg), rDisp: String(S.npgR), win: "m" },
-          { lbl: t.statFreeKicks, m: 76, r: 64, mDisp: "76", rDisp: "64", win: "m" },
+          { lbl: t.statFreeKicks, m: S.byFinish.freeKicks, r: FK_RONALDO, mDisp: String(S.byFinish.freeKicks), rDisp: String(FK_RONALDO), win: "m" },
           { lbl: t.statRatio, m: S.gpg, r: Number(S.rGpg), mDisp: S.gpg.toFixed(2), rDisp: Number(S.rGpg).toFixed(2), win: "m" },
           { lbl: t.statTrophies, m: SPLITS.trophies.messi, r: SPLITS.trophies.ronaldo, mDisp: String(SPLITS.trophies.messi), rDisp: String(SPLITS.trophies.ronaldo), win: "m" },
           { lbl: t.statBallons, m: 8, r: 5, mDisp: "8", rDisp: "5", win: "m" }
@@ -2127,8 +2139,8 @@ ${JSON.stringify(jsonLd, null, 2)}
           </tr>
           <tr>
             <td class="left"><b>${t.statFreeKicks}</b></td>
-            <td><b style="color:var(--accent);">76</b></td>
-            <td>64</td>
+            <td><b style="color:var(--accent);">${S.byFinish.freeKicks}</b></td>
+            <td>${FK_RONALDO}</td>
             <td class="left"><span class="leader-badge-messi">${t.badgeMessiFK}</span></td>
           </tr>
           <tr>

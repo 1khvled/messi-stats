@@ -88,7 +88,7 @@ const bare = (n) => new RegExp(`(?<![\\dA-Za-z"#=.-])${escRe(n)}(?!\\d)`, "g");
 // Guarded + requires a locale word for "goals" (so "47 trophies" is untouched).
 const gapNum = (n) =>
   new RegExp(
-    `(?<!\\d)${n}(?=\\s+(?:de\\s+)?(?:goals?\\b|goles\\b|gols\\b|buts?\\b))`,
+    `(?<!\\d)${n}(?=\\s+(?:de\\s+|ta\\s+)?(?:goals?\\b|goles\\b|gols\\b|buts?\\b|goluri\\b|gol\\b|هدفاً|هدف))`,
     "g"
   );
 const plusGap = (n) => new RegExp(`\\+(\\s*)${n}(?!\\d)`, "g");
@@ -97,7 +97,7 @@ const plusGap = (n) => new RegExp(`\\+(\\s*)${n}(?!\\d)`, "g");
 // Also skips 6161, 1.161, 161251, 161/invoke via the digit/dot guards.
 const fewerNum = (n) =>
   new RegExp(
-    `(?<![\\d.])${n}(?![\\d.])(?=[^\\d]{0,22}(?:fewer\\b|menos\\b|moins\\b))`,
+    `(?<![\\d.])${n}(?![\\d.])(?=[^\\d]{0,32}(?:fewer\\b|menos\\b|moins\\b|mai puține|kam o[ʻ']yin|مباراة أقل|مباريات أقل|laga lebih sedikit|pertandingan lebih sedikit))`,
     "g"
   );
 // Trophy words across locales (lookahead-only; never consumed).
@@ -232,7 +232,7 @@ for (let n = miamiAssists - 3; n < miamiAssists; n++) {
 // Goals: goal-word anchored + ordinal-safe (trailing lookahead excludes
 // letters, so "980th"-style ordinals can never match).
 for (let n = S.rGoals - 3; n < S.rGoals; n++)
-push(new RegExp(`(?<!\\d)${n}(?=\\s+(?:de\\s+)?(?:goals?\\b|goles\\b|gols\\b|buts?\\b))(?![\\dA-Za-z])`, "g"), String(S.rGoals), "rgoals");
+push(new RegExp(`(?<!\\d)${n}(?=\\s+(?:de\\s+|ta\\s+)?(?:goals?\\b|goles\\b|gols\\b|buts?\\b|goluri\\b|gol\\b|هدفاً|هدف))(?![\\dA-Za-z])`, "g"), String(S.rGoals), "rgoals");
 // Appearances: full separator mirror of rule 3. Disjoint from Messi G+A:
 // that rule needs "+", this one forbids it (bare "1,339" was verified to be
 // Ronaldo's apps; bare "1,341" never occurs).
