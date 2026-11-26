@@ -32,6 +32,12 @@ const LG_VIDEO = LG?.videoUrl || `https://cdn.messiallgoals.com/Goal${LG_NUM}.mp
 // URL-safe slug fragments for title/tags
 const LG_OPP_TAG = (LG_OPP || "Opponent").replace(/[^A-Za-z0-9]+/g, " ").trim();
 
+const escapeXml = (s) =>
+  String(s ?? "")
+    .replace(/&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+
 // 934 → "934th" / "934e" / "934e" style helpers are avoided; templates
 // interpolate the raw number and let the locale wording carry the grammar.
 
@@ -253,11 +259,11 @@ const videoMeta = {
 function getVideoXml(lang) {
   const v = videoMeta[lang];
   if (!v) return "";
-  const tagLines = v.tags.map(t => `      <video:tag>${t}</video:tag>`).join("\n");
+  const tagLines = v.tags.map(t => `      <video:tag>${escapeXml(t)}</video:tag>`).join("\n");
   return `    <video:video>
       <video:thumbnail_loc>https://www.messistat.com/img/og-messi.jpg</video:thumbnail_loc>
-      <video:title>${v.title}</video:title>
-      <video:description>${v.desc}</video:description>
+      <video:title>${escapeXml(v.title)}</video:title>
+      <video:description>${escapeXml(v.desc)}</video:description>
       <video:content_loc>${LG_VIDEO}</video:content_loc>
       <video:duration>35</video:duration>
       <video:publication_date>${LG?.date || todayIso}T22:00:00Z</video:publication_date>
@@ -354,8 +360,8 @@ ${getHreflangsXml("")}
     </image:image>
     <image:image>
       <image:loc>https://www.messistat.com/img/og-messi.jpg</image:loc>
-      <image:title>${meta.title}</image:title>
-      <image:caption>${meta.caption}</image:caption>
+      <image:title>${escapeXml(meta.title)}</image:title>
+      <image:caption>${escapeXml(meta.caption)}</image:caption>
     </image:image>
   </url>`);
 

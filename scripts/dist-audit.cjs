@@ -40,6 +40,11 @@ for (const needle of [".skip", "@media print", ".btn-primary"]) {
 // 404 must be self-contained (no src/ link, which never exists in dist)
 const nf = fs.readFileSync(dist + "/404.html", "utf8");
 if (nf.includes('href="src/styles.css"')) { ok = false; console.log("404 still links src/styles.css"); }
+const sm = fs.readFileSync(dist + "/sitemap.xml", "utf8");
+if (/&(?!(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);)/.test(sm)) {
+  ok = false;
+  console.log("SITEMAP INVALID XML: unescaped & found in dist/sitemap.xml");
+}
 const sum = (a) => a.reduce((x, r) => x + r.goals, 0);
 console.log("dist sums:", sum(d.calendarYears), sum(d.byCompetition), sum(d.byBodyPart));
 console.log(ok ? "ALL DIST CHECKS PASS" : "DIST CHECKS FAILED");
