@@ -2574,10 +2574,11 @@ function initLanguageAndMobileTopBar() {
     }
   } catch (_) {}
 
-  // 6. Show Smart Language Suggestion Banner
+  // 6. Show Smart Language Suggestion Banner (skip English-only B2B /advertise page)
   try {
+    const isAdvertise = document.body?.dataset?.page === "advertise";
     const isBot = typeof navigator !== "undefined" && /bot|googlebot|crawler|spider|robot|crawling/i.test(navigator.userAgent);
-    if (!isBot) {
+    if (!isBot && !isAdvertise) {
       const detectedLang = detectDeviceAndLocationLang();
       const userChoice = localStorage.getItem("messistats_lang_choice");
       const dismissed = sessionStorage.getItem("messistats_lang_dismissed");
