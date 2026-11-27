@@ -29,6 +29,7 @@
     "indexnow": "node scripts/indexnow.mjs",
     "guard:ads": "node scripts/guard-ad-redirects.mjs",
     "sync:gsc": "node scripts/sync-gsc-stats.mjs",
+    "sync:deals": "node scripts/sync-eu-deals.mjs",
     "sync:ronaldo": "node scripts/auto-sync-ronaldo.mjs"
   },
   "devDependencies": {
