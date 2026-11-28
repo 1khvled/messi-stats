@@ -1,7 +1,7 @@
 {
   "meta": {
     "status": "CROSS_CHECKED",
-    "updated": "2026-11-27",
+    "updated": "2026-11-28",
     "methodology": "Senior first-team matches only (league, national cup, continental, other). Youth/reserve excluded (Barcelona C/B rows dropped from totals). Each row cross-checked across 2+ free sources; splits must reconcile to the row total.",
     "verification": [
       "Club season splits: Wikipedia Lionel Messi career table (cites BDFutbol match logs), fetched 2026-09-09. Corrected 6 AS.com rows that disagreed (2009/10, 2010/11, 2011/12, 2012/13, 2013/14, 2015/16).",
@@ -38,7 +38,8 @@
       "Auto-synced on 2026-10-29: Inter Miami vs FC Cincinnati (+0G).",
       "Auto-synced on 2026-11-06: Inter Miami vs New England Revolution (+1G).",
       "Auto-synced on 2026-11-07: Inter Miami vs Charlotte FC (+0G).",
-      "Auto-synced on 2026-11-22: Inter Miami vs Columbus Crew (+0G)."
+      "Auto-synced on 2026-11-22: Inter Miami vs Columbus Crew (+0G).",
+      "Auto-synced on 2026-11-28: Inter Miami vs Columbus Crew (+0G)."
     ],
     "sources": [
       "https://en.wikipedia.org/wiki/Lionel_Messi (season tables, accessed 2026-09-09)",
@@ -60,7 +61,8 @@
       "761908",
       "761932",
       "761938",
-      "401933739"
+      "401933739",
+      "401933727"
     ]
   },
   "profile": {
@@ -86,7 +88,7 @@
   },
   "totals": {
     "club": {
-      "appearances": 978,
+      "appearances": 979,
       "goals": 811,
       "goalsPerGame": 0.83
     },
@@ -96,7 +98,7 @@
       "goalsPerGame": 0.61
     },
     "combined": {
-      "appearances": 1186,
+      "appearances": 1187,
       "goals": 937
     },
     "assists": {
@@ -116,7 +118,7 @@
         "inter_miami": {
           "official": 48,
           "transfermarkt": 53,
-          "appearances": 125
+          "appearances": 126
         },
         "psg": {
           "official": 34,
@@ -631,7 +633,7 @@
       "club": "Inter Miami",
       "season": "2026",
       "league": [
-        31,
+        32,
         26
       ],
       "cup": [
@@ -646,7 +648,7 @@
         3,
         3
       ],
-      "apps": 37,
+      "apps": 38,
       "goals": 30
     }
   ],

@@ -1,5 +1,5 @@
 {
-  "syncedAt": "2026-11-08T04:14:12.556Z",
+  "syncedAt": "2026-11-28T04:50:18.008Z",
   "latestGoal": {
     "goalNumber": 937,
     "team": "Inter Miami CF",
@@ -23,7 +23,7 @@
   },
   "todayStatus": {
     "didScoreToday": false,
-    "hasMatchToday": false,
+    "hasMatchToday": true,
     "lastMatchDate": "2026-11-02",
     "lastMatchOpponent": "New England Revolution",
     "lastMatchResult": "Inter Miami 2-1 New England Revolution",
@@ -109,7 +109,7 @@
   ],
   "totals": {
     "seniorGoals": 937,
-    "appearances": 1186,
+    "appearances": 1187,
     "miamiGoals": 107,
     "season2026Goals": 31,
     "freeKicks": 76
